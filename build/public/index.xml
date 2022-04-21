@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hugo Fresh Theme</title>
+    <link>http://something-fresh.org/</link>
+    <description>Recent content on Hugo Fresh Theme</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 21 Apr 2022 00:26:13 -0400</lastBuildDate><atom:link href="http://something-fresh.org/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Test Post</title>
+      <link>http://something-fresh.org/blog/test-post/</link>
+      <pubDate>Thu, 21 Apr 2022 00:26:13 -0400</pubDate>
+      
+      <guid>http://something-fresh.org/blog/test-post/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
