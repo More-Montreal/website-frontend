@@ -1,3 +1,0 @@
-[submodule "build/themes/fresh"]
-	path = build/themes/fresh
-	url = https://github.com/StefMa/hugo-fresh.git
