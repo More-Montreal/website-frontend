@@ -11,7 +11,7 @@ reset_perms() {
 reset_perms
 composer install
 cp /etc/secrets/.env .env
-cp /etc/secrets/construisonsmontreal@gmail.com.yaml users/construisonsmontreal@gmail.com.yaml
+cp /etc/secrets/admin_user users/construisonsmontreal@gmail.com.yaml
 php artisan cache:clear
 php artisan config:cache
 php artisan route:cache
