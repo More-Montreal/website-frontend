@@ -4,10 +4,6 @@ export type ContentNodes<T> = {
     }
 }
 
-export function getFirstNode<C>(data: ContentNodes<C>) {
-    return data.content.nodes[0]!;
-}
-
 export type KeyPoint = {
     title: string;
     content: {

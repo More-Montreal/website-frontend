@@ -2,21 +2,23 @@ import * as React from "react";
 import { useTranslation } from "react-i18next";
 import { graphql, PageProps } from 'gatsby';
 import { GatsbyImage, getImage, ImageDataLike } from "gatsby-plugin-image";
-import { ContentNodes, getFirstNode, KeyPoint } from "../helpers/content-types";
+import { KeyPoint } from "../helpers/content-types";
 import JsonDebug from "../helpers/json-debug";
 
 type IndexData = {
-    heroBackground: {
-        alternativeText: string;
-        localFile: ImageDataLike;
+    content: {
+        heroBackground: {
+            alternativeText: string;
+            localFile: ImageDataLike;
+        };
+        heroDescription: string;
+        heroTitle: string;
+        visionPoints: KeyPoint[];
     };
-    heroDescription: string;
-    heroTitle: string;
-    visionPoints: KeyPoint[];
 };
 
-const IndexPage = ({data}: PageProps<ContentNodes<IndexData>>) => {
-    const content = getFirstNode<IndexData>(data);
+const IndexPage = ({data}: PageProps<IndexData>) => {
+    const content = data.content;
     const {t} = useTranslation();
     const heroBackground = getImage(content.heroBackground.localFile);
 
@@ -37,24 +39,22 @@ const IndexPage = ({data}: PageProps<ContentNodes<IndexData>>) => {
 export const query = graphql`
 
 query($language: String!) {
-    content: allStrapiHomepage(filter: {locale: {eq: $language}}) {
-        nodes {
-            heroBackground {
-                alternativeText
-                localFile {
-                    childImageSharp {
-                        gatsbyImageData(width: 1920)
-                    }
+    content: strapiHomepage(locale: {eq: $language}) {
+        heroBackground {
+            alternativeText
+            localFile {
+                childImageSharp {
+                    gatsbyImageData(width: 1920)
                 }
             }
-            heroDescription
-            heroTitle
-            visionPoints {
-                title
-                content {
-                    data {
-                        content
-                    }
+        }
+        heroDescription
+        heroTitle
+        visionPoints {
+            title
+            content {
+                data {
+                    content
                 }
             }
         }
