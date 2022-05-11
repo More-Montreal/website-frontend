@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { graphql, PageProps } from 'gatsby';
 import { GatsbyImage, getImage, ImageDataLike } from "gatsby-plugin-image";
 import { ContentNodes, getFirstNode, KeyPoint } from "../helpers/content-types";
+import JsonDebug from "../helpers/json-debug";
 
 type IndexData = {
     heroBackground: {
@@ -27,7 +28,7 @@ const IndexPage = ({data}: PageProps<ContentNodes<IndexData>>) => {
                 alt={content.heroBackground.alternativeText}
             />
             <pre>
-                {JSON.stringify(data)}
+                <JsonDebug data={content}/>
             </pre>
         </div>
     );
@@ -59,13 +60,13 @@ query($language: String!) {
         }
     }
     locales: allLocale(filter: {language: {eq: $language}}) {
-      edges {
-        node {
-          ns
-          data
-          language
+        edges {
+            node {
+                ns
+                data
+                language
+            }
         }
-      }
     }
 }
 
