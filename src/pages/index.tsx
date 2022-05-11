@@ -5,6 +5,7 @@ import { graphql, PageProps } from 'gatsby';``
 const IndexPage = ({data}: PageProps) => {
     return (
         <div>
+            <p className="text-3xl font-display">Construisons Montréal</p>
             <pre>
                 {JSON.stringify(data)}
             </pre>
@@ -15,7 +16,7 @@ const IndexPage = ({data}: PageProps) => {
 export const query = graphql`
 
 query($language: String!) {
-    allStrapiHomepage(filter: {locale: {eq: $language}}) {
+    content: allStrapiHomepage(filter: {locale: {eq: $language}}) {
         nodes {
             heroDescription
             heroTitle
@@ -28,6 +29,15 @@ query($language: String!) {
                 }
             }
         }
+    }
+    locales: allLocale(filter: {language: {eq: $language}}) {
+      edges {
+        node {
+          ns
+          data
+          language
+        }
+      }
     }
 }
 

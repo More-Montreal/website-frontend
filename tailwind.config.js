@@ -1,5 +1,5 @@
 module.exports = {
-  content: ["./src/**/*.tsx", "./src/**/*.ts", "./src/**/*.css"],
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
   plugins: [
     require("@tailwindcss/typography"),
     require("@tailwindcss/aspect-ratio"),
