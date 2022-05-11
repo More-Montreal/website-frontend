@@ -3,3 +3,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.transition-shadow {
+    box-shadow: inset -50px 30px 50px 0px theme('colors.blue.600'), inset 50px 30px 50px 0px theme('colors.blue.600');
+}
