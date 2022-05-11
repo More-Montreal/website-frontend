@@ -1,0 +1,17 @@
+module.exports = {
+  content: ["./src/**/*.tsx", "./src/**/*.ts", "./src/**/*.css"],
+  plugins: [
+    require("@tailwindcss/typography"),
+    require("@tailwindcss/aspect-ratio"),
+    require("@tailwindcss/line-clamp"),
+  ],
+  theme: {
+    fontFamily: {
+      display: ['Montserrat', 'sans-serif'],
+      sans: ['Inter', 'sans-serif']
+    },
+    extend: {
+      colors: {},
+    },
+  },
+};
