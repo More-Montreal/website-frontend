@@ -1,9 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Montserrat:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@400;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-.transition-shadow {
-    box-shadow: inset -50px 30px 50px 0px theme('colors.blue.600'), inset 50px 30px 50px 0px theme('colors.blue.600');
-}

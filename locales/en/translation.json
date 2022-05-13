@@ -1,3 +1,21 @@
 {
-    "site_title": "More Montreal"
+    "site_title": "More Montreal",
+    "home": {
+        "cta": "Discover our actions",
+        "secondary_cta": "Get involved",
+        "sections": {
+            "actions": {
+                "nav": "Our Actions"
+            },
+            "fight": {
+                "nav": "What We Fight For"
+            },
+            "involvement": {
+                "nav": "Get Involved"
+            },
+            "blog": {
+                "nav": "Blog"
+            }
+        }
+    }
 }
