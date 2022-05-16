@@ -55,7 +55,7 @@ const IndexPage = ({data}: PageProps<IndexData>) => {
                     <div className="flex flex-col justify-center flex-1 gap-4 pt-16 pb-8 lg:p-0 lg:w-1/2">
                         <p className="text-2xl font-bold text-white lg:text-4xl font-display">{content.heroTitle}</p>
                         <p className="text-lg font-medium text-white opacity-80">{content.heroDescription}</p>
-                        <div className="flex items-center gap-4">
+                        <div className="flex flex-wrap items-center justify-center gap-4 mt-4 md:justify-start md:mt-0">
                             <Button onClick={() => console.log('test')}>{t('home.cta')}</Button>
                             <a className="text-lg font-medium text-white border-b-2 border-white border-dashed cursor-pointer opacity-90 border-opacity-90 hover:opacity-100 hover:border-opacity-100">{t('home.secondary_cta')}</a>
                         </div>
