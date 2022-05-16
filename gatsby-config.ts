@@ -26,6 +26,27 @@ const config: GatsbyConfig = {
               locale: 'all'
             }
           }
+        }, {
+          singularName: 'post-category',
+          pluginOptions: {
+            i18n: {
+              locale: 'all'
+            }
+          }
+        }, {
+          singularName: 'action',
+          pluginOptions: {
+            i18n: {
+              locale: 'all'
+            }
+          }
+        }, {
+          singularName: 'event',
+          pluginOptions: {
+            i18n: {
+              locale: 'all'
+            }
+          }
         }
       ],
       singleTypes: [

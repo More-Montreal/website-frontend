@@ -17,10 +17,14 @@ type IndexData = {
         heroTitle: string;
         visionPoints: KeyPoint[];
     };
+    events: any;
+    posts: any;
+    actions: any;
 };
 
 const IndexPage = ({data}: PageProps<IndexData>) => {
     const content = data.content;
+    const actions = [...data.posts.nodes, ...data.events.nodes, ...data.actions.nodes];
     const {t} = useTranslation();
     const heroBackground = getImage(content.heroBackground.localFile);
 
@@ -62,6 +66,11 @@ const IndexPage = ({data}: PageProps<IndexData>) => {
                     </div>
                 </div>
             </div>
+            <div className="w-full bg-white">
+                <div className="m-auto max-w-screen-2xl">
+                    <JsonDebug data={actions}/>
+                </div>
+            </div>
         </div>
     );
 }
@@ -85,6 +94,41 @@ query($language: String!) {
             content {
                 data {
                     content
+                }
+            }
+        }
+    }
+    events: allStrapiEvent(limit: 3, filter: {locale: {eq: $language}}) {
+        nodes {
+            id
+            title
+            publishedAt
+            slug
+            description {
+                data {
+                    description
+                }
+            }
+        }
+    }
+    posts: allStrapiPost(limit: 3, filter: {locale: {eq: $language}}) {
+        nodes {
+            title
+            slug
+            publishedAt
+            postCategories {
+                title
+            }
+            excerpt
+        }
+    }
+    actions: allStrapiAction(limit: 3, filter: {locale: {eq: $language}}) {
+        nodes {
+            title
+            slug
+            description {
+                data {
+                    description
                 }
             }
         }
