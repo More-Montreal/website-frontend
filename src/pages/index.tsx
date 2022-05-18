@@ -2,29 +2,75 @@ import * as React from "react";
 import { useTranslation } from "react-i18next";
 import { graphql, PageProps } from 'gatsby';
 import { GatsbyImage, getImage, ImageDataLike } from "gatsby-plugin-image";
-import { KeyPoint } from "../helpers/content-types";
+import { KeyPoint, Nodes, RichTextContent, StrapiImage } from "../helpers/content-types";
 import JsonDebug from "../helpers/json-debug";
 import HeroOverlay from '../../assets/HeroOverlay.svg';
+import PillDecorator from '../../assets/PillDecorator.svg';
+import PillBackground from '../../assets/PillBackground.svg';
 import Button, { ButtonType } from "../components/button";
+import ImageCard from "../components/image-card";
+
+type EventCardData = {
+    title: string;
+    slug: string;
+    description: RichTextContent<"description">;
+    publishedAt: string;
+    thumbnail: StrapiImage;
+};
+
+type ActionCardData = {
+    title: string;
+    slug: string;
+    description: RichTextContent<"description">;
+    publishedAt: string;
+    thumbnail: StrapiImage;
+};
+
+type PostCardData = {
+    title: string;
+    slug: string;
+    excerpt: string;
+    postCategories: {title: string}[];
+    publishedAt: string;
+    thumbnail: StrapiImage;
+};
+
+type IndexCardData<T extends (PostCardData | ActionCardData | EventCardData)> = T & {
+    type: "post" | "action" | "event";
+};
 
 type IndexData = {
     content: {
-        heroBackground: {
-            alternativeText: string;
-            localFile: ImageDataLike;
-        };
+        heroBackground: StrapiImage;
         heroDescription: string;
         heroTitle: string;
         visionPoints: KeyPoint[];
     };
-    events: any;
-    posts: any;
-    actions: any;
+    events: Nodes<EventCardData>;
+    posts: Nodes<PostCardData>;
+    actions: Nodes<ActionCardData>;
 };
 
 const IndexPage = ({data}: PageProps<IndexData>) => {
     const content = data.content;
-    const actions = [...data.posts.nodes, ...data.events.nodes, ...data.actions.nodes];
+
+    const actions: IndexCardData<EventCardData | PostCardData | ActionCardData>[] = [];
+    for (const post of data.posts.nodes) {
+        actions.push({type: "post", ...post});
+    }
+    for (const event of data.events.nodes) {
+        actions.push({type: "event", ...event});
+    }
+    for (const action of data.actions.nodes) {
+        actions.push({type: "action", ...action});
+    }
+
+    const pillStyles = {
+        post: "bg-blue-200 text-blue-900",
+        event: "bg-indigo-200 text-indigo-900",
+        action: "bg-red-200 text-red-900"
+    };
+
     const {t} = useTranslation();
     const heroBackground = getImage(content.heroBackground.localFile);
 
@@ -57,7 +103,7 @@ const IndexPage = ({data}: PageProps<IndexData>) => {
                         </div>
                     </div>
                     <div className="flex flex-col justify-center flex-1 gap-4 pt-16 pb-8 lg:p-0 lg:w-1/2">
-                        <p className="text-2xl font-bold text-white lg:text-4xl font-display">{content.heroTitle}</p>
+                        <h1 className="text-2xl font-bold text-white lg:text-4xl font-display">{content.heroTitle}</h1>
                         <p className="text-lg font-medium text-white opacity-80">{content.heroDescription}</p>
                         <div className="flex flex-wrap items-center justify-center gap-4 mt-4 md:justify-start md:mt-0">
                             <Button onClick={() => console.log('test')}>{t('home.cta')}</Button>
@@ -66,9 +112,38 @@ const IndexPage = ({data}: PageProps<IndexData>) => {
                     </div>
                 </div>
             </div>
-            <div className="w-full bg-white">
-                <div className="m-auto max-w-screen-2xl">
-                    <JsonDebug data={actions}/>
+            <div className="w-full overflow-hidden bg-white">
+                <div className="p-4 m-auto max-w-screen-2xl">
+                    <div className="py-20">
+                        <div className="relative">
+                            <div className="relative z-10">
+                                <h3 className="text-3xl font-bold text-gray-800 font-display">{t('home.sections.actions.heading')}</h3>
+                                <p className="text-lg text-gray-500">{t('home.sections.actions.subheading')}</p>
+                            </div>
+                            <PillDecorator className="absolute -bottom-4 -left-8 md:-bottom-10"/>
+                        </div>
+                        <div className="relative flex flex-col xl:flex-row py-14">
+                            <div className="flex flex-col flex-wrap flex-1 gap-12 md:flex-row">
+                                {actions.slice(0, 3).map((action, index) => {
+                                    return (
+                                        <ImageCard image={action.thumbnail} key={index}>
+                                            <p><span className={"rounded-full px-3 py-1 text-xs font-semibold " + pillStyles[action.type]}>{t(action.type)}</span></p>
+                                            <p className="py-2 text-xl font-semibold text-white">{action.title}</p>
+                                            <p className="text-sm text-white">{("description" in action) ? action.description.data.description : action.excerpt}</p>
+                                        </ImageCard>
+                                    );
+                                })}
+                            </div>
+                            <div className="relative flex w-full pt-20 xl:w-1/3 xl:pt-0">
+                                <div className="relative z-10 flex flex-col items-center justify-center w-full gap-6 text-center xl:pl-7">
+                                    <p className="text-2xl font-bold text-gray-700 font-display">{t('home.sections.actions.more.title')}</p>
+                                    <p className="text-lg text-gray-600 xl:max-w-xs">{t('home.sections.actions.more.description')}</p>
+                                    <Button onClick={() => console.log('blog')} type={ButtonType.GRAY}>{t('home.sections.actions.more.cta')}</Button>
+                                </div>
+                                <PillBackground className="absolute hidden xl:block bottom-10 left-14"/>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -100,13 +175,20 @@ query($language: String!) {
     }
     events: allStrapiEvent(limit: 3, filter: {locale: {eq: $language}}) {
         nodes {
-            id
             title
-            publishedAt
             slug
+            publishedAt
             description {
                 data {
                     description
+                }
+            }
+            thumbnail {
+                alternativeText
+                localFile {
+                    childImageSharp {
+                        gatsbyImageData(height: 438, placeholder: BLURRED)
+                    }
                 }
             }
         }
@@ -120,6 +202,14 @@ query($language: String!) {
                 title
             }
             excerpt
+            thumbnail {
+                alternativeText
+                localFile {
+                    childImageSharp {
+                        gatsbyImageData(height: 438, placeholder: BLURRED)
+                    }
+                }
+            }
         }
     }
     actions: allStrapiAction(limit: 3, filter: {locale: {eq: $language}}) {
@@ -129,6 +219,14 @@ query($language: String!) {
             description {
                 data {
                     description
+                }
+            }
+            thumbnail {
+                alternativeText
+                localFile {
+                    childImageSharp {
+                        gatsbyImageData(height: 438, placeholder: BLURRED)
+                    }
                 }
             }
         }

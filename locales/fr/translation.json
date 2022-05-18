@@ -1,11 +1,21 @@
 {
     "site_title": "Construisons Montréal",
+    "post": "Nouvelles",
+    "event": "Événement",
+    "action": "Action",
     "home": {
         "cta": "Découvrez nos actions",
         "secondary_cta": "Impliquez-vous",
         "sections": {
             "actions": {
-                "nav": "Nos Actions"
+                "nav": "Nos Actions",
+                "heading": "Nos Actions",
+                "subheading": "Renseignez-vous sur nos dernières nouvelles et actions et prenez part aux prochains évènements",
+                "more": {
+                    "title": "Informez-vous",
+                    "description": "Faites le plongeon et découvrez notre vision sur l'urbanisme et renseignez-vous sur les derniers développements locaux.",
+                    "cta": "Lisez notre blog"
+                }
             },
             "fight": {
                 "nav": "Notre Cause"

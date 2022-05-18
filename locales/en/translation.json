@@ -1,11 +1,21 @@
 {
     "site_title": "More Montreal",
+    "post": "News",
+    "event": "Event",
+    "action": "Action",
     "home": {
         "cta": "Discover our actions",
         "secondary_cta": "Get involved",
         "sections": {
             "actions": {
-                "nav": "Our Actions"
+                "nav": "Our Actions",
+                "heading": "Our Actions",
+                "subheading": "Read about our latest news or take action with us in upcoming events",
+                "more": {
+                    "title": "Get Informed",
+                    "description": "Dive deep and understand our vision on urban planning and learn about the latest local developments",
+                    "cta": "Read the blog"
+                }
             },
             "fight": {
                 "nav": "What We Fight For"
