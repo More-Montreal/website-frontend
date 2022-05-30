@@ -18,7 +18,9 @@
                 }
             },
             "fight": {
-                "nav": "Notre Cause"
+                "nav": "Notre Cause",
+                "heading": "Notre Cause",
+                "subheading": "La lutte pour l'accès au logement fait partie d'une vision plus large pour Montréal"
             },
             "involvement": {
                 "nav": "Impliquez-vous"

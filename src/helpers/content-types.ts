@@ -9,6 +9,12 @@ export type StrapiImage = {
     localFile: ImageDataLike;
 };
 
+export type SVGImage = {
+    localFile: {
+        publicURL: string;
+    }
+};
+
 export type RichTextContent<C extends string> = {
     data: {
         [key in C]: string
@@ -17,6 +23,8 @@ export type RichTextContent<C extends string> = {
 
 export type KeyPoint = {
     title: string;
+    color: string;
+    icon: SVGImage;
     content: {
         data: { content: string; }
     };

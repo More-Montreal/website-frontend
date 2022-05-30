@@ -18,7 +18,9 @@
                 }
             },
             "fight": {
-                "nav": "What We Fight For"
+                "nav": "What We Fight For",
+                "heading": "What We Fight For",
+                "subheading": "Fighting for affordable housing is part of an encompassing vision for Montreal"
             },
             "involvement": {
                 "nav": "Get Involved"

@@ -52,6 +52,16 @@ const config: GatsbyConfig = {
       singleTypes: [
         {
           singularName: 'homepage',
+          queryParams: {
+            populate: {
+              heroBackground: {
+                populate: "*"
+              },
+              visionPoints: {
+                populate: "*",
+              },
+            },
+          },
           pluginOptions: {
             i18n: {
               locale: 'all'

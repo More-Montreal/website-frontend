@@ -2,13 +2,14 @@ import * as React from "react";
 import { useTranslation } from "react-i18next";
 import { graphql, PageProps } from 'gatsby';
 import { GatsbyImage, getImage, ImageDataLike } from "gatsby-plugin-image";
-import { KeyPoint, Nodes, RichTextContent, StrapiImage } from "../helpers/content-types";
+import { KeyPoint as KeyPointData, Nodes, RichTextContent, StrapiImage } from "../helpers/content-types";
 import JsonDebug from "../helpers/json-debug";
 import HeroOverlay from '../../assets/HeroOverlay.svg';
 import PillDecorator from '../../assets/PillDecorator.svg';
 import PillBackground from '../../assets/PillBackground.svg';
 import Button, { ButtonType } from "../components/button";
 import ImageCard from "../components/image-card";
+import KeyPoint from "../components/key-point";
 
 type EventCardData = {
     title: string;
@@ -44,7 +45,7 @@ type IndexData = {
         heroBackground: StrapiImage;
         heroDescription: string;
         heroTitle: string;
-        visionPoints: KeyPoint[];
+        visionPoints: KeyPointData[];
     };
     events: Nodes<EventCardData>;
     posts: Nodes<PostCardData>;
@@ -114,7 +115,7 @@ const IndexPage = ({data}: PageProps<IndexData>) => {
             </div>
             <div className="w-full overflow-hidden bg-white">
                 <div className="p-4 m-auto max-w-screen-2xl">
-                    <div className="py-20">
+                    <div className="pt-20">
                         <div className="relative">
                             <div className="relative z-10">
                                 <h3 className="text-3xl font-bold text-gray-800 font-display">{t('home.sections.actions.heading')}</h3>
@@ -146,6 +147,23 @@ const IndexPage = ({data}: PageProps<IndexData>) => {
                     </div>
                 </div>
             </div>
+            <div className="w-full bg-white">
+                <div className="p-4 m-auto max-w-screen-2xl">
+                    <div className="pt-10 pb-20 text-center">
+                        <h3 className="text-3xl font-bold text-gray-800 font-display">{t('home.sections.fight.heading')}</h3>
+                        <p className="text-lg text-gray-500">{t('home.sections.fight.subheading')}</p>
+                    </div>
+                    <div className="flex flex-wrap gap-11">
+                        {content.visionPoints.map((vp: KeyPointData, index: number) => {
+                            return (
+                                <div className="flex-1">
+                                    <KeyPoint title={vp.title} icon={vp.icon} color={vp.color} content={vp.content} key={index}/>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }
@@ -166,6 +184,12 @@ query($language: String!) {
         heroTitle
         visionPoints {
             title
+            color
+            icon {
+                localFile {
+                    publicURL
+                }
+            }
             content {
                 data {
                     content
