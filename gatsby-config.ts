@@ -67,6 +67,14 @@ const config: GatsbyConfig = {
               locale: 'all'
             }
           }
+        },
+        {
+          singularName: 'involvement-callout',
+          pluginOptions: {
+            i18n: {
+              locale: 'all'
+            }
+          }
         }
       ],
       queryLimit: 1000,

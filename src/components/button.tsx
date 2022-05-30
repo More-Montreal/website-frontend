@@ -9,10 +9,12 @@ export enum ButtonType {
 
 export type ButtonProps = {
     type?: ButtonType;
-    onClick: React.MouseEventHandler;
+    href?: string;
+    target?: string;
+    onClick?: React.MouseEventHandler;
 };
 
-const Button = ({children, type, onClick}: React.PropsWithChildren<ButtonProps>) => {
+const Button = ({children, type, onClick, href, target}: React.PropsWithChildren<ButtonProps>) => {
 
     let color = '';
     switch (type) {
@@ -23,8 +25,10 @@ const Button = ({children, type, onClick}: React.PropsWithChildren<ButtonProps>)
         default: color = `bg-red-500 text-white shadow-lg`; break;
     }
 
+    const Tag = (href) ? 'a' : 'div';
+
     return (
-        <div className={"flex-shrink text-lg cursor-pointer py-2 px-5 rounded-full font-semibold " + color} onClick={onClick}>{children}</div>
+        <Tag href={href || ''} target={target || ''} className={"flex-shrink text-lg cursor-pointer py-2 px-5 rounded-full font-semibold " + color} onClick={onClick}>{children}</Tag>
     );
 };
 

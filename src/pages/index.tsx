@@ -10,6 +10,7 @@ import PillBackground from '../../assets/PillBackground.svg';
 import Button, { ButtonType } from "../components/button";
 import ImageCard from "../components/image-card";
 import KeyPoint from "../components/key-point";
+import InvolvementCallout, { InvolvementData } from "../components/involvement-callout";
 
 type EventCardData = {
     title: string;
@@ -47,6 +48,7 @@ type IndexData = {
         heroTitle: string;
         visionPoints: KeyPointData[];
     };
+    involvementCallout: InvolvementData;
     events: Nodes<EventCardData>;
     posts: Nodes<PostCardData>;
     actions: Nodes<ActionCardData>;
@@ -147,7 +149,7 @@ const IndexPage = ({data}: PageProps<IndexData>) => {
                     </div>
                 </div>
             </div>
-            <div className="w-full bg-white">
+            <div className="w-full mb-20 bg-white">
                 <div className="p-4 m-auto max-w-screen-2xl">
                     <div className="pt-10 pb-20 text-center">
                         <h3 className="text-3xl font-bold text-gray-800 font-display">{t('home.sections.fight.heading')}</h3>
@@ -164,6 +166,12 @@ const IndexPage = ({data}: PageProps<IndexData>) => {
                     </div>
                 </div>
             </div>
+            <InvolvementCallout
+                title={data.involvementCallout.title}
+                content={data.involvementCallout.content}
+                image={data.involvementCallout.image}
+                joinLink={data.involvementCallout.joinLink}
+            />
         </div>
     );
 }
@@ -196,6 +204,19 @@ query($language: String!) {
                 }
             }
         }
+    }
+    involvementCallout: strapiInvolvementCallout(locale: {eq: $language}) {
+        image {
+            alternativeText
+            localFile {
+                childImageSharp {
+                    gatsbyImageData(breakpoints: [320, 768], placeholder: BLURRED)
+                }
+            }
+        }
+        title
+        content
+        joinLink
     }
     events: allStrapiEvent(limit: 3, filter: {locale: {eq: $language}}) {
         nodes {

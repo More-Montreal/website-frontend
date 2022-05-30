@@ -23,7 +23,9 @@
                 "subheading": "Fighting for affordable housing is part of an encompassing vision for Montreal"
             },
             "involvement": {
-                "nav": "Get Involved"
+                "nav": "Get Involved",
+                "join": "Join our Discord community",
+                "view_events": "View upcoming events"
             },
             "blog": {
                 "nav": "Blog"

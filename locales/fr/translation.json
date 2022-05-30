@@ -23,7 +23,9 @@
                 "subheading": "La lutte pour l'accès au logement fait partie d'une vision plus large pour Montréal"
             },
             "involvement": {
-                "nav": "Impliquez-vous"
+                "nav": "Impliquez-vous",
+                "join": "Rejoignez notre serveur Discord",
+                "view_events": "Prochains évenements"
             },
             "blog": {
                 "nav": "Blog"
