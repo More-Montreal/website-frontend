@@ -29,3 +29,10 @@ export type KeyPoint = {
         data: { content: string; }
     };
 };
+
+export type SocialLinks = {
+    discordLink: string;
+    facebookLink: string;
+    instagramLink: string;
+    twitterLink: string;
+};

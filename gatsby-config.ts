@@ -75,6 +75,9 @@ const config: GatsbyConfig = {
               locale: 'all'
             }
           }
+        },
+        {
+          singularName: 'social'
         }
       ],
       queryLimit: 1000,

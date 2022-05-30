@@ -1,8 +1,8 @@
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 import { graphql, PageProps } from 'gatsby';
-import { GatsbyImage, getImage, ImageDataLike } from "gatsby-plugin-image";
-import { KeyPoint as KeyPointData, Nodes, RichTextContent, StrapiImage } from "../helpers/content-types";
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
+import { KeyPoint as KeyPointData, Nodes, RichTextContent, SocialLinks, StrapiImage } from "../helpers/content-types";
 import JsonDebug from "../helpers/json-debug";
 import HeroOverlay from '../../assets/HeroOverlay.svg';
 import PillDecorator from '../../assets/PillDecorator.svg';
@@ -11,6 +11,7 @@ import Button, { ButtonType } from "../components/button";
 import ImageCard from "../components/image-card";
 import KeyPoint from "../components/key-point";
 import InvolvementCallout, { InvolvementData } from "../components/involvement-callout";
+import Footer from "../components/footer";
 
 type EventCardData = {
     title: string;
@@ -48,6 +49,7 @@ type IndexData = {
         heroTitle: string;
         visionPoints: KeyPointData[];
     };
+    socials: SocialLinks;
     involvementCallout: InvolvementData;
     events: Nodes<EventCardData>;
     posts: Nodes<PostCardData>;
@@ -158,8 +160,8 @@ const IndexPage = ({data}: PageProps<IndexData>) => {
                     <div className="flex flex-wrap gap-11">
                         {content.visionPoints.map((vp: KeyPointData, index: number) => {
                             return (
-                                <div className="flex-1">
-                                    <KeyPoint title={vp.title} icon={vp.icon} color={vp.color} content={vp.content} key={index}/>
+                                <div className="flex-1" key={index}>
+                                    <KeyPoint title={vp.title} icon={vp.icon} color={vp.color} content={vp.content}/>
                                 </div>
                             );
                         })}
@@ -172,6 +174,12 @@ const IndexPage = ({data}: PageProps<IndexData>) => {
                 image={data.involvementCallout.image}
                 joinLink={data.involvementCallout.joinLink}
             />
+            <Footer socials={data.socials}>
+                <a href="" className="hidden text-lg font-medium text-white lg:inline">{t('home.sections.actions.nav')}</a>
+                <a href="" className="hidden text-lg font-medium text-white lg:inline">{t('home.sections.fight.nav')}</a>
+                <a href="" className="hidden text-lg font-medium text-white lg:inline">{t('home.sections.involvement.nav')}</a>
+                <Button type={ButtonType.TRANSPARENT} onClick={() => console.log('test')}>{t('home.sections.blog.nav')}</Button>
+            </Footer>
         </div>
     );
 }
@@ -217,6 +225,12 @@ query($language: String!) {
         title
         content
         joinLink
+    }
+    socials: strapiSocial {
+        discordLink
+        facebookLink
+        instagramLink
+        twitterLink
     }
     events: allStrapiEvent(limit: 3, filter: {locale: {eq: $language}}) {
         nodes {
