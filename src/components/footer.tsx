@@ -26,8 +26,8 @@ const Footer = ({socials, children}: React.PropsWithChildren<FooterProps>) => {
     return (
         <div className="w-full bg-gray-600">
             <div className="px-4 py-8 m-auto max-w-screen-2xl">
-                <div className="flex items-center justify-between">
-                    <div>
+                <div className="flex flex-wrap items-center justify-between">
+                    <div className="w-full lg:basis-1/2">
                         <p className="text-gray-300">Langue/Language</p>
                         <div className="flex gap-2">
                             {languages.map((lang: string, index: number) => {
@@ -39,8 +39,8 @@ const Footer = ({socials, children}: React.PropsWithChildren<FooterProps>) => {
                         <div className="flex items-center justify-end gap-10">
                             {children}
                         </div>
-                        <div className="flex items-center justify-end gap-4">
-                            <p className="text-lg font-medium text-gray-400">{currentYear} — {t('site_title')}</p>
+                        <div className="flex flex-wrap items-center justify-end gap-4">
+                            <p className="w-full text-lg font-medium text-right text-gray-400 lg:w-auto">{currentYear} — {t('site_title')}</p>
                             {socials.discordLink && <a href={socials.discordLink} target="_blank"><DiscordIcon/></a>}
                             {socials.facebookLink && <a href={socials.facebookLink} target="_blank"><FacebookIcon/></a>}
                             {socials.instagramLink && <a href={socials.instagramLink} target="_blank"><InstagramIcon/></a>}
