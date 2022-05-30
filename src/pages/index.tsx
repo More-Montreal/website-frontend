@@ -12,6 +12,7 @@ import ImageCard from "../components/image-card";
 import KeyPoint from "../components/key-point";
 import InvolvementCallout, { InvolvementData } from "../components/involvement-callout";
 import Footer from "../components/footer";
+import { AnchorLink } from "gatsby-plugin-anchor-links";
 
 type EventCardData = {
     title: string;
@@ -101,9 +102,9 @@ const IndexPage = ({data}: PageProps<IndexData>) => {
                     <div className="flex items-center justify-between">
                         <p className="text-3xl font-bold text-white font-display">{t('site_title')}</p>
                         <div className="flex items-center gap-10">
-                            <a href="" className="hidden text-lg font-medium text-white lg:inline">{t('home.sections.actions.nav')}</a>
-                            <a href="" className="hidden text-lg font-medium text-white lg:inline">{t('home.sections.fight.nav')}</a>
-                            <a href="" className="hidden text-lg font-medium text-white lg:inline">{t('home.sections.involvement.nav')}</a>
+                            <AnchorLink stripHash to="#actions" className="hidden text-lg font-medium text-white lg:inline">{t('home.sections.actions.nav')}</AnchorLink>
+                            <AnchorLink stripHash to="#vision" className="hidden text-lg font-medium text-white lg:inline">{t('home.sections.fight.nav')}</AnchorLink>
+                            <AnchorLink stripHash to="#involvement" className="hidden text-lg font-medium text-white lg:inline">{t('home.sections.involvement.nav')}</AnchorLink>
                             <Button type={ButtonType.TRANSPARENT} onClick={() => console.log('test')}>{t('home.sections.blog.nav')}</Button>
                         </div>
                     </div>
@@ -117,7 +118,7 @@ const IndexPage = ({data}: PageProps<IndexData>) => {
                     </div>
                 </div>
             </div>
-            <div className="w-full overflow-hidden bg-white">
+            <div id="actions" className="w-full overflow-hidden bg-white">
                 <div className="p-4 m-auto max-w-screen-2xl">
                     <div className="pt-20">
                         <div className="relative">
@@ -151,7 +152,7 @@ const IndexPage = ({data}: PageProps<IndexData>) => {
                     </div>
                 </div>
             </div>
-            <div className="w-full mb-20 bg-white">
+            <div id="vision" className="w-full mb-20 bg-white">
                 <div className="p-4 m-auto max-w-screen-2xl">
                     <div className="pt-10 pb-20 text-center">
                         <h3 className="text-3xl font-bold text-gray-800 font-display">{t('home.sections.fight.heading')}</h3>
@@ -175,9 +176,9 @@ const IndexPage = ({data}: PageProps<IndexData>) => {
                 joinLink={data.involvementCallout.joinLink}
             />
             <Footer socials={data.socials}>
-                <a href="" className="hidden text-lg font-medium text-white lg:inline">{t('home.sections.actions.nav')}</a>
-                <a href="" className="hidden text-lg font-medium text-white lg:inline">{t('home.sections.fight.nav')}</a>
-                <a href="" className="hidden text-lg font-medium text-white lg:inline">{t('home.sections.involvement.nav')}</a>
+                <a href="#actions" className="hidden text-lg font-medium text-white lg:inline">{t('home.sections.actions.nav')}</a>
+                <a href="#vision" className="hidden text-lg font-medium text-white lg:inline">{t('home.sections.fight.nav')}</a>
+                <a href="#involvement" className="hidden text-lg font-medium text-white lg:inline">{t('home.sections.involvement.nav')}</a>
                 <Button type={ButtonType.TRANSPARENT} onClick={() => console.log('test')}>{t('home.sections.blog.nav')}</Button>
             </Footer>
         </div>

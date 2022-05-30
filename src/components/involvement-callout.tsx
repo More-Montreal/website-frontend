@@ -18,7 +18,7 @@ const InvolvementCallout = ({title, content, image, joinLink}: InvolvementData) 
     const imageData = getImage(image.localFile);
 
     return (
-        <div className="w-full bg-gray-50">
+        <div id="involvement" className="w-full bg-gray-50">
             <div className="flex flex-row gap-20 px-4 m-auto max-w-screen-2xl">
                 <div className="relative hidden mt-10 overflow-hidden basis-1/3 lg:block">
                     <div className="absolute w-full h-full p-[1px] pb-0">
