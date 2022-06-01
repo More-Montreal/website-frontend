@@ -1,54 +1,29 @@
-<p align="center">
-  <a href="https://www.gatsbyjs.com/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts">
-    <img alt="Gatsby" src="https://www.gatsbyjs.com/Gatsby-Monogram.svg" width="60" />
-  </a>
-</p>
-<h1 align="center">
-  Gatsby minimal TypeScript starter
-</h1>
+# 🏗️ More MTL Website Frontend
 
-## 🚀 Quick start
+> This is the frontend repository for the [moremtl.ca](https://moremtl.ca) website. More Montreal is a group of people advocating housing for all through rational and realistic solutions.
 
-1.  **Create a Gatsby site.**
+You will also need to setup the [backend part of the website](https://github.com/More-Montreal/website-backend) to generate the static front.
 
-    Use the Gatsby CLI to create a new site, specifying the minimal TypeScript starter.
+## Requirements
+- Node v16 or higher LTS
 
-    ```shell
-    # create a new Gatsby site using the minimal TypeScript starter
-    npm init gatsby
-    ```
+## Setup
+First create a .env file using the .env.example
+```sh
+cat .env.example > .env
+```
 
-2.  **Start developing.**
+Input the STRAPI_TOKEN from the backend. Follow [this guide](https://docs.strapi.io/user-docs/latest/settings/managing-global-settings.html#configuring-internationalization-locales) to learn how to create a Full-access API token
 
-    Navigate into your new site’s directory and start it up.
+Running the generator
+```sh
+npm install
+npm run develop
+```
 
-    ```shell
-    cd my-gatsby-site/
-    npm run develop
-    ```
+When you make content changes on the admin panel run the following to update the front content:
+```sh
+npm run clean && npm run develop
+```
 
-3.  **Open the code and start customizing!**
-
-    Your site is now running at http://localhost:8000!
-
-    Edit `src/pages/index.tsx` to see your site update in real-time!
-
-4.  **Learn more**
-
-    - [Documentation](https://www.gatsbyjs.com/docs/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts)
-
-    - [Tutorials](https://www.gatsbyjs.com/tutorial/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts)
-
-    - [Guides](https://www.gatsbyjs.com/tutorial/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts)
-
-    - [API Reference](https://www.gatsbyjs.com/docs/api-reference/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts)
-
-    - [Plugin Library](https://www.gatsbyjs.com/plugins?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts)
-
-    - [Cheat Sheet](https://www.gatsbyjs.com/docs/cheat-sheet/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts)
-
-## 🚀 Quick start (Gatsby Cloud)
-
-Deploy this starter with one click on [Gatsby Cloud](https://www.gatsbyjs.com/cloud/):
-
-[<img src="https://www.gatsbyjs.com/deploynow.svg" alt="Deploy to Gatsby Cloud">](https://www.gatsbyjs.com/dashboard/deploynow?url=https://github.com/gatsbyjs/gatsby-starter-minimal-ts)
+The website should be accessible at this address: [localhost:8000](localhost:8000)
