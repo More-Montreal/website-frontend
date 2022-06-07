@@ -14,7 +14,7 @@ const ImageCard = ({image, children}: React.PropsWithChildren<ImageCardProps>) =
             <div className="relative w-full h-full">
                 <div className="relative z-10 w-full h-full bg-gradient-to-t from-black/90 via-black/40"></div>
                 <GatsbyImage
-                    className="absolute top-0 object-cover w-full h-full"
+                    className="!absolute top-0 object-cover w-full h-full"
                     image={background!}
                     alt={image.alternativeText}
                 />

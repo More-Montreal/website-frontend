@@ -94,7 +94,7 @@ const IndexPage = ({data}: PageProps<IndexData>) => {
                     </div>
                 </div>
                 <GatsbyImage
-                    className="absolute object-cover w-full h-full"
+                    className="!absolute object-cover w-full h-full"
                     image={heroBackground!}
                     alt={content.heroBackground.alternativeText}
                 />
