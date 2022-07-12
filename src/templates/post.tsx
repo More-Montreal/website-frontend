@@ -62,11 +62,11 @@ const PostTemplate = ({data}: PageProps<PostData>) => {
     return (
         <div>
             <Header type="post"/>
-            <div className="w-full p-4 m-auto max-w-screen-2xl">
+            <div className="w-full p-2 m-auto md:p-4 md:max-w-screen-2xl">
                 <div className="relative h-full">
-                    <div className="absolute z-10 flex flex-col items-center justify-end w-full h-full overflow-hidden rounded-2xl">
+                    <div className="absolute z-10 flex-col items-center justify-end hidden w-full h-full overflow-hidden md:flex rounded-2xl">
                         <div className="absolute w-full h-full bg-gradient-to-t from-black/60 via-black/20"></div>
-                        <div className="relative max-w-[810px] mb-10">
+                        <div className="relative max-w-[810px] mb-10 px-4 lg:px-0">
                             <p>
                                 {content.postCategories.map((category: {title: string}, index: number) => {
                                     return <span className="text-lg font-medium text-gray-300 uppercase drop-shadow-md" key={index}>{category.title}{(index < content.postCategories.length - 1) ? ', ' : ''}</span>
@@ -78,11 +78,21 @@ const PostTemplate = ({data}: PageProps<PostData>) => {
                         </div>
                     </div>
                     <GatsbyImage
-                        className="relative w-full shadow-xl rounded-2xl"
+                        className="relative w-full shadow-xl rounded-xl md:rounded-2xl"
                         image={thumbnail!}
                         alt={content.thumbnail.alternativeText}
                     />
                 </div>
+            </div>
+            <div className="px-4 mt-4 md:hidden">
+                <p>
+                    {content.postCategories.map((category: {title: string}, index: number) => {
+                        return <span className="text-sm font-medium text-gray-600 uppercase" key={index}>{category.title}{(index < content.postCategories.length - 1) ? ', ' : ''}</span>
+                    })}
+                </p>
+                <h1 className="text-xl font-bold text-gray-800 font-display">{content.title}</h1>
+                <p className="italic text-gray-500">{content.excerpt}</p>
+                <p className="mt-4 text-gray-600">{t('blog.post.by')} {author} &bull; {date}</p>
             </div>
             <div className="w-full max-w-[810px] p-4 m-auto mb-20">
                 <article className="mt-10 prose prose-headings:font-display lg:prose-xl max-w-none prose-img:rounded-xl prose-img:shadow-xl" dangerouslySetInnerHTML={{__html: content.content.data.childMarkdownRemark.html}}/>
