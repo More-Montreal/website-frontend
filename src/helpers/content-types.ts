@@ -17,8 +17,10 @@ export type SVGImage = {
 
 export type RichTextContent<C extends string> = {
     data: {
-        [key in C]: string
-    }
+        childMarkdownRemark: {
+            html: string;
+        }
+    } & { [key in C]: string; }
 };
 
 export type KeyPoint = {

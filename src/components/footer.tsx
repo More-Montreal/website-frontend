@@ -8,15 +8,21 @@ import TwitterIcon from '../../assets/Twitter.svg';
 import { SocialLinks } from '../helpers/content-types';
 
 type FooterProps = {
+    overrideLangLinks?: {
+        [lang: string]: string
+    },
     socials: SocialLinks;
 };
 
-const Footer = ({socials, children}: React.PropsWithChildren<FooterProps>) => {
+const Footer = ({overrideLangLinks, socials, children}: React.PropsWithChildren<FooterProps>) => {
     const {t} = useTranslation();
     const {language, languages, changeLanguage} = useI18next();
     const setLanguage = (lang: string) => {
         return (event: React.MouseEvent) => {
             event.preventDefault();
+            if (overrideLangLinks !== undefined) {
+                return window.location.href = overrideLangLinks[lang];
+            }
             changeLanguage(lang);
         }
     }

@@ -31,5 +31,18 @@
                 "nav": "Blog"
             }
         }
+    },
+    "blog": {
+        "header": {
+            "about": "À propos",
+            "post": "Nouvelles",
+            "event": "Événements",
+            "action": "Actions"
+        },
+        "post": {
+            "by": "Par",
+            "published": "Publié le",
+            "updated": "Mis à jour le"
+        }
     }
 }
