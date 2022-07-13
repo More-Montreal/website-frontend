@@ -38,3 +38,28 @@ export type SocialLinks = {
     instagramLink: string;
     twitterLink: string;
 };
+
+export type EventCardData = {
+    title: string;
+    slug: string;
+    description: RichTextContent<"description">;
+    publishedAt: string;
+    thumbnail: StrapiImage;
+};
+
+export type ActionCardData = {
+    title: string;
+    slug: string;
+    description: RichTextContent<"description">;
+    publishedAt: string;
+    thumbnail: StrapiImage;
+};
+
+export type PostCardData = {
+    title: string;
+    slug: string;
+    excerpt: string;
+    postCategories: {title: string}[];
+    publishedAt: string;
+    thumbnail: StrapiImage;
+};

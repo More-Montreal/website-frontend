@@ -34,10 +34,17 @@
     },
     "blog": {
         "header": {
+            "blog":  "Blog",
             "about": "À propos",
             "post": "Nouvelles",
             "event": "Événements",
             "action": "Actions"
+        },
+        "index": {
+            "latest": "Dernière nouvelle",
+            "latest_posts": "Dernières nouvelles",
+            "upcoming_events": "Prochains événements",
+            "latest_actions": "Dernières actions"
         },
         "post": {
             "by": "Par",

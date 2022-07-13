@@ -2,7 +2,7 @@ import * as React from "react";
 import { useTranslation } from "react-i18next";
 import { graphql, PageProps } from 'gatsby';
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
-import { KeyPoint as KeyPointData, Nodes, RichTextContent, SocialLinks, StrapiImage } from "../helpers/content-types";
+import { KeyPoint as KeyPointData, Nodes, RichTextContent, SocialLinks, StrapiImage, EventCardData, PostCardData, ActionCardData } from "../helpers/content-types";
 import JsonDebug from "../helpers/json-debug";
 import HeroOverlay from '../../assets/HeroOverlay.svg';
 import PillDecorator from '../../assets/PillDecorator.svg';
@@ -13,31 +13,6 @@ import KeyPoint from "../components/key-point";
 import InvolvementCallout, { InvolvementData } from "../components/involvement-callout";
 import Footer from "../components/footer";
 import { AnchorLink } from "gatsby-plugin-anchor-links";
-
-type EventCardData = {
-    title: string;
-    slug: string;
-    description: RichTextContent<"description">;
-    publishedAt: string;
-    thumbnail: StrapiImage;
-};
-
-type ActionCardData = {
-    title: string;
-    slug: string;
-    description: RichTextContent<"description">;
-    publishedAt: string;
-    thumbnail: StrapiImage;
-};
-
-type PostCardData = {
-    title: string;
-    slug: string;
-    excerpt: string;
-    postCategories: {title: string}[];
-    publishedAt: string;
-    thumbnail: StrapiImage;
-};
 
 type IndexCardData<T extends (PostCardData | ActionCardData | EventCardData)> = T & {
     type: "post" | "action" | "event";
@@ -126,7 +101,7 @@ const IndexPage = ({data}: PageProps<IndexData>) => {
                                 <h3 className="text-3xl font-bold text-gray-800 font-display">{t('home.sections.actions.heading')}</h3>
                                 <p className="text-lg text-gray-500">{t('home.sections.actions.subheading')}</p>
                             </div>
-                            <PillDecorator className="absolute -bottom-4 -left-8 md:-bottom-10"/>
+                            <PillDecorator className="absolute -bottom-4 -left-8 md:-bottom-10 fill-red-100"/>
                         </div>
                         <div className="relative flex flex-col xl:flex-row py-14">
                             <div className="flex flex-col flex-wrap flex-1 gap-12 md:flex-row">

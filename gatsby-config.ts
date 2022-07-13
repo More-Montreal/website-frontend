@@ -105,13 +105,12 @@ const config: GatsbyConfig = {
       pages: [
         {
           matchPath: '/:lang?/blog/:uid',
-          languages: ['en', 'fr'],
           getLanguageFromPath: true,
         },
         {
           matchPath: '/:lang?/:uid',
           languages: ['en', 'fr'],
-          getLanguageFromPath: true,
+          getLanguageFromPath: false,
         }
       ]
     }

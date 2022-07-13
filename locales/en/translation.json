@@ -34,10 +34,17 @@
     },
     "blog": {
         "header": {
+            "blog":  "Blog",
             "about": "About us",
             "post": "News",
             "event": "Events",
             "action": "Actions"
+        },
+        "index": {
+            "latest": "Latest post",
+            "latest_posts": "Latest posts",
+            "upcoming_events": "Upcoming events",
+            "latest_actions": "Latest actions"
         },
         "post": {
             "by": "By",
