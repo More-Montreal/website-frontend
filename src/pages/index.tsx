@@ -13,6 +13,7 @@ import KeyPoint from "../components/key-point";
 import InvolvementCallout, { InvolvementData } from "../components/involvement-callout";
 import Footer from "../components/footer";
 import { AnchorLink } from "gatsby-plugin-anchor-links";
+import { Link } from "gatsby-plugin-react-i18next";
 
 type IndexCardData<T extends (PostCardData | ActionCardData | EventCardData)> = T & {
     type: "post" | "action" | "event";
@@ -80,15 +81,15 @@ const IndexPage = ({data}: PageProps<IndexData>) => {
                             <AnchorLink stripHash to="#actions" className="hidden text-lg font-medium text-white lg:inline">{t('home.sections.actions.nav')}</AnchorLink>
                             <AnchorLink stripHash to="#vision" className="hidden text-lg font-medium text-white lg:inline">{t('home.sections.fight.nav')}</AnchorLink>
                             <AnchorLink stripHash to="#involvement" className="hidden text-lg font-medium text-white lg:inline">{t('home.sections.involvement.nav')}</AnchorLink>
-                            <Button type={ButtonType.TRANSPARENT} onClick={() => console.log('test')}>{t('home.sections.blog.nav')}</Button>
+                            <Button type={ButtonType.TRANSPARENT} href="/blog">{t('home.sections.blog.nav')}</Button>
                         </div>
                     </div>
                     <div className="flex flex-col justify-center flex-1 gap-4 pt-16 pb-8 lg:p-0 lg:w-1/2">
                         <h1 className="text-2xl font-bold text-white lg:text-4xl font-display">{content.heroTitle}</h1>
                         <p className="text-lg font-medium text-white opacity-80">{content.heroDescription}</p>
                         <div className="flex flex-wrap items-center justify-center gap-4 mt-4 md:justify-start md:mt-0">
-                            <Button onClick={() => console.log('test')}>{t('home.cta')}</Button>
-                            <a className="text-lg font-medium text-white border-b-2 border-white border-dashed cursor-pointer opacity-90 border-opacity-90 hover:opacity-100 hover:border-opacity-100">{t('home.secondary_cta')}</a>
+                            <Button href="#actions">{t('home.cta')}</Button>
+                            <AnchorLink stripHash to="#involvement" className="text-lg font-medium text-white border-b-2 border-white border-dashed cursor-pointer opacity-90 border-opacity-90 hover:opacity-100 hover:border-opacity-100">{t('home.secondary_cta')}</AnchorLink>
                         </div>
                     </div>
                 </div>
@@ -107,11 +108,13 @@ const IndexPage = ({data}: PageProps<IndexData>) => {
                             <div className="flex flex-col flex-wrap flex-1 gap-12 md:flex-row">
                                 {actions.slice(0, 3).map((action, index) => {
                                     return (
-                                        <ImageCard image={action.thumbnail} key={index}>
-                                            <p><span className={"rounded-full px-3 py-1 text-xs font-semibold " + pillStyles[action.type]}>{t(action.type)}</span></p>
-                                            <p className="py-2 text-xl font-semibold text-white">{action.title}</p>
-                                            <p className="text-sm text-white">{("description" in action) ? action.description.data.description : action.excerpt}</p>
-                                        </ImageCard>
+                                        <Link className="flex-auto" to={`/blog/${(action.type === 'post') ? action.slug : ''}`} key={index}>
+                                            <ImageCard image={action.thumbnail}>
+                                                <p><span className={"rounded-full px-3 py-1 text-xs font-semibold " + pillStyles[action.type]}>{t(action.type)}</span></p>
+                                                <p className="py-2 text-xl font-semibold text-white">{action.title}</p>
+                                                <p className="text-sm text-white">{("description" in action) ? action.description.data.description : action.excerpt}</p>
+                                            </ImageCard>
+                                        </Link>
                                     );
                                 })}
                             </div>
@@ -119,7 +122,7 @@ const IndexPage = ({data}: PageProps<IndexData>) => {
                                 <div className="relative z-10 flex flex-col items-center justify-center w-full gap-6 text-center xl:pl-7">
                                     <p className="text-2xl font-bold text-gray-700 font-display">{t('home.sections.actions.more.title')}</p>
                                     <p className="text-lg text-gray-600 xl:max-w-xs">{t('home.sections.actions.more.description')}</p>
-                                    <Button onClick={() => console.log('blog')} type={ButtonType.GRAY}>{t('home.sections.actions.more.cta')}</Button>
+                                    <Button href="/blog" type={ButtonType.GRAY}>{t('home.sections.actions.more.cta')}</Button>
                                 </div>
                                 <PillBackground className="absolute hidden xl:block bottom-10 left-14"/>
                             </div>
@@ -154,7 +157,7 @@ const IndexPage = ({data}: PageProps<IndexData>) => {
                 <a href="#actions" className="hidden text-lg font-medium text-white lg:inline">{t('home.sections.actions.nav')}</a>
                 <a href="#vision" className="hidden text-lg font-medium text-white lg:inline">{t('home.sections.fight.nav')}</a>
                 <a href="#involvement" className="hidden text-lg font-medium text-white lg:inline">{t('home.sections.involvement.nav')}</a>
-                <Button type={ButtonType.TRANSPARENT} onClick={() => console.log('test')}>{t('home.sections.blog.nav')}</Button>
+                <Button type={ButtonType.TRANSPARENT} href="/blog">{t('home.sections.blog.nav')}</Button>
             </Footer>
         </div>
     );

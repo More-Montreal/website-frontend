@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Link } from 'gatsby-plugin-react-i18next';
 
 export enum ButtonType {
     PRIMARY = 'primary',
@@ -25,10 +26,10 @@ const Button = ({children, type, onClick, href, target}: React.PropsWithChildren
         default: color = `bg-red-500 text-white shadow-lg`; break;
     }
 
-    const Tag = (href) ? 'a' : 'div';
+    const Tag = (href) ? Link : 'div';
 
     return (
-        <Tag href={href || ''} target={target || ''} className={"flex-shrink text-lg cursor-pointer py-2 px-5 rounded-full font-semibold " + color} onClick={onClick}>{children}</Tag>
+        <Tag to={href || ''} target={target || ''} className={"flex-shrink text-lg cursor-pointer py-2 px-5 rounded-full font-semibold " + color} onClick={onClick}>{children}</Tag>
     );
 };
 
