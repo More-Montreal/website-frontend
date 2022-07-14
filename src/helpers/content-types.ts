@@ -43,7 +43,7 @@ export type EventCardData = {
     title: string;
     slug: string;
     description: RichTextContent<"description">;
-    publishedAt: string;
+    scheduledDate: string;
     thumbnail: StrapiImage;
 };
 

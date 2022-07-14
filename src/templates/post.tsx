@@ -4,10 +4,10 @@ import JsonDebug from "../helpers/json-debug";
 import Header from "../components/blog/header";
 import { RichTextContent, SocialLinks, StrapiImage } from "../helpers/content-types";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
-import { t } from "i18next";
 import { useTranslation } from "react-i18next";
 import InvolvementCallout, { InvolvementData } from "../components/involvement-callout";
 import Footer from "../components/footer";
+import { Link } from "gatsby-plugin-react-i18next";
 
 type PostData = {
     strapiPost: {
@@ -105,10 +105,10 @@ const PostTemplate = ({data}: PageProps<PostData>) => {
                 joinLink={data.involvementCallout.joinLink}
             />
             <Footer overrideLangLinks={langLinks} socials={data.socials}>
-                <a href="#actions" className="hidden text-lg font-medium text-white lg:inline">{t('blog.header.post')}</a>
-                <a href="#vision" className="hidden text-lg font-medium text-white lg:inline">{t('blog.header.event')}</a>
-                <a href="#involvement" className="hidden text-lg font-medium text-white lg:inline">{t('blog.header.action')}</a>
-                <a href="/" className="hidden text-lg font-medium text-white lg:inline">{t('blog.header.about')}</a>
+                <Link to="/blog" className="hidden text-lg font-medium text-white lg:inline">{t('blog.header.post')}</Link>
+                <Link to="/blog" className="hidden text-lg font-medium text-white lg:inline">{t('blog.header.event')}</Link>
+                {/* <a href="#involvement" className="hidden text-lg font-medium text-white lg:inline">{t('blog.header.action')}</a> */}
+                <Link to="/" className="hidden text-lg font-medium text-white lg:inline">{t('blog.header.about')}</Link>
             </Footer>
         </div>
     );
