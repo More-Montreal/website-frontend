@@ -26,13 +26,17 @@ const BlogPage = ({data}: PageProps<BlogData>) => {
     data.posts.nodes.push(data.posts.nodes[0]);
     data.posts.nodes.push(data.posts.nodes[0]);
 
-    data.events.nodes.push(data.events.nodes[0]);
-    data.events.nodes.push(data.events.nodes[0]);
-    data.events.nodes.push(data.events.nodes[0]);
-
     const latestPost = data.posts.nodes[0];
     const latestThumbnail = getImage(latestPost.thumbnail.localFile);
     const latestPublishedDate = (new Date(latestPost.publishedAt)).toLocaleDateString(undefined, {dateStyle: 'medium'});
+
+    const events = data.events.nodes.sort((eventA, eventB) => {
+        const scheduledA = (new Date(eventA.scheduledDate)).getTime();
+        const scheduledB = (new Date(eventB.scheduledDate)).getTime();
+
+        if (scheduledA < scheduledB) return 1;
+        return -1;
+    });
 
     const {t} = useTranslation();
 
@@ -93,7 +97,7 @@ const BlogPage = ({data}: PageProps<BlogData>) => {
                             <PillDecorator className="absolute w-14 -left-4 -bottom-14 fill-indigo-100"/>
                         </div>
                         <div className="flex flex-col gap-8 mt-8">
-                            {data.events.nodes.map(event => {
+                            {events.map(event => {
                                 const scheduledDate = (new Date(event.scheduledDate)).toLocaleString(undefined, {dateStyle: 'medium', timeStyle: "short"});
 
                                 return (
@@ -140,7 +144,7 @@ const BlogPage = ({data}: PageProps<BlogData>) => {
 export const pageQuery = graphql`
 
 query ($language: String!) {
-    posts: allStrapiPost(limit: 6, filter: {locale: {eq: $language}}) {
+    posts: allStrapiPost(limit: 6, sort: {order: DESC, fields: id}, filter: {locale: {eq: $language}}) {
         nodes {
             title
             slug
@@ -159,7 +163,7 @@ query ($language: String!) {
             }
         }
     }
-    events: allStrapiEvent(limit: 4, filter: {locale: {eq: $language}}) {
+    events: allStrapiEvent(limit: 4, sort: {order: DESC, fields: id}, filter: {locale: {eq: $language}}) {
         nodes {
             title
             slug
@@ -179,7 +183,7 @@ query ($language: String!) {
             }
         }
     }
-    actions: allStrapiAction(limit: 5, filter: {locale: {eq: $language}}) {
+    actions: allStrapiAction(limit: 5, sort: {order: DESC, fields: id}, filter: {locale: {eq: $language}}) {
         nodes {
             title
             slug

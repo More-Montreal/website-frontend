@@ -208,7 +208,7 @@ query($language: String!) {
         instagramLink
         twitterLink
     }
-    events: allStrapiEvent(limit: 3, filter: {locale: {eq: $language}}) {
+    events: allStrapiEvent(limit: 3, sort: {order: DESC, fields: id}, filter: {locale: {eq: $language}}) {
         nodes {
             title
             slug
@@ -228,7 +228,7 @@ query($language: String!) {
             }
         }
     }
-    posts: allStrapiPost(limit: 3, filter: {locale: {eq: $language}}) {
+    posts: allStrapiPost(limit: 3, sort: {order: DESC, fields: id}, filter: {locale: {eq: $language}}) {
         nodes {
             title
             slug
@@ -247,7 +247,7 @@ query($language: String!) {
             }
         }
     }
-    actions: allStrapiAction(limit: 3, filter: {locale: {eq: $language}}) {
+    actions: allStrapiAction(limit: 3, sort: {order: DESC, fields: id}, filter: {locale: {eq: $language}}) {
         nodes {
             title
             slug
