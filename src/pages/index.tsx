@@ -145,10 +145,10 @@ const IndexPage = ({data}: PageProps<IndexData>) => {
                         <h3 className="text-3xl font-bold text-gray-800 font-display">{t('home.sections.fight.heading')}</h3>
                         <p className="text-lg text-gray-500">{t('home.sections.fight.subheading')}</p>
                     </div>
-                    <div className="flex flex-wrap gap-11">
+                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-11">
                         {content.visionPoints.map((vp: KeyPointData, index: number) => {
                             return (
-                                <div className="flex-1" key={index}>
+                                <div key={index}>
                                     <KeyPoint title={vp.title} icon={vp.icon} color={vp.color} content={vp.content}/>
                                 </div>
                             );
