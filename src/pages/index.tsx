@@ -56,6 +56,13 @@ const IndexPage = ({data}: PageProps<IndexData>) => {
     const {t} = useTranslation();
     const heroBackground = getImage(content.heroBackground.localFile);
 
+    const truncateText = (text: string) => {
+        if (text.length > 120) {
+            return text.slice(0, 120).trim() + '...';
+        }
+        return text;
+    };
+
     return (
         <div>
             <div className="w-full h-auto lg:h-[645px] relative bg-opacity-90 overflow-hidden">
@@ -112,7 +119,7 @@ const IndexPage = ({data}: PageProps<IndexData>) => {
                                             <ImageCard image={action.thumbnail}>
                                                 <p><span className={"rounded-full px-3 py-1 text-xs font-semibold " + pillStyles[action.type]}>{t(action.type)}</span></p>
                                                 <p className="py-2 text-xl font-semibold text-white">{action.title}</p>
-                                                <p className="text-sm text-white">{("description" in action) ? action.description.data.description : action.excerpt}</p>
+                                                <p className="text-sm text-white">{("description" in action) ? truncateText(action.description.data.description) : truncateText(action.excerpt)}</p>
                                             </ImageCard>
                                         </Link>
                                     );

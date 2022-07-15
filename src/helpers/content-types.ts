@@ -47,6 +47,17 @@ export type EventCardData = {
     thumbnail: StrapiImage;
 };
 
+export type EventData = {
+    title: string;
+    slug: string;
+    description: RichTextContent<"description">;
+    scheduledDate: string;
+    rsvpLink: string;
+    inPerson: boolean;
+    locationLink: string;
+    thumbnail: StrapiImage;
+};
+
 export type ActionCardData = {
     title: string;
     slug: string;

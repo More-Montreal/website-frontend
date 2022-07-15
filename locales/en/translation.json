@@ -50,6 +50,13 @@
             "by": "By",
             "published": "Published on",
             "updated": "Updated on"
+        },
+        "event": {
+            "in_person": "In person",
+            "online": "Online",
+            "label": "Event",
+            "join": "Join the event",
+            "directions": "Get directions"
         }
     }
 }

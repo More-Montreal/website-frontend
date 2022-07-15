@@ -26,10 +26,10 @@ const Button = ({children, type, onClick, href, target}: React.PropsWithChildren
         default: color = `bg-red-500 text-white shadow-lg`; break;
     }
 
-    const Tag = (href) ? Link : 'div';
+    const Tag = (href) ? ((target) ? 'a' : Link) : 'div';
 
     return (
-        <Tag to={href || ''} target={target || ''} className={"flex-shrink text-lg cursor-pointer py-2 px-5 rounded-full font-semibold " + color} onClick={onClick}>{children}</Tag>
+        <Tag to={href || ''} href={href || ''} target={target || ''} className={"flex-shrink text-lg cursor-pointer py-2 px-5 rounded-full font-semibold text-center " + color} onClick={onClick}>{children}</Tag>
     );
 };
 

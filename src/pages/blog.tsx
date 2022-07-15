@@ -1,31 +1,25 @@
 import { graphql, PageProps } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { Link } from 'gatsby-plugin-react-i18next';
-import * as React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Header from '../components/blog/header';
 import InvolvementCallout, { InvolvementData } from '../components/involvement-callout';
-import { ActionCardData, EventCardData, Nodes, PostCardData, SocialLinks } from '../helpers/content-types';
+import { ActionCardData, EventData, Nodes, PostCardData, SocialLinks } from '../helpers/content-types';
 import PillDecorator from '../../assets/PillDecorator.svg';
 import CalendarDate from '../components/calendar-date';
 import Footer from '../components/footer';
+import EventModal from '../components/blog/event-modal';
 
 type BlogData = {
     posts: Nodes<PostCardData>;
-    events: Nodes<EventCardData>;
+    events: Nodes<EventData>;
     actions: Nodes<ActionCardData>;
     socials: SocialLinks;
     involvementCallout: InvolvementData;
 };
 
 const BlogPage = ({data}: PageProps<BlogData>) => {
-
-    data.posts.nodes.push(data.posts.nodes[0]);
-    data.posts.nodes.push(data.posts.nodes[0]);
-    data.posts.nodes.push(data.posts.nodes[0]);
-    data.posts.nodes.push(data.posts.nodes[0]);
-    data.posts.nodes.push(data.posts.nodes[0]);
-
     const latestPost = data.posts.nodes[0];
     const latestThumbnail = getImage(latestPost.thumbnail.localFile);
     const latestPublishedDate = (new Date(latestPost.publishedAt)).toLocaleDateString(undefined, {dateStyle: 'medium'});
@@ -37,6 +31,8 @@ const BlogPage = ({data}: PageProps<BlogData>) => {
         if (scheduledA < scheduledB) return 1;
         return -1;
     });
+
+    const [selectedEvent, setSelectedEvent] = useState<EventData | null>(null);
 
     const {t} = useTranslation();
 
@@ -101,7 +97,7 @@ const BlogPage = ({data}: PageProps<BlogData>) => {
                                 const scheduledDate = (new Date(event.scheduledDate)).toLocaleString(undefined, {dateStyle: 'medium', timeStyle: "short"});
 
                                 return (
-                                    <div className="flex" key={event.slug}>
+                                    <div className="flex cursor-pointer" key={event.slug} onClick={() => {setSelectedEvent(event)}}>
                                         <div className="flex-shrink">
                                             <CalendarDate date={new Date(event.scheduledDate)}/>
                                         </div>
@@ -137,6 +133,7 @@ const BlogPage = ({data}: PageProps<BlogData>) => {
                 {/* <a href="#involvement" className="hidden text-lg font-medium text-white lg:inline">{t('blog.header.action')}</a> */}
                 <Link to="/" className="hidden text-lg font-medium text-white lg:inline">{t('blog.header.about')}</Link>
             </Footer>
+            {selectedEvent && <EventModal onClose={() => {setSelectedEvent(null)}} event={selectedEvent}/>}
         </div>
     );
 };
@@ -157,7 +154,7 @@ query ($language: String!) {
                 alternativeText
                 localFile {
                     childImageSharp {
-                        gatsbyImageData(height: 438, placeholder: BLURRED)
+                        gatsbyImageData(height: 705, placeholder: BLURRED)
                     }
                 }
             }
@@ -168,16 +165,21 @@ query ($language: String!) {
             title
             slug
             scheduledDate
+            rsvpLink
+            inPerson
+            locationLink
             description {
                 data {
-                    description
+                    childMarkdownRemark {
+                        html
+                    }
                 }
             }
             thumbnail {
                 alternativeText
                 localFile {
                     childImageSharp {
-                        gatsbyImageData(height: 438, placeholder: BLURRED)
+                        gatsbyImageData(height: 500, placeholder: BLURRED)
                     }
                 }
             }

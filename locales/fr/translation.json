@@ -50,6 +50,13 @@
             "by": "Par",
             "published": "Publié le",
             "updated": "Mis à jour le"
+        },
+        "event": {
+            "in_person": "En personne",
+            "online": "En ligne",
+            "label": "Événement",
+            "join": "Participer",
+            "directions": "Directions"
         }
     }
 }
