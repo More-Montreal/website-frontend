@@ -14,6 +14,7 @@ import InvolvementCallout, { InvolvementData } from "../components/involvement-c
 import Footer from "../components/footer";
 import { AnchorLink } from "gatsby-plugin-anchor-links";
 import { Link } from "gatsby-plugin-react-i18next";
+import SEO from "../components/seo";
 
 type IndexCardData<T extends (PostCardData | ActionCardData | EventCardData)> = T & {
     type: "post" | "action" | "event";
@@ -65,6 +66,7 @@ const IndexPage = ({data}: PageProps<IndexData>) => {
 
     return (
         <div>
+            <SEO/>
             <div className="w-full h-auto lg:h-[645px] relative bg-opacity-90 overflow-hidden">
                 <div className="absolute w-full h-full">
                     <div className="relative h-full m-auto max-w-screen-2xl">

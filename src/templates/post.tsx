@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 import InvolvementCallout, { InvolvementData } from "../components/involvement-callout";
 import Footer from "../components/footer";
 import { Link } from "gatsby-plugin-react-i18next";
+import SEO from "../components/seo";
 
 type PostData = {
     strapiPost: {
@@ -40,7 +41,7 @@ type PostData = {
 const PostTemplate = ({data}: PageProps<PostData>) => {
     const {t} = useTranslation();
     const content = data.strapiPost;
-    
+
     const author = `${content.author.firstname} ${content.author.lastname}`;
     const publishedDate = new Date(content.publishedAt);
     const date = `${t('blog.post.published')} ${publishedDate.toLocaleDateString(undefined, {dateStyle: 'medium'})}`;
@@ -50,17 +51,18 @@ const PostTemplate = ({data}: PageProps<PostData>) => {
     /**
      * Override the footer lang links since slugs are different
      */
-    let langLinks: {[lang: string]: string} = {};   
+    let langLinks: {[lang: string]: string} = {};
     const addLangLink = (lang: string, slug: string) => {
         const locale = (lang === 'en') ? 'en/' : '';
         langLinks[lang] = `/${locale}blog/${slug}`;
     };
 
-    content.localizations.data.forEach(localization => addLangLink(localization.attributes.locale, localization.attributes.slug));    
+    content.localizations.data.forEach(localization => addLangLink(localization.attributes.locale, localization.attributes.slug));
     addLangLink(content.locale, content.slug);
 
     return (
         <div>
+            <SEO metaTitle={content.title} metaDescription={content.excerpt} article={true} shareImage={content.thumbnail.localFile.url}/>
             <Header type="post"/>
             <div className="w-full p-2 m-auto md:p-4 md:max-w-screen-2xl">
                 <div className="relative h-full">
@@ -143,6 +145,7 @@ query ($slug: String, $language: String!) {
                 childImageSharp {
                     gatsbyImageData(width: 1200, placeholder: BLURRED)
                 }
+                url
             }
         }
         locale

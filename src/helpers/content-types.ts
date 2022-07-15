@@ -6,7 +6,7 @@ export type Nodes<N> = {
 
 export type StrapiImage = {
     alternativeText: string;
-    localFile: ImageDataLike;
+    localFile: ImageDataLike & { url?: string };
 };
 
 export type SVGImage = {

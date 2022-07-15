@@ -1,5 +1,6 @@
 {
     "site_title": "More Montreal",
+    "site_description": "We want to make housing in the Greater Montreal Region affordable for all, sustainable and inclusive through local actions and voicing support to realistic solutions and developments.",
     "post": "News",
     "event": "Event",
     "action": "Action",
@@ -33,6 +34,7 @@
         }
     },
     "blog": {
+        "title": "Blog",
         "header": {
             "blog":  "Blog",
             "about": "About us",

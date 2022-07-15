@@ -5,7 +5,7 @@ require("dotenv").config({
 
 const config: GatsbyConfig = {
   siteMetadata: {
-    title: `More MTL`,
+    title: `Construisons Montréal`,
     siteUrl: `https://www.construisonsmtl.ca`
   },
   plugins: ["gatsby-plugin-postcss", {
@@ -13,7 +13,15 @@ const config: GatsbyConfig = {
     options: {
       "trackingId": "G-XL2QVGXY9B"
     }
-  }, "gatsby-plugin-image", "gatsby-plugin-react-helmet", "gatsby-plugin-sitemap", "gatsby-plugin-sharp", "gatsby-transformer-sharp", "gatsby-transformer-remark", "gatsby-plugin-anchor-links", {
+  }, {
+    resolve: `gatsby-plugin-manifest`,
+    options: {
+      name: "Construisons Montréal",
+      short_name: "ConstruisonsMTL",
+      start_url: "/",
+      icon: "src/images/icon.png",
+    },
+   }, "gatsby-plugin-image", "gatsby-plugin-react-helmet", "gatsby-plugin-sitemap", "gatsby-plugin-sharp", "gatsby-transformer-sharp", "gatsby-transformer-remark", "gatsby-plugin-anchor-links", {
     resolve: "gatsby-source-strapi",
     options: {
       apiURL: process.env.API_URL || "http://localhost:1337",

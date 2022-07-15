@@ -1,5 +1,6 @@
 {
     "site_title": "Construisons Montréal",
+    "site_description": "Nous voulons rendre l'accès au logement du Grand Montréal plus facile, durable et inclusif à l'aide d'actions locales en supportant des solutions et développements réalistes.",
     "post": "Nouvelles",
     "event": "Événement",
     "action": "Action",
@@ -33,6 +34,7 @@
         }
     },
     "blog": {
+        "title": "Blog",
         "header": {
             "blog":  "Blog",
             "about": "À propos",

@@ -10,6 +10,7 @@ import PillDecorator from '../../assets/PillDecorator.svg';
 import CalendarDate from '../components/calendar-date';
 import Footer from '../components/footer';
 import EventModal from '../components/blog/event-modal';
+import SEO from '../components/seo';
 
 type BlogData = {
     posts: Nodes<PostCardData>;
@@ -38,6 +39,7 @@ const BlogPage = ({data}: PageProps<BlogData>) => {
 
     return (
         <div>
+            <SEO metaTitle={t('blog.title')}/>
             <Header type="blog"/>
             <div className="p-4 m-auto mb-20 max-w-screen-2xl">
                 <Link to={`/blog/${latestPost.slug}`} className="flex flex-col md:flex-row">
@@ -110,7 +112,7 @@ const BlogPage = ({data}: PageProps<BlogData>) => {
                             })}
                         </div>
                     </div>
-                    {/* Future actions integration 
+                    {/* Future actions integration
                     <div className="basis-3/12">
                         <div className="relative">
                             <div className="relative z-10">
