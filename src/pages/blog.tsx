@@ -44,7 +44,7 @@ const BlogPage = ({data}: PageProps<BlogData>) => {
             <div className="p-4 m-auto mb-20 max-w-screen-2xl">
                 <Link to={`/blog/${latestPost.slug}`} className="flex flex-col md:flex-row">
                     <GatsbyImage
-                        className="relative flex-1 w-full shadow-xl rounded-xl md:rounded-2xl"
+                        className="relative z-10 flex-1 w-full overflow-hidden shadow-xl rounded-xl md:rounded-2xl"
                         image={latestThumbnail!}
                         alt={latestPost.thumbnail.alternativeText}
                     />
@@ -73,7 +73,7 @@ const BlogPage = ({data}: PageProps<BlogData>) => {
                                 return (
                                     <Link to={`/blog/${post.slug}`} className="flex" key={post.slug}>
                                         <GatsbyImage
-                                            className="self-center flex-1 w-full mr-2 shadow-md h-28 md:h-32 rounded-xl"
+                                            className="z-10 self-center flex-1 w-full mr-2 shadow-md h-28 md:h-32 rounded-xl"
                                             image={thumbnail!}
                                             alt={post.thumbnail.alternativeText}
                                         />

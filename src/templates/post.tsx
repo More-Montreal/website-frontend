@@ -66,7 +66,7 @@ const PostTemplate = ({data}: PageProps<PostData>) => {
             <Header type="post"/>
             <div className="w-full p-2 m-auto md:p-4 md:max-w-screen-2xl">
                 <div className="relative h-full">
-                    <div className="absolute z-10 flex-col items-center justify-end hidden w-full h-full overflow-hidden md:flex rounded-2xl">
+                    <div className="absolute z-20 flex-col items-center justify-end hidden w-full h-full overflow-hidden md:flex rounded-2xl">
                         <div className="absolute w-full h-full bg-gradient-to-t from-black/60 via-black/20"></div>
                         <div className="relative max-w-[810px] mb-10 px-4 lg:px-0">
                             <p>
@@ -80,7 +80,7 @@ const PostTemplate = ({data}: PageProps<PostData>) => {
                         </div>
                     </div>
                     <GatsbyImage
-                        className="relative w-full shadow-xl rounded-xl md:rounded-2xl"
+                        className="relative z-10 w-full shadow-xl rounded-xl md:rounded-2xl"
                         image={thumbnail!}
                         alt={content.thumbnail.alternativeText}
                     />
@@ -97,7 +97,7 @@ const PostTemplate = ({data}: PageProps<PostData>) => {
                 <p className="mt-4 text-gray-600">{t('blog.post.by')} {author} &bull; {date}</p>
             </div>
             <div className="w-full max-w-[810px] p-4 m-auto mb-20">
-                <article className="mt-10 prose prose-headings:font-display lg:prose-xl max-w-none prose-img:rounded-xl prose-img:shadow-xl" dangerouslySetInnerHTML={{__html: content.content.data.childMarkdownRemark.html}}/>
+                <article className="mt-10 prose prose-headings:font-display lg:prose-xl max-w-none prose-img:rounded-xl prose-img:shadow-xl prose-img:z-10" dangerouslySetInnerHTML={{__html: content.content.data.childMarkdownRemark.html}}/>
                 <p className="mt-8 text-lg italic text-gray-700">{author}</p>
             </div>
             <InvolvementCallout
