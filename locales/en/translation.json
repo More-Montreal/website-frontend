@@ -60,5 +60,10 @@
             "join": "Join the event",
             "directions": "Get directions"
         }
+    },
+    "policies": {
+        "filter_party": "Filter by political party support",
+        "more_info": "More info",
+        "supported_by": "Supported by"
     }
 }

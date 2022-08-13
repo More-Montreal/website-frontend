@@ -60,5 +60,10 @@
             "join": "Participer",
             "directions": "Directions"
         }
+    },
+    "policies": {
+        "filter_party": "Filtrer par support de parti politique",
+        "more_info": "Plus d'info",
+        "supported_by": "Supporté par"
     }
 }

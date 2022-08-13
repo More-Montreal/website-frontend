@@ -55,6 +55,34 @@ const config: GatsbyConfig = {
               locale: 'all'
             }
           }
+        }, {
+          singularName: 'policy',
+          pluginOptions: {
+            i18n: {
+              locale: 'all'
+            }
+          }
+        }, {
+          singularName: 'policy-category',
+          pluginOptions: {
+            i18n: {
+              locale: 'all'
+            }
+          }
+        }, {
+          singularName: 'policy-support',
+          pluginOptions: {
+            i18n: {
+              locale: 'all'
+            }
+          }
+        }, {
+          singularName: 'political-party',
+          pluginOptions: {
+            i18n: {
+              locale: 'all'
+            }
+          }
         }
       ],
       singleTypes: [
@@ -67,6 +95,36 @@ const config: GatsbyConfig = {
               },
               visionPoints: {
                 populate: "*",
+              },
+            },
+          },
+          pluginOptions: {
+            i18n: {
+              locale: 'all'
+            }
+          }
+        },
+        {
+          singularName: 'policies-page',
+          queryParams: {
+            populate: {
+              heroBackground: {
+                populate: "*"
+              },
+              policy_categories: {
+                populate: {
+                  policies: {
+                    populate: {
+                      policy_supports: {
+                        populate: {
+                          political_parties: {
+                            populate: "*"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
               },
             },
           },

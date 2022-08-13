@@ -74,3 +74,38 @@ export type PostCardData = {
     publishedAt: string;
     thumbnail: StrapiImage;
 };
+
+export type PolicyCategoryData = {
+    name: string;
+    policies?: PolicyData[];
+};
+
+export type PolicyData = {
+    title: string;
+    explanation: string;
+    justification: string;
+    policy_supports: PolicySupportData[];
+    category?: PolicyCategoryData;
+};
+
+export enum PoliticalPartyJurisdiction {
+    FEDERAL = 'federal',
+    PROVINCIAL = 'provincial',
+    MUNICIPAL = 'municipal'
+};
+
+export type PoliticalPartyData = {
+    name: string;
+    shortName: string;
+    color: string;
+    jurisdiction: PoliticalPartyJurisdiction;
+    policy_supports?: PolicySupportData[];
+};
+
+export type PolicySupportData = {
+    quote: string;
+    source: string;
+    author: string;
+    political_party?: PoliticalPartyData;
+    policy?: PolicyData;
+};
