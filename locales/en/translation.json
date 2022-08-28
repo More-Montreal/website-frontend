@@ -62,7 +62,11 @@
         }
     },
     "policies": {
-        "filter_party": "Filter by political party support",
+        "parties_score": "Political parties score",
+        "ideas": "Ideas",
+        "political_support": "Political support",
+        "no_support": "This policy hasn't been supported by a political party yet",
+        "why_it_matters": "Why it matters",
         "more_info": "More info",
         "supported_by": "Supported by"
     }

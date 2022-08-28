@@ -132,6 +132,9 @@ const config: GatsbyConfig = {
                 populate: {
                   policies: {
                     populate: {
+                      policy_category: {
+                        populate: "*"
+                      },
                       policy_supports: {
                         populate: {
                           political_parties: {

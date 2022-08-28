@@ -91,7 +91,7 @@ export type PolicyData = {
     explanation: string;
     justification: string;
     policy_supports: PolicySupportData[];
-    category?: PolicyCategoryData;
+    policy_category?: PolicyCategoryData;
     grade: PolicyGrade;
 };
 
