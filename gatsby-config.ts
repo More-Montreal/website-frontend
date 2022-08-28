@@ -142,7 +142,7 @@ const config: GatsbyConfig = {
                     }
                   }
                 },
-              },
+              }
             },
           },
           pluginOptions: {

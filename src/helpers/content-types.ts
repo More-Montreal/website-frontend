@@ -80,12 +80,19 @@ export type PolicyCategoryData = {
     policies?: PolicyData[];
 };
 
+export enum PolicyGrade {
+    BRONZE = 'bronze',
+    SILVER = 'silver',
+    GOLD = 'gold'
+};
+
 export type PolicyData = {
     title: string;
     explanation: string;
     justification: string;
     policy_supports: PolicySupportData[];
     category?: PolicyCategoryData;
+    grade: PolicyGrade;
 };
 
 export enum PoliticalPartyJurisdiction {
@@ -108,4 +115,5 @@ export type PolicySupportData = {
     author: string;
     political_party?: PoliticalPartyData;
     policy?: PolicyData;
+    fullSupport: boolean;
 };

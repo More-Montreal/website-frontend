@@ -4,8 +4,10 @@ import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import React, {useState} from 'react';
 import { useTranslation } from 'react-i18next';
 import Button, { ButtonType } from '../components/button';
+import GradeMedal from '../components/policies/grade-medal';
+import SupportTick from '../components/policies/support-tick';
 import SEO from '../components/seo';
-import { Nodes, PolicyCategoryData, PolicyData, PolicySupportData, PoliticalPartyData, StrapiImage } from '../helpers/content-types';
+import { Nodes, PolicyCategoryData, PolicyData, PolicyGrade, PolicySupportData, PoliticalPartyData, StrapiImage } from '../helpers/content-types';
 import JsonDebug from '../helpers/json-debug';
 
 type PoliciesPageData = {
@@ -27,29 +29,46 @@ const PoliciesPage = ({data}: PageProps<PoliciesPageData>) => {
     const heroBackground = getImage(content.heroBackground.localFile);
     const policyCategories = content.policy_categories.filter(cat => (cat.policies !== undefined && cat.policies.length > 0));
 
-    const [selectedParties, setSelectedParties] = useState<string[]>([]);
+    const pointsForGrade = {
+        [PolicyGrade.BRONZE]: 1,
+        [PolicyGrade.SILVER]: 2,
+        [PolicyGrade.GOLD]: 4
+    };
+    let maxScore = 0;
+    policyCategories.forEach(category => {
+        category.policies?.forEach(policy => {
+            maxScore += pointsForGrade[policy.grade];
+        });
+    });
 
-    const toggleParty = (party: PoliticalPartyData) => {
-        if (selectedParties.find(partyShortName => partyShortName === party.shortName)) {
-            setSelectedParties(selectedParties.filter(partyShortName => partyShortName !== party.shortName));
-        } else {
-            setSelectedParties([...selectedParties, party.shortName]);
-        }
+    const getPartySupport = (party: PoliticalPartyData, policy: PolicyData) => {
+        return policy.policy_supports?.find((support) => {
+            return support.political_party?.shortName === party.shortName;
+        });
     };
 
-    const isPartySelected = (party: PoliticalPartyData) => {
-        return selectedParties.find(partyShortName => partyShortName === party.shortName) === party.shortName;
-    };
+    const renderPartyScore = (party: PoliticalPartyData) => {
+        let score = 0;
+        party.policy_supports?.forEach(support => {
+            score += (support.fullSupport) ? pointsForGrade[support.policy!.grade] : pointsForGrade[support.policy!.grade] / 2;
+        });
 
-    const renderSupports = (policySupports: PolicySupportData[]) => {
+        const supportPercentage = score / maxScore * 100;
+        const supportToTen = (score / maxScore * 10).toFixed(1);
+        const color = party.color || 'gray';
+
         return (
-            <p className="flex items-center">
-                <span className="text-xs font-bold text-gray-500 uppercase">{t('policies.supported_by')}</span>
-                {policySupports.map((policySupport: PolicySupportData, index: number) => {
-                    const color = policySupport.political_party?.color || 'gray';
-                    return <span key={'party-' + index} className={`text-xs mx-1 rounded-full inline-block font-medium px-1 bg-${color}-100 text-${color}-800`}>{policySupport.political_party?.shortName}</span>
-                })}
-            </p>
+            <div className="">
+                <div className="px-8 py-4">
+                    <p className={`text-xl font-display font-bold text-${color}-800 text-right`}>{supportToTen}/10</p>
+                    <div className="w-full h-4 relative bg-gray-100 rounded-full overflow-hidden">
+                        <span className={`block h-full bg-${color}-500`} style={{width: `${supportPercentage}%`}}></span>
+                    </div>
+                </div>
+                <div className="flex items-center justify-center">
+                    <p className={`mx-1 rounded-full inline-block font-medium px-3 py-1.5 bg-${color}-100 text-${color}-800`}>{party.name}</p>
+                </div>
+            </div>
         );
     };
 
@@ -81,44 +100,62 @@ const PoliciesPage = ({data}: PageProps<PoliciesPageData>) => {
             </div>
             <div className="w-full h-auto bg-gray-50">
                 <div className="m-auto max-w-screen-2xl">
+                    <div className="py-10 flex">
+                        <h2 className="text-3xl"></h2>
+                        {parties.nodes.map((party, index) => {
+                            return (
+                                <div className="flex-1" key={index}>{renderPartyScore(party)}</div>
+                            )
+                        })}
+                    </div>
                     <div className="py-10">
-                        <div className="">
-                            <p className="mb-2 font-medium text-gray-700">{t("policies.filter_party")}</p>
-                            <div className="flex gap-2">
-                                {parties.nodes.map((party: PoliticalPartyData, index: number) => {
-                                    const opacity = (isPartySelected(party)) ? 'opacity-100' : 'opacity-60';
-                                    return (
-                                        <div onClick={() => toggleParty(party)} key={'party-' + index} className={`cursor-pointer rounded-full text-sm px-3 py-1.5 font-medium bg-${party.color}-100 text-${party.color}-800 ${opacity}`}>{party.name}</div>
-                                    );
-                                })}
-                            </div>
+                        <div className="grid grid-cols-12 gap-4">
+                            <p className="text-3xl font-display text-gray-800 font-bold col-span-7">Idées</p>
+                            <p className="text-3xl font-display text-gray-800 font-bold text-center col-span-5">Soutien des partis</p>
                         </div>
                         {policyCategories.map((category: PolicyCategoryData, index: number) => {
                             return (
                                 <div className="py-8" key={'cat-' + index}>
-                                    <p className="mb-4 text-2xl font-bold text-gray-800 font-display">{category.name}</p>
-                                    <div className="grid grid-cols-4 gap-4">
-                                        {category.policies?.map((policy: PolicyData, policyIndex: number) => {
-                                            let opacity = "opacity-100";
-                                            if (selectedParties.length) {
-                                                opacity = "opacity-50";
-                                                policy.policy_supports?.forEach((support: PolicySupportData) => {
-                                                    if (isPartySelected(support.political_party!)) {
-                                                        opacity = "opacity-100";
-                                                    }
-                                                });
-                                            }
+                                    <div className="grid grid-cols-12">
+                                        <p className="mb-4 text-2xl font-bold text-gray-800 font-display col-span-7">{category.name}</p>
+                                        <div className="flex col-span-5">
+                                            {parties.nodes.map((party: PoliticalPartyData, index: number) => {
+                                                const color = party.color || 'gray';
+                                                const background = (index % 2 == 0) ? 'bg-gray-100 rounded-t-xl' : '';
 
-                                            return (
-                                                <div className={`p-4 transition-all duration-200 bg-white border border-gray-200 shadow-md cursor-pointer hover:shadow-xl rounded-xl ${opacity}`} key={'policy-' + policyIndex}>
-                                                    <p className="text-lg font-medium text-gray-700">{policy.title}</p>
-                                                    <p className="text-gray-600">{policy.explanation}</p>
-                                                    <div className="flex justify-between pt-2">
-                                                        {(policy.policy_supports !== undefined && policy.policy_supports.length > 0) && renderSupports(policy.policy_supports)}
-                                                        <p className="text-xs font-bold text-gray-500 uppercase">{t("policies.more_info")}</p>
+                                                return (
+                                                    <div className={`flex flex-1 justify-center items-center ${background}`} key={index}>
+                                                        <p className={`text-xs mx-1 rounded-full inline-block font-medium px-2 py-1.5 bg-${color}-100 text-${color}-800`}>{party.shortName}</p>
                                                     </div>
+                                                );
+                                            })}
+                                        </div>
+                                    </div>
+
+                                    <div className="grid grid-cols-12">
+                                        {category.policies?.map((policy: PolicyData, policyIndex: number) => {
+                                            return [
+                                                <div className="col-span-7 pr-4 py-2" key={policyIndex}>
+                                                    <div className="flex items-center gap-2">
+                                                        <div className="w-4"><GradeMedal grade={policy.grade}/></div>
+                                                        <p className="text-lg font-medium text-gray-700 flex items-center">{policy.title}</p>
+                                                    </div>
+                                                    <p className="text-gray-600">{policy.explanation}</p>
+                                                </div>,
+                                                <div className="flex col-span-5" key={'supports-' + policyIndex}>
+                                                    {parties.nodes.map((party: PoliticalPartyData, index: number) => {
+                                                        const partySupport = getPartySupport(party, policy);
+                                                        const background = (index % 2 == 0) ? 'bg-gray-100' : '';
+                                                        const rounded = (policyIndex === category.policies!.length - 1) ? 'rounded-b-xl' : '';
+
+                                                        return (
+                                                            <div className={`flex flex-1 justify-center items-center ${background} ${rounded}`} key={`policy-${policyIndex}-support-${index}`}>
+                                                                {typeof partySupport !== 'undefined' && <SupportTick color={party.color} full={partySupport.fullSupport}/>}
+                                                            </div>
+                                                        );
+                                                    })}
                                                 </div>
-                                            );
+                                            ];
                                         })}
                                     </div>
                                 </div>
@@ -151,10 +188,12 @@ query($language: String!) {
                 title
                 explanation
                 justification
+                grade
                 policy_supports {
                     quote
                     source
                     author
+                    fullSupport
                     political_party {
                         name
                         shortName
@@ -170,6 +209,18 @@ query($language: String!) {
             name
             shortName
             color
+            policy_supports {
+                quote
+                source
+                author
+                fullSupport
+                policy {
+                    title
+                    explanation
+                    justification
+                    grade
+                }
+            }
         }
     }
     locales: allLocale(filter: {language: {eq: $language}}) {
