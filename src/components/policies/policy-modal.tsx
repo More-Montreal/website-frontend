@@ -1,8 +1,6 @@
-import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { EventData, PolicyData } from '../../helpers/content-types';
-import Button, { ButtonType } from '../button';
+import { PolicyData } from '../../helpers/content-types';
 import GradeMedal from './grade-medal';
 import SupportTick from './support-tick';
 

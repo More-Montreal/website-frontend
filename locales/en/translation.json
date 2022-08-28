@@ -68,6 +68,23 @@
         "no_support": "This policy hasn't been supported by a political party yet",
         "why_it_matters": "Why it matters",
         "more_info": "More info",
-        "supported_by": "Supported by"
+        "supported_by": "Supported by",
+        "how_it_works": "How are the scores calculated?",
+        "scoring_breakdown": {
+            "title": "Scoring breakdown",
+            "description": "We scored political parties on ideas that we judge important to address the housing crisis. These ideas have been discussed and ranked internally by the members of More Montreal.",
+            "ranking_title": "Ideas grading",
+            "ranking_description": "Each idea has been judged and ranked on their effectiveness in solving the housing crisis. They have been divided in three groups each of them scoring differently.",
+            "bronze": "Bronze",
+            "silver": "Argent",
+            "gold": "Gold",
+            "support_type": "Kind of support",
+            "partial_support": "Partial support",
+            "half_points": "Only half of the points will be added to the score.",
+            "full_support": "Full support",
+            "full_points": "All of the points will be added.",
+            "final_score_title": "Final score",
+            "final_score_description": "The final score is the total accumulated score of the parties against the maximum reachable score."
+        }
     }
 }

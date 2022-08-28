@@ -8,6 +8,7 @@ import Footer from '../components/footer';
 import InvolvementCallout, { InvolvementData } from '../components/involvement-callout';
 import GradeMedal from '../components/policies/grade-medal';
 import PolicyModal from '../components/policies/policy-modal';
+import ScoreBreakdownModal from '../components/policies/score-breakdown-modal';
 import SupportTick from '../components/policies/support-tick';
 import SEO from '../components/seo';
 import { Nodes, PolicyCategoryData, PolicyData, PolicyGrade, PolicySupportData, PoliticalPartyData, SocialLinks, StrapiImage } from '../helpers/content-types';
@@ -34,6 +35,7 @@ const PoliciesPage = ({data}: PageProps<PoliciesPageData>) => {
     const heroBackground = getImage(content.heroBackground.localFile);
     const policyCategories = content.policy_categories.filter(cat => (cat.policies !== undefined && cat.policies.length > 0));
     const [selectedPolicy, setSelectedPolicy] = useState<PolicyData | null>(null);
+    const [displayScoreBreakdown, setDisplayScoreBreakdown] = useState<boolean>(false);
 
     const pointsForGrade = {
         [PolicyGrade.BRONZE]: 1,
@@ -106,7 +108,10 @@ const PoliciesPage = ({data}: PageProps<PoliciesPageData>) => {
             </div>
             <div className="w-full h-auto bg-gray-50">
                 <div className="m-auto max-w-screen-2xl">
-                    <h2 className="text-2xl lg:text-3xl font-display font-bold text-gray-800 text-center pt-10">{t('policies.parties_score')}</h2>
+                    <div className="flex justify-center flex-wrap">
+                        <h2 className="w-full text-2xl lg:text-3xl font-display font-bold text-gray-800 text-center pt-10">{t('policies.parties_score')}</h2>
+                        <p onClick={() => setDisplayScoreBreakdown(true)} className="cursor-pointer text-gray-700 font-medium underline">{t('policies.how_it_works')}</p>
+                    </div>
                     <div className="py-10 grid grid-cols-10 gap-2">
                         {parties.nodes.map((party, index) => {
                             return (
@@ -197,6 +202,7 @@ const PoliciesPage = ({data}: PageProps<PoliciesPageData>) => {
                 <Button type={ButtonType.TRANSPARENT} href="/blog">{t('home.sections.blog.nav')}</Button>
             </Footer>
             {selectedPolicy && <PolicyModal policy={selectedPolicy} onClose={() => setSelectedPolicy(null)}/>}
+            {displayScoreBreakdown && <ScoreBreakdownModal onClose={() => setDisplayScoreBreakdown(false)}/>}
         </div>
     );
 };
