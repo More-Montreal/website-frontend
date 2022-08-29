@@ -166,7 +166,7 @@ const PoliciesPage = ({data}: PageProps<PoliciesPageData>) => {
                                                     <p className="text-sm lg:text-base text-gray-600">{policy.explanation}</p>
                                                 </div>
                                                 <div className="lg:hidden col-span-12">
-                                                    <p className="text-xs uppercase text-gray-500 font-medium mb-1">{t('policies.supported_by')}</p>
+                                                    {policy.policy_supports.length > 0 && <p className="text-xs uppercase text-gray-500 font-medium mb-1">{t('policies.supported_by')}</p>}
                                                     <div className="flex flex-wrap gap-2">
                                                         {policy.policy_supports.map((support, index) => {
                                                             const color = support.political_party?.color || 'gray';
