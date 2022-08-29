@@ -50,6 +50,21 @@ const PoliciesPage = ({data}: PageProps<PoliciesPageData>) => {
         category.policies?.forEach(policy => {
             maxScore += pointsForGrade[policy.grade];
         });
+
+        category.policies?.sort((a, b) => {
+            switch (a.grade) {
+                case PolicyGrade.BRONZE: {
+                    if (b.grade === PolicyGrade.BRONZE) return -1;
+                    return 1;
+                }
+                case PolicyGrade.SILVER: {
+                    if (b.grade === PolicyGrade.BRONZE || b.grade === PolicyGrade.SILVER) return -1;
+                    return 1;
+                }
+                case PolicyGrade.GOLD: return 1;
+                default: return -1;
+            }
+        });
     });
 
     const getPartySupport = (party: PoliticalPartyData, policy: PolicyData) => {
