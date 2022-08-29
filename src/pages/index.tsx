@@ -67,6 +67,9 @@ const IndexPage = ({data}: PageProps<IndexData>) => {
     return (
         <div>
             <SEO/>
+            <Link to="/policies" className="block w-full bg-blue-300 text-center p-4">
+                <p className="text-sm lg:text-lg font-medium text-blue-900">{t('home.policies_banner')}</p>
+            </Link>
             <div className="w-full h-auto lg:h-[645px] relative bg-opacity-90 overflow-hidden">
                 <div className="absolute w-full h-full">
                     <div className="relative h-full m-auto max-w-screen-2xl">

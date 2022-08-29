@@ -1,4 +1,4 @@
-import { graphql, PageProps } from 'gatsby';
+import { graphql, Link, PageProps } from 'gatsby';
 import { AnchorLink } from 'gatsby-plugin-anchor-links';
 import { OutboundLink } from 'gatsby-plugin-google-gtag';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
@@ -116,11 +116,9 @@ const PoliciesPage = ({data}: PageProps<PoliciesPageData>) => {
                 />
                 <div className="relative z-10 flex flex-col items-center h-full px-4 py-6 m-auto max-w-screen-2xl">
                     <div className="flex items-center justify-between w-full">
-                        <p className="text-3xl font-bold text-white font-display">{t('site_title')}</p>
+                        <Link to="/" className="text-3xl font-bold text-white font-display">{t('site_title')}</Link>
                         <div className="flex items-center gap-10">
-                            <AnchorLink stripHash to="#actions" className="hidden text-lg font-medium text-white lg:inline">{t('home.sections.actions.nav')}</AnchorLink>
-                            <AnchorLink stripHash to="#vision" className="hidden text-lg font-medium text-white lg:inline">{t('home.sections.fight.nav')}</AnchorLink>
-                            <AnchorLink stripHash to="#involvement" className="hidden text-lg font-medium text-white lg:inline">{t('home.sections.involvement.nav')}</AnchorLink>
+                            <Link to="/" className="hidden text-lg font-medium text-white lg:inline">{t('policies.home')}</Link>
                             <Button type={ButtonType.TRANSPARENT} href="/blog">{t('home.sections.blog.nav')}</Button>
                         </div>
                     </div>
@@ -213,9 +211,7 @@ const PoliciesPage = ({data}: PageProps<PoliciesPageData>) => {
                 joinLink={data.involvementCallout.joinLink}
             />
             <Footer socials={data.socials}>
-                <a href="#actions" className="hidden text-lg font-medium text-white lg:inline">{t('home.sections.actions.nav')}</a>
-                <a href="#vision" className="hidden text-lg font-medium text-white lg:inline">{t('home.sections.fight.nav')}</a>
-                <a href="#involvement" className="hidden text-lg font-medium text-white lg:inline">{t('home.sections.involvement.nav')}</a>
+                <Link to="/" className="hidden text-lg font-medium text-white lg:inline">{t('policies.home')}</Link>
                 <Button type={ButtonType.TRANSPARENT} href="/blog">{t('home.sections.blog.nav')}</Button>
             </Footer>
             {selectedPolicy && <PolicyModal policy={selectedPolicy} onClose={() => setSelectedPolicy(null)}/>}
