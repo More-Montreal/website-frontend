@@ -84,7 +84,8 @@ const PoliciesPage = ({data}: PageProps<PoliciesPageData>) => {
     };
 
     const renderScore = () => {
-        const params = new URLSearchParams(window.location.search)
+        const search = (typeof window !== 'undefined') ? window.location.search : undefined;
+        const params = new URLSearchParams(search);
 
         if (content.scoreParties || params.get('score')) {
             return [
