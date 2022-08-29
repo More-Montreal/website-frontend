@@ -108,11 +108,11 @@ const PoliciesPage = ({data}: PageProps<PoliciesPageData>) => {
 
         if (content.scoreParties || params.get('score')) {
             return [
-                <div className="flex justify-center flex-wrap" key={0}>
+                <div className="flex justify-center flex-wrap" key="heading">
                     <h2 className="w-full text-2xl lg:text-3xl font-display font-bold text-gray-800 text-center pt-10">{t('policies.parties_score')}</h2>
                     <p onClick={() => setDisplayScoreBreakdown(true)} className="cursor-pointer text-gray-700 font-medium underline">{t('policies.how_it_works')}</p>
                 </div>,
-                <div className="py-10 grid grid-cols-10 gap-2" key={1}>
+                <div className="py-10 grid grid-cols-10 gap-2" key="scores">
                     {parties.nodes.map((party, index) => {
                         return (
                             <div className="col-span-10 md:col-span-5 lg:col-span-3 xl:col-span-2" key={'score-' + index}>{renderPartyScore(party)}</div>
