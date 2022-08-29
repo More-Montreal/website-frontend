@@ -1,5 +1,6 @@
 import { graphql, PageProps } from 'gatsby';
 import { AnchorLink } from 'gatsby-plugin-anchor-links';
+import { OutboundLink } from 'gatsby-plugin-google-gtag';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import React, {useState} from 'react';
 import { useTranslation } from 'react-i18next';
@@ -18,6 +19,8 @@ type PoliciesPageData = {
     content: {
         heroTitle: string;
         heroDescription: string;
+        scoreParties: boolean;
+        feedbackEmail: string;
         heroBackground: StrapiImage;
         policy_categories: PolicyCategoryData[];
     }
@@ -80,9 +83,30 @@ const PoliciesPage = ({data}: PageProps<PoliciesPageData>) => {
         );
     };
 
+    const renderScore = () => {
+        const params = new URLSearchParams(window.location.search)
+
+        if (content.scoreParties || params.get('score')) {
+            return [
+                <div className="flex justify-center flex-wrap" key={0}>
+                    <h2 className="w-full text-2xl lg:text-3xl font-display font-bold text-gray-800 text-center pt-10">{t('policies.parties_score')}</h2>
+                    <p onClick={() => setDisplayScoreBreakdown(true)} className="cursor-pointer text-gray-700 font-medium underline">{t('policies.how_it_works')}</p>
+                </div>,
+                <div className="py-10 grid grid-cols-10 gap-2" key={1}>
+                    {parties.nodes.map((party, index) => {
+                        return (
+                            <div className="col-span-10 md:col-span-5 lg:col-span-3 xl:col-span-2" key={'score-' + index}>{renderPartyScore(party)}</div>
+                        )
+                    })}
+                </div>
+            ];
+        }
+        return null;
+    }
+
     return (
         <div>
-            <SEO/>
+            <SEO metaTitle={content.heroTitle} metaDescription={content.heroDescription} shareImage={content.heroBackground.localFile.url!}/>
             <div className="relative w-full h-auto">
                 <div className="absolute z-10 w-full h-full bg-blue-600/90"></div>
                 <GatsbyImage
@@ -108,17 +132,7 @@ const PoliciesPage = ({data}: PageProps<PoliciesPageData>) => {
             </div>
             <div className="w-full h-auto bg-gray-50">
                 <div className="m-auto max-w-screen-2xl">
-                    <div className="flex justify-center flex-wrap">
-                        <h2 className="w-full text-2xl lg:text-3xl font-display font-bold text-gray-800 text-center pt-10">{t('policies.parties_score')}</h2>
-                        <p onClick={() => setDisplayScoreBreakdown(true)} className="cursor-pointer text-gray-700 font-medium underline">{t('policies.how_it_works')}</p>
-                    </div>
-                    <div className="py-10 grid grid-cols-10 gap-2">
-                        {parties.nodes.map((party, index) => {
-                            return (
-                                <div className="col-span-10 md:col-span-5 lg:col-span-3 xl:col-span-2" key={index}>{renderPartyScore(party)}</div>
-                            )
-                        })}
-                    </div>
+                    {renderScore()}
                     <div className="py-10 px-2 lg:px-4">
                         <div className="hidden lg:grid grid-cols-12 gap-4">
                             <p className="text-xl lg:text-3xl font-display text-gray-800 font-bold col-span-7">{t('policies.ideas')}</p>
@@ -188,6 +202,9 @@ const PoliciesPage = ({data}: PageProps<PoliciesPageData>) => {
                         })}
                     </div>
                 </div>
+                <div className="flex justify-center pb-8">
+                    <OutboundLink className="underline text-blue-500" href={`mailto: ${content.feedbackEmail}`}>{t('policies.something_missing')}</OutboundLink>
+                </div>
             </div>
             <InvolvementCallout
                 title={data.involvementCallout.title}
@@ -213,12 +230,15 @@ query($language: String!) {
     content: strapiPoliciesPage(locale: {eq: $language}) {
         heroTitle
         heroDescription
+        scoreParties
+        feedbackEmail
         heroBackground {
             alternativeText
             localFile {
                 childImageSharp {
                     gatsbyImageData(breakpoints: [320, 768, 1536], placeholder: BLURRED)
                 }
+                url
             }
         }
         policy_categories {

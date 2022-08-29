@@ -1,3 +1,4 @@
+import { OutboundLink } from 'gatsby-plugin-google-gtag';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { PolicyData } from '../../helpers/content-types';
@@ -52,7 +53,7 @@ const PolicyModal = ({policy, onClose}: PolicyModalProps) => {
                                     <p className="italic py-2 text-gray-700">{support.quote}</p>
                                     <div className="flex justify-end gap-2 items-center">
                                         {support.author && <p className="text-sm text-gray-600">{support.author}</p>}
-                                        <a className="text-xs text-gray-400 underline" href={support.source} target="_blank">Source</a>
+                                        <OutboundLink className="text-xs text-gray-400 underline" href={support.source} target="_blank">Source</OutboundLink>
                                     </div>
                                 </div>
                             );
