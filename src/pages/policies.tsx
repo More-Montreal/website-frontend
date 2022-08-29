@@ -54,15 +54,19 @@ const PoliciesPage = ({data}: PageProps<PoliciesPageData>) => {
         category.policies?.sort((a, b) => {
             switch (a.grade) {
                 case PolicyGrade.BRONZE: {
-                    if (b.grade === PolicyGrade.BRONZE) return -1;
+                    if (b.grade === PolicyGrade.BRONZE) return 0;
                     return 1;
                 }
                 case PolicyGrade.SILVER: {
-                    if (b.grade === PolicyGrade.BRONZE || b.grade === PolicyGrade.SILVER) return -1;
+                    if (b.grade === PolicyGrade.BRONZE) return -1;
+                    if (b.grade === PolicyGrade.SILVER) return 0;
                     return 1;
                 }
-                case PolicyGrade.GOLD: return 1;
-                default: return -1;
+                case PolicyGrade.GOLD: {
+                    if (b.grade === PolicyGrade.GOLD) return 0;
+                    return -1;
+                }
+                default: return 0;
             }
         });
     });
