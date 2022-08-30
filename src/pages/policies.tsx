@@ -22,6 +22,7 @@ type PoliciesPageData = {
         scoreParties: boolean;
         feedbackEmail: string;
         heroBackground: StrapiImage;
+        seoImage: StrapiImage;
         policy_categories: PolicyCategoryData[];
     }
     politicalParties: Nodes<PoliticalPartyData>;
@@ -65,12 +66,7 @@ const PoliciesPage = ({data}: PageProps<PoliciesPageData>) => {
         }
     };
 
-    let maxScore = 0;
     policyCategories.forEach(category => {
-        category.policies?.forEach(policy => {
-            maxScore += pointsForGrade[policy.grade];
-        });
-
         category.policies?.sort((a, b) => sortByGrade(a.grade, b.grade));
     });
 
@@ -161,7 +157,7 @@ const PoliciesPage = ({data}: PageProps<PoliciesPageData>) => {
 
     return (
         <div>
-            <SEO metaTitle={content.heroTitle} metaDescription={content.heroDescription} shareImage={content.heroBackground.localFile.url!}/>
+            <SEO metaTitle={content.heroTitle} metaDescription={content.heroDescription} shareImage={content.seoImage.localFile.url!}/>
             <div className="relative w-full h-auto">
                 <div className="absolute z-10 w-full h-full bg-blue-600/90"></div>
                 <GatsbyImage
@@ -289,6 +285,12 @@ query($language: String!) {
                 childImageSharp {
                     gatsbyImageData(breakpoints: [320, 768, 1536], placeholder: BLURRED)
                 }
+                url
+            }
+        }
+        seoImage {
+            alternativeText
+            localFile {
                 url
             }
         }

@@ -125,6 +125,9 @@ const config: GatsbyConfig = {
           singularName: 'policies-page',
           queryParams: {
             populate: {
+              seoImage: {
+                populate: '*'
+              },
               heroBackground: {
                 populate: "*"
               },
