@@ -15,6 +15,7 @@ import Footer from "../components/footer";
 import { AnchorLink } from "gatsby-plugin-anchor-links";
 import { Link } from "gatsby-plugin-react-i18next";
 import SEO from "../components/seo";
+import ArrowRight from '../../assets/ArrowRight.svg';
 
 type IndexCardData<T extends (PostCardData | ActionCardData | EventCardData)> = T & {
     type: "post" | "action" | "event";
@@ -67,8 +68,8 @@ const IndexPage = ({data}: PageProps<IndexData>) => {
     return (
         <div>
             <SEO/>
-            <Link to="/policies" className="block w-full bg-blue-300 text-center p-4">
-                <p className="text-sm lg:text-lg font-medium text-blue-900">{t('home.policies_banner')}</p>
+            <Link to="/policies" className="block w-full bg-blue-300 lg:text-center p-4">
+                <p className="text-sm lg:text-lg font-medium text-blue-900 flex items-center justify-center gap-2">{t('home.policies_banner')}<ArrowRight className="w-12 lg:w-6 flex-shrink fill-blue-900"/></p>
             </Link>
             <div className="w-full h-auto lg:h-[645px] relative bg-opacity-90 overflow-hidden">
                 <div className="absolute w-full h-full">
