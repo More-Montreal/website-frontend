@@ -74,7 +74,7 @@
         "how_it_works": "Comment sont calculés les scores ?",
         "something_missing": "On a manqué quelque chose ? Contactez-nous",
         "scoring_breakdown": {
-            "title": "Détail du système de notation",
+            "title": "Détail du système de score",
             "description": "Nous avons noté les partis politiques sur les idées que nous pensons importantes pour addresser la crise du logement. Ces idées ont été discutées et classées en interne par les membres de Construisons Montréal.",
             "ranking_title": "Classement des idées",
             "ranking_description": "Les idées ont été jugés et classés par leur impact potentiel face à la crise du logement. Nous les avons divisés en trois groupes, chacun rapportant un nombre de points différent.",
@@ -86,8 +86,8 @@
             "half_points": "Seul la moitié des points seront compatibilisé",
             "full_support": "Support total",
             "full_points": "L'entierté des points seront compatibilisés",
-            "final_score_title": "Note finale",
-            "final_score_description": "La note finale correspond au score total accumulé des partis rapporté au score maximum atteignable"
+            "final_score_title": "Score final et classement",
+            "final_score_description": "Les partis sont classés sur leur score final accumulé"
         }
     }
 }
