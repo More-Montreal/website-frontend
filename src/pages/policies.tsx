@@ -113,7 +113,7 @@ const PoliciesPage = ({data}: PageProps<PoliciesPageData>) => {
 
         return (
             <div className="col-span-10 md:col-span-5 lg:col-span-3 xl:col-span-2 flex flex-wrap justify-center items-end py-4" key={party.shortName}>
-                <div className="-mt-5 px-12 py-4 w-full items-end flex h-full">
+                <div className="-mt-5 px-12 lg:px-28 py-4 w-full items-end flex h-full">
                     <div className="flex gap-2 w-full items-center justify-center flex-wrap-reverse flex-row-reverse">
                         <p className="text-3xl font-display font-bold text-gray-600 text-center w-full">#{ranking + 1} <span className="text-gray-800 text-4xl">{score}</span></p>
                         {medals.map((medal, index) => {
