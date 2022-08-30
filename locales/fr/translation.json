@@ -86,8 +86,8 @@
             "half_points": "Seuls la moitié des points seront compatibilisés",
             "full_support": "Support total",
             "full_points": "L'entierté des points seront compatibilisés",
-            "final_score_title": "Note finale",
-            "final_score_description": "La note finale correspond au score total accumulé des partis rapporté au score maximum atteignable"
+            "final_score_title": "Score final et classement",
+            "final_score_description": "Les partis sont classés sur leur score final accumulé"
         }
     }
 }
