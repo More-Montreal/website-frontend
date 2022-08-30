@@ -45,30 +45,51 @@ const PoliciesPage = ({data}: PageProps<PoliciesPageData>) => {
         [PolicyGrade.SILVER]: 2,
         [PolicyGrade.GOLD]: 4
     };
+
+    const sortByGrade = (a: PolicyGrade, b: PolicyGrade) => {
+        switch (a) {
+            case PolicyGrade.BRONZE: {
+                if (b === PolicyGrade.BRONZE) return 0;
+                return 1;
+            }
+            case PolicyGrade.SILVER: {
+                if (b === PolicyGrade.BRONZE) return -1;
+                if (b === PolicyGrade.SILVER) return 0;
+                return 1;
+            }
+            case PolicyGrade.GOLD: {
+                if (b === PolicyGrade.GOLD) return 0;
+                return -1;
+            }
+            default: return 0;
+        }
+    };
+
     let maxScore = 0;
     policyCategories.forEach(category => {
         category.policies?.forEach(policy => {
             maxScore += pointsForGrade[policy.grade];
         });
 
-        category.policies?.sort((a, b) => {
-            switch (a.grade) {
-                case PolicyGrade.BRONZE: {
-                    if (b.grade === PolicyGrade.BRONZE) return 0;
-                    return 1;
-                }
-                case PolicyGrade.SILVER: {
-                    if (b.grade === PolicyGrade.BRONZE) return -1;
-                    if (b.grade === PolicyGrade.SILVER) return 0;
-                    return 1;
-                }
-                case PolicyGrade.GOLD: {
-                    if (b.grade === PolicyGrade.GOLD) return 0;
-                    return -1;
-                }
-                default: return 0;
-            }
+        category.policies?.sort((a, b) => sortByGrade(a.grade, b.grade));
+    });
+
+    const partyRankings: [string, number][] = [];
+    for (let party of parties.nodes) {
+        let score = 0;
+        party.policy_supports?.forEach(support => {
+            score += (support.fullSupport) ? pointsForGrade[support.policy!.grade] : pointsForGrade[support.policy!.grade] / 2;
         });
+
+        partyRankings.push([party.shortName, score]);
+    }
+    partyRankings.sort(([partyA, scoreA], [partyB, scoreB]) => scoreB - scoreA);
+
+    const rankedParties = parties.nodes.slice();
+    rankedParties.sort((partyA, partyB) => {
+        const scoreA = partyRankings.find(([shortName, score]) => shortName === partyA.shortName)!;
+        const scoreB = partyRankings.find(([shortName, score]) => shortName === partyB.shortName)!;
+        return scoreB[1] - scoreA[1];
     });
 
     const getPartySupport = (party: PoliticalPartyData, policy: PolicyData) => {
@@ -78,26 +99,34 @@ const PoliciesPage = ({data}: PageProps<PoliciesPageData>) => {
     };
 
     const renderPartyScore = (party: PoliticalPartyData) => {
-        let score = 0;
-        party.policy_supports?.forEach(support => {
-            score += (support.fullSupport) ? pointsForGrade[support.policy!.grade] : pointsForGrade[support.policy!.grade] / 2;
-        });
+        const ranking = partyRankings.findIndex(([shortName, score]) => shortName === party.shortName);
+        const score = partyRankings[ranking][1].toFixed(0);
 
-        const supportPercentage = score / maxScore * 100;
-        const supportToTen = (score / maxScore * 10).toFixed(1);
         const color = party.color || 'gray';
+        let medals = party.policy_supports!.map((support, index) => {
+            return {
+                grade: support.policy!.grade,
+                halved: support.fullSupport
+            }
+        });
+        medals = medals.flatMap((val => [val, val, val, val, val, val, val]));
+        medals.sort((a, b) => sortByGrade(a.grade, b.grade)).reverse();
 
         return (
-            <div className="">
-                <div className="px-8 py-4">
-                    <p className={`lg:text-xl font-display font-bold text-${color}-800 text-right`}>{supportToTen}/10</p>
-                    <div className="w-full h-3 lg:h-4 relative bg-gray-100 rounded-full overflow-hidden">
-                        <span className={`block h-full bg-${color}-500`} style={{width: `${supportPercentage}%`}}></span>
+            <div className="col-span-10 md:col-span-5 lg:col-span-3 xl:col-span-2 flex flex-wrap justify-center items-end py-4" key={party.shortName}>
+                <div className="-mt-5 px-12 py-4 w-full items-end flex h-full">
+                    <div className="flex gap-2 w-full items-center justify-center flex-wrap-reverse flex-row-reverse">
+                        <p className="text-3xl font-display font-bold text-gray-600 text-center w-full">#{ranking + 1} <span className="text-gray-800 text-4xl">{score}</span></p>
+                        {medals.map((medal, index) => {
+                            return (
+                                <div className="w-7 -order-1" key={index}>
+                                    <GradeMedal grade={medal.grade}/>
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
-                <div className="flex items-center justify-center">
-                    <p className={`text-sm lg:text-base mx-1 rounded-full inline-block font-medium px-3 py-1.5 bg-${color}-100 text-${color}-800`}>{party.name}</p>
-                </div>
+                <p className={`text-sm lg:text-base mx-1 rounded-full inline-block font-medium px-3 py-1.5 bg-${color}-100 text-${color}-800`}>{party.name}</p>
             </div>
         );
     };
@@ -107,19 +136,17 @@ const PoliciesPage = ({data}: PageProps<PoliciesPageData>) => {
         const params = new URLSearchParams(search);
 
         if (content.scoreParties || params.get('score')) {
-            return [
-                <div className="flex justify-center flex-wrap" key="heading">
-                    <h2 className="w-full text-2xl lg:text-3xl font-display font-bold text-gray-800 text-center pt-10">{t('policies.parties_score')}</h2>
-                    <p onClick={() => setDisplayScoreBreakdown(true)} className="cursor-pointer text-gray-700 font-medium underline">{t('policies.how_it_works')}</p>
-                </div>,
-                <div className="py-10 grid grid-cols-10 gap-2" key="scores">
-                    {parties.nodes.map((party, index) => {
-                        return (
-                            <div className="col-span-10 md:col-span-5 lg:col-span-3 xl:col-span-2" key={'score-' + index}>{renderPartyScore(party)}</div>
-                        )
-                    })}
+            return (
+                <div className="flex items-end justify-center w-full flex-wrap">
+                    <div className="flex justify-center flex-wrap w-full" key="heading">
+                        <h2 className="w-full text-2xl lg:text-3xl font-display font-bold text-gray-800 text-center pt-10">{t('policies.parties_score')}</h2>
+                        <p onClick={() => setDisplayScoreBreakdown(true)} className="cursor-pointer text-gray-700 font-medium underline">{t('policies.how_it_works')}</p>
+                    </div>
+                    <div className="py-10 grid grid-cols-10 gap-2 w-full" key="scores">
+                        {rankedParties.map(party => renderPartyScore(party))}
+                    </div>
                 </div>
-            ];
+            );
         }
         return null;
     }
@@ -162,7 +189,7 @@ const PoliciesPage = ({data}: PageProps<PoliciesPageData>) => {
                                     <div className="grid grid-cols-12 lg:gap-2">
                                         <p className="mb-4 text-lg lg:text-2xl font-bold text-gray-800 font-display col-span-12 lg:col-span-7">{category.name}</p>
                                         <div className="hidden lg:flex col-span-7 lg:col-span-5">
-                                            {parties.nodes.map((party: PoliticalPartyData, index: number) => {
+                                            {rankedParties.map((party: PoliticalPartyData, index: number) => {
                                                 const color = party.color || 'gray';
                                                 const background = (index % 2 == 0) ? 'bg-gray-100 rounded-t-xl' : '';
 
@@ -200,7 +227,7 @@ const PoliciesPage = ({data}: PageProps<PoliciesPageData>) => {
                                                     </div>
                                                 </div>
                                                 <div className="hidden lg:flex col-span-7 lg:col-span-5">
-                                                    {parties.nodes.map((party: PoliticalPartyData, index: number) => {
+                                                    {rankedParties.map((party: PoliticalPartyData, index: number) => {
                                                         const partySupport = getPartySupport(party, policy);
                                                         const background = (index % 2 == 0) ? 'bg-gray-100' : '';
                                                         const rounded = (policyIndex === category.policies!.length - 1) ? 'rounded-b-xl' : '';
