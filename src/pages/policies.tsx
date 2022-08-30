@@ -112,7 +112,7 @@ const PoliciesPage = ({data}: PageProps<PoliciesPageData>) => {
         medals.sort((a, b) => sortByGrade(a.grade, b.grade)).reverse();
 
         return (
-            <div className="col-span-10 md:col-span-5 lg:col-span-3 xl:col-span-2 flex flex-wrap justify-center items-end content-end py-4 relative" key={party.shortName}>
+            <div className="col-span-10 md:col-span-5 lg:col-span-3 xl:col-span-2 flex flex-wrap justify-center items-end content-end lg:py-4 relative" key={party.shortName}>
                 <div className="px-12 lg:px-28 py-4 w-full items-end flex">
                     <div className="flex gap-2 w-full items-center justify-center flex-wrap-reverse flex-row-reverse">
                         {medals.map((medal, index) => {
@@ -125,14 +125,14 @@ const PoliciesPage = ({data}: PageProps<PoliciesPageData>) => {
                     </div>
                 </div>
                 <p className={`text-sm lg:text-base mx-1 rounded-full inline-block font-medium px-3 py-1.5 bg-${color}-100 text-${color}-800`}>{party.name}</p>
-                <div className="grid grid-cols-2 gap-2 w-full justify-around px-12 text-center py-4">
+                <div className="grid grid-cols-2 gap-2 w-full justify-around px-20 lg:px-12 text-center py-4">
                     <div>
-                        <p className="font-display font-bold text-gray-800 text-3xl text-center">{score}</p>
-                        <p className="font-medium text-gray-500 text-lg">{t('policies.points')}</p>
+                        <p className="font-display font-bold text-gray-800 text-xl lg:text-3xl text-center">{score}</p>
+                        <p className="font-medium text-gray-500 lg:text-lg">{t('policies.points')}</p>
                     </div>
                     <div>
-                        <p className="font-display font-bold text-gray-800 text-3xl text-center">#{ranking + 1}</p>
-                        <p className="font-medium text-gray-500 text-lg">{t('policies.rank')}</p>
+                        <p className="font-display font-bold text-gray-800 text-xl lg:text-3xl text-center">#{ranking + 1}</p>
+                        <p className="font-medium text-gray-500 lg:text-lg">{t('policies.rank')}</p>
                     </div>
                 </div>
             </div>
@@ -186,10 +186,10 @@ const PoliciesPage = ({data}: PageProps<PoliciesPageData>) => {
             <div className="w-full h-auto bg-gray-50">
                 <div className="m-auto max-w-screen-2xl">
                     {renderScore()}
-                    <div className="py-10 px-2 lg:px-4">
-                        <div className="hidden lg:grid grid-cols-12 gap-4">
-                            <p className="text-xl lg:text-3xl font-display text-gray-800 font-bold col-span-7">{t('policies.ideas')}</p>
-                            <p className="text-xl lg:text-3xl font-display text-gray-800 font-bold text-center col-span-5">{t('policies.political_support')}</p>
+                    <div className="py-4 lg:py-10 px-2 lg:px-4">
+                        <div className="grid grid-cols-12 gap-4">
+                            <p className="text-2xl lg:text-3xl text-center lg:text-left font-display text-gray-800 font-bold col-span-12 lg:col-span-7">{t('policies.ideas')}</p>
+                            <p className="hidden lg:block text-2xl lg:text-3xl font-display text-gray-800 font-bold text-center lg:col-span-5">{t('policies.political_support')}</p>
                         </div>
                         {policyCategories.map((category: PolicyCategoryData, index: number) => {
                             return (
