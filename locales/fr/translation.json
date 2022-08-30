@@ -7,6 +7,7 @@
     "home": {
         "cta": "Découvrez nos actions",
         "secondary_cta": "Impliquez-vous",
+        "policies_banner": "Élection Provinciales 2022: Comparez la réponse des partis politiques à la crise du logement 🠖",
         "sections": {
             "actions": {
                 "nav": "Nos Actions",
@@ -59,6 +60,34 @@
             "label": "Événement",
             "join": "Participer",
             "directions": "Directions"
+        }
+    },
+    "policies": {
+        "home": "Accueil",
+        "parties_score": "Score des partis politiques",
+        "ideas": "Idées",
+        "political_support": "Soutien des partis",
+        "why_it_matters": "Pourquoi c'est important",
+        "no_support": "Cette politique n'a pas encore été supportée par un parti politique",
+        "more_info": "Plus d'info",
+        "supported_by": "Supporté par",
+        "how_it_works": "Comment sont calculés les scores ?",
+        "something_missing": "On a manqué quelque chose ? Contactez-nous",
+        "scoring_breakdown": {
+            "title": "Détail du système de score",
+            "description": "Nous avons noté les partis politiques sur les idées que nous pensons importantes pour addresser la crise du logement. Ces idées ont été discutées et classées en interne par les membres de Construisons Montréal.",
+            "ranking_title": "Classement des idées",
+            "ranking_description": "Les idées ont été jugés et classés par leur impact potentiel face à la crise du logement. Nous les avons divisés en trois groupes, chacun rapportant un nombre de points différent.",
+            "bronze": "Bronze",
+            "silver": "Argent",
+            "gold": "Or",
+            "support_type": "Niveau de support",
+            "partial_support": "Support partiel",
+            "half_points": "Seul la moitié des points seront compatibilisé",
+            "full_support": "Support total",
+            "full_points": "L'entierté des points seront compatibilisés",
+            "final_score_title": "Score final et classement",
+            "final_score_description": "Les partis sont classés sur leur score final accumulé"
         }
     }
 }
