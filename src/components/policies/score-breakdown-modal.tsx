@@ -23,7 +23,7 @@ const ScoreBreakdownModal = ({onClose}: ScoreBreakdownModalProps) => {
                 <div className="flex justify-end">
                     <p onClick={closeModal} className="flex-shrink px-4 text-3xl text-gray-700 align-middle cursor-pointer">&times;</p>
                 </div>
-                <div className="p-4">
+                <div className="p-4 lg:p-8">
                     <p className="text-xl text-gray-800 font-bold font-display">{t('policies.scoring_breakdown.title')}</p>
                     <p className="text-gray-600 mb-4">{t('policies.scoring_breakdown.description')}</p>
                     <p className="text-lg font-medium text-gray-700">{t('policies.scoring_breakdown.ranking_title')}</p>
@@ -51,7 +51,8 @@ const ScoreBreakdownModal = ({onClose}: ScoreBreakdownModalProps) => {
                             <p className="text-gray-700 font-medium text-center text-lg w-full">4 points</p>
                         </div>
                     </div>
-                    <p className="text-lg font-medium text-gray-700 mb-2">{t('policies.scoring_breakdown.support_type')}</p>
+                    <p className="text-lg font-medium text-gray-700">{t('policies.scoring_breakdown.support_type')}</p>
+                    <p className="text-gray-600 mb-2">{t('policies.scoring_breakdown.support_description')}</p>
                     <div className="flex items-center gap-2 py-2">
                         <div className="flex-shrink">
                             <SupportTick color="gray" full={false}/>

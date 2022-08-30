@@ -84,6 +84,7 @@
             "silver": "Argent",
             "gold": "Or",
             "support_type": "Niveau de support",
+            "support_description": "Les points d'une idée politique sont distribués en fonction du niveau de support que le parti donne à l'idée.",
             "partial_support": "Support partiel",
             "half_points": "Seuls la moitié des points seront compatibilisés",
             "full_support": "Support total",

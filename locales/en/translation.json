@@ -84,6 +84,7 @@
             "silver": "Silver",
             "gold": "Gold",
             "support_type": "Kind of support",
+            "support_description": "Policies points are distributed based on the kind of support the party is giving to an idea.",
             "partial_support": "Partial support",
             "half_points": "Only half of the points will be added to the score.",
             "full_support": "Full support",
