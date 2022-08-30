@@ -208,7 +208,7 @@ const PoliciesPage = ({data}: PageProps<PoliciesPageData>) => {
                                     {category.policies?.map((policy: PolicyData, policyIndex: number) => {
                                         return (
                                             <div className="grid grid-cols-12 lg:gap-2 rounded-xl bg-white shadow-lg lg:shadow-none lg:bg-transparent lg:border-none p-4 mb-4 lg:p-0 lg:my-0 border-gray-300 border" key={policyIndex}>
-                                                <div onClick={() => setSelectedPolicy(policy)} className="col-span-12 lg:col-span-7 pr-4 pb-2 lg:p-4 hover:shadow-xl border hover:border-gray-300 border-transparent rounded-xl transition-all duration-200 cursor-pointer">
+                                                <div onClick={() => setSelectedPolicy(policy)} className="col-span-12 lg:col-span-7 pr-4 pb-2 lg:p-4 lg:hover:shadow-xl border lg:hover:border-gray-300 border-transparent rounded-xl transition-all duration-200 cursor-pointer">
                                                     <div className="flex items-center gap-2 mb-2">
                                                         <div className="w-3 lg:w-4 flex-shrink"><GradeMedal grade={policy.grade}/></div>
                                                         <p className="lg:text-lg flex-1 font-medium text-gray-700 flex items-center">{policy.title}</p>
