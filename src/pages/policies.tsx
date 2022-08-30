@@ -103,13 +103,12 @@ const PoliciesPage = ({data}: PageProps<PoliciesPageData>) => {
         const score = partyRankings[ranking][1].toFixed(0);
 
         const color = party.color || 'gray';
-        let medals = party.policy_supports!.map((support, index) => {
+        const medals = party.policy_supports!.map((support, index) => {
             return {
                 grade: support.policy!.grade,
                 halved: support.fullSupport
             }
         });
-        medals = medals.flatMap((val => [val, val, val, val, val, val, val]));
         medals.sort((a, b) => sortByGrade(a.grade, b.grade)).reverse();
 
         return (
