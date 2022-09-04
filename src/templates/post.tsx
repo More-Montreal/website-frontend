@@ -19,6 +19,7 @@ type PostData = {
         publishedAt: string;
         updatedAt: string;
         thumbnail: StrapiImage;
+        seoThumbnail: StrapiImage;
         content: RichTextContent<"content">;
         author: {
             firstname: string;
@@ -62,7 +63,7 @@ const PostTemplate = ({data}: PageProps<PostData>) => {
 
     return (
         <div>
-            <SEO metaTitle={content.title} metaDescription={content.excerpt} article={true} shareImage={content.thumbnail.localFile.url}/>
+            <SEO metaTitle={content.title} metaDescription={content.excerpt} article={true} shareImage={content.seoThumbnail.localFile.url}/>
             <Header type="post"/>
             <div className="w-full p-2 m-auto md:p-4 md:max-w-screen-2xl">
                 <div className="relative h-full">
@@ -140,6 +141,15 @@ query ($slug: String, $language: String!) {
             title
         }
         thumbnail {
+            alternativeText
+            localFile {
+                childImageSharp {
+                    gatsbyImageData(width: 1200, placeholder: BLURRED)
+                }
+                url
+            }
+        }
+        seoThumbnail {
             alternativeText
             localFile {
                 childImageSharp {
