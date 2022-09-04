@@ -68,7 +68,7 @@ const PostTemplate = ({data}: PageProps<PostData>) => {
             <div className="w-full p-2 m-auto md:p-4 md:max-w-screen-2xl">
                 <div className="relative h-full">
                     <div className="absolute z-20 flex-col items-center justify-end hidden w-full h-full overflow-hidden md:flex rounded-2xl">
-                        <div className="absolute w-full h-full bg-gradient-to-t from-black/60 via-black/20"></div>
+                        <div className="absolute w-full h-full bg-gradient-to-t from-black/80 via-black/40"></div>
                         <div className="relative max-w-[810px] mb-10 px-4 lg:px-0">
                             <p>
                                 {content.postCategories.map((category: {title: string}, index: number) => {
