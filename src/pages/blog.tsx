@@ -143,7 +143,7 @@ const BlogPage = ({data}: PageProps<BlogData>) => {
 export const pageQuery = graphql`
 
 query ($language: String!) {
-    posts: allStrapiPost(limit: 6, sort: {order: DESC, fields: id}, filter: {locale: {eq: $language}}) {
+    posts: allStrapiPost(limit: 6, sort: {order: DESC, fields: publishedAt}, filter: {locale: {eq: $language}}) {
         nodes {
             title
             slug
