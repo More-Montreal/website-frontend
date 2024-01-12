@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from '@herob/gatsby-plugin-react-i18next';
 import { PolicyGrade } from '../../helpers/content-types';
 import GradeMedal from './grade-medal';
 import SupportTick from './support-tick';

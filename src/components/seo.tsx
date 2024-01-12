@@ -1,6 +1,6 @@
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
-import { Helmet, useTranslation } from "gatsby-plugin-react-i18next"
+import { useTranslation } from "@herob/gatsby-plugin-react-i18next";
 import { StrapiImage } from "../helpers/content-types";
 import { getImage } from "gatsby-plugin-image";
 
@@ -76,10 +76,12 @@ const SEO = (seo: SEOProps) => {
     const metaTags = getMetaTags();
 
     return (
-        <Helmet
-            title={fullSeo.metaTitle}
-            meta={metaTags}
-        />
+        <>
+            <title>{fullSeo.metaTitle}</title>
+            {metaTags.map((tag => {
+                <meta property={tag.property} content={tag.content}/>
+            }))}
+        </>
     );
 }
 

@@ -3,7 +3,7 @@ import { AnchorLink } from 'gatsby-plugin-anchor-links';
 import { OutboundLink } from 'gatsby-plugin-google-gtag';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import React, {useState} from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from '@herob/gatsby-plugin-react-i18next';
 import Button, { ButtonType } from '../components/button';
 import Footer from '../components/footer';
 import InvolvementCallout, { InvolvementData } from '../components/involvement-callout';
@@ -74,7 +74,9 @@ const PoliciesPage = ({data}: PageProps<PoliciesPageData>) => {
     for (let party of parties.nodes) {
         let score = 0;
         party.policy_supports?.forEach(support => {
-            score += (support.fullSupport) ? pointsForGrade[support.policy!.grade] : pointsForGrade[support.policy!.grade] / 2;
+            if (support.policy) {
+                score += (support.fullSupport) ? pointsForGrade[support.policy.grade] : pointsForGrade[support.policy.grade] / 2;
+            }
         });
 
         partyRankings.push([party.shortName, score]);
@@ -101,7 +103,7 @@ const PoliciesPage = ({data}: PageProps<PoliciesPageData>) => {
         const color = party.color || 'gray';
         const medals = party.policy_supports!.map((support, index) => {
             return {
-                grade: support.policy!.grade,
+                grade: support.policy?.grade || PolicyGrade.BRONZE,
                 halved: support.fullSupport
             }
         });
@@ -218,7 +220,7 @@ const PoliciesPage = ({data}: PageProps<PoliciesPageData>) => {
                                                 <div className="lg:hidden col-span-12">
                                                     {policy.policy_supports.length > 0 && <p className="text-xs uppercase text-gray-500 font-medium mb-1">{t('policies.supported_by')}</p>}
                                                     <div className="flex flex-wrap gap-2">
-                                                        {policy.policy_supports.map((support, index) => {
+                                                        {policy.policy_supports.filter(support => support.political_party).map((support, index) => {
                                                             const color = support.political_party?.color || 'gray';
 
                                                             return (

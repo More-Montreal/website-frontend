@@ -1,6 +1,6 @@
-import { Link } from 'gatsby-plugin-react-i18next';
+import { Link } from '@herob/gatsby-plugin-react-i18next';
 import * as React from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from '@herob/gatsby-plugin-react-i18next';
 
 type HeaderProps = {
     type: "post" | "action" | "event" | "blog";
