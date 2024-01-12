@@ -1,8 +1,8 @@
 import { graphql, PageProps } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
-import { Link } from 'gatsby-plugin-react-i18next';
+import { Link } from '@herob/gatsby-plugin-react-i18next';
 import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from '@herob/gatsby-plugin-react-i18next';
 import Header from '../components/blog/header';
 import InvolvementCallout, { InvolvementData } from '../components/involvement-callout';
 import { ActionCardData, EventData, Nodes, PostCardData, SocialLinks } from '../helpers/content-types';
@@ -143,7 +143,7 @@ const BlogPage = ({data}: PageProps<BlogData>) => {
 export const pageQuery = graphql`
 
 query ($language: String!) {
-    posts: allStrapiPost(limit: 6, sort: {order: DESC, fields: publishedAt}, filter: {locale: {eq: $language}}) {
+    posts: allStrapiPost(limit: 6, sort: {publishedAt: DESC}, filter: {locale: {eq: $language}}) {
         nodes {
             title
             slug
@@ -162,7 +162,7 @@ query ($language: String!) {
             }
         }
     }
-    events: allStrapiEvent(limit: 4, sort: {order: DESC, fields: id}, filter: {locale: {eq: $language}}) {
+    events: allStrapiEvent(limit: 4, sort: {id: DESC}, filter: {locale: {eq: $language}}) {
         nodes {
             title
             slug
@@ -187,7 +187,7 @@ query ($language: String!) {
             }
         }
     }
-    actions: allStrapiAction(limit: 5, sort: {order: DESC, fields: id}, filter: {locale: {eq: $language}}) {
+    actions: allStrapiAction(limit: 5, sort: {id: DESC}, filter: {locale: {eq: $language}}) {
         nodes {
             title
             slug

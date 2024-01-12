@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@herob/gatsby-plugin-react-i18next";
 import { graphql, PageProps } from 'gatsby';
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import { KeyPoint as KeyPointData, Nodes, RichTextContent, SocialLinks, StrapiImage, EventCardData, PostCardData, ActionCardData } from "../helpers/content-types";
@@ -13,7 +13,7 @@ import KeyPoint from "../components/key-point";
 import InvolvementCallout, { InvolvementData } from "../components/involvement-callout";
 import Footer from "../components/footer";
 import { AnchorLink } from "gatsby-plugin-anchor-links";
-import { Link } from "gatsby-plugin-react-i18next";
+import { Link } from "@herob/gatsby-plugin-react-i18next";
 import SEO from "../components/seo";
 import ArrowRight from '../../assets/ArrowRight.svg';
 
@@ -27,6 +27,7 @@ type IndexData = {
         heroDescription: string;
         heroTitle: string;
         visionPoints: KeyPointData[];
+        electionsCallout: boolean;
     };
     socials: SocialLinks;
     involvementCallout: InvolvementData;
@@ -68,9 +69,11 @@ const IndexPage = ({data}: PageProps<IndexData>) => {
     return (
         <div>
             <SEO/>
-            <Link to="/policies" className="block w-full bg-blue-300 lg:text-center p-4">
-                <p className="text-sm lg:text-lg font-medium text-blue-900 flex items-center justify-center gap-2">{t('home.policies_banner')}<ArrowRight className="w-12 lg:w-6 flex-shrink fill-blue-900"/></p>
-            </Link>
+            {content.electionsCallout &&
+                <Link to="/policies" className="block w-full bg-blue-300 lg:text-center p-4">
+                    <p className="text-sm lg:text-lg font-medium text-blue-900 flex items-center justify-center gap-2">{t('home.policies_banner')}<ArrowRight className="w-12 lg:w-6 flex-shrink fill-blue-900"/></p>
+                </Link>
+            }
             <div className="w-full h-auto lg:h-[645px] relative bg-opacity-90 overflow-hidden">
                 <div className="absolute w-full h-full">
                     <div className="relative h-full m-auto max-w-screen-2xl">
@@ -204,6 +207,7 @@ query($language: String!) {
                 }
             }
         }
+        electionsCallout
     }
     involvementCallout: strapiInvolvementCallout(locale: {eq: $language}) {
         image {
@@ -224,7 +228,7 @@ query($language: String!) {
         instagramLink
         twitterLink
     }
-    events: allStrapiEvent(limit: 3, sort: {order: DESC, fields: id}, filter: {locale: {eq: $language}}) {
+    events: allStrapiEvent(limit: 3, sort: {id: DESC}, filter: {locale: {eq: $language}}) {
         nodes {
             title
             slug
@@ -244,7 +248,7 @@ query($language: String!) {
             }
         }
     }
-    posts: allStrapiPost(limit: 3, sort: {order: DESC, fields: id}, filter: {locale: {eq: $language}}) {
+    posts: allStrapiPost(limit: 3, sort: {id: DESC}, filter: {locale: {eq: $language}}) {
         nodes {
             title
             slug
@@ -263,7 +267,7 @@ query($language: String!) {
             }
         }
     }
-    actions: allStrapiAction(limit: 3, sort: {order: DESC, fields: id}, filter: {locale: {eq: $language}}) {
+    actions: allStrapiAction(limit: 3, sort: {id: DESC}, filter: {locale: {eq: $language}}) {
         nodes {
             title
             slug
