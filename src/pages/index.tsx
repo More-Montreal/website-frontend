@@ -79,7 +79,6 @@ const IndexPage = ({ data }: PageProps<IndexData>) => {
     return (
         <div>
             <SEO />
-            {/* <JsonDebug data={data.logo} /> */}
             {content.electionsCallout && (
                 <Link to="/policies" className="block w-full bg-blue-300 lg:text-center p-4">
                     <p className="text-sm lg:text-lg font-medium text-blue-900 flex items-center justify-center gap-2">
@@ -107,8 +106,15 @@ const IndexPage = ({ data }: PageProps<IndexData>) => {
                 <div className="relative z-10 flex flex-col h-full px-4 py-6 m-auto max-w-screen-2xl">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-4">
-                            <StaticImage className="h-12 w-12" src="../images/logo.png" alt="Logo" />
-                            <p className="text-3xl font-bold text-white font-display">{t("site_title")}</p>
+                            <StaticImage
+                                width={45}
+                                height={45}
+                                layout="fixed"
+                                className="overflow-visible"
+                                src="../images/logo.png"
+                                alt="Logo"
+                            />
+                            <p className="text-xl md:text-3xl font-bold text-white font-display">{t("site_title")}</p>
                         </div>
                         <div className="flex items-center gap-10">
                             <AnchorLink
