@@ -12,15 +12,15 @@ export type StrapiImage = {
 export type SVGImage = {
     localFile: {
         publicURL: string;
-    }
+    };
 };
 
 export type RichTextContent<C extends string> = {
     data: {
         childMarkdownRemark: {
             html: string;
-        }
-    } & { [key in C]: string; }
+        };
+    } & { [key in C]: string };
 };
 
 export type KeyPoint = {
@@ -28,7 +28,7 @@ export type KeyPoint = {
     color: string;
     icon: SVGImage;
     content: {
-        data: { content: string; }
+        data: { content: string };
     };
 };
 
@@ -70,7 +70,7 @@ export type PostCardData = {
     title: string;
     slug: string;
     excerpt: string;
-    postCategories: {title: string}[];
+    postCategories: { title: string }[];
     publishedAt: string;
     thumbnail: StrapiImage;
 };
@@ -81,10 +81,10 @@ export type PolicyCategoryData = {
 };
 
 export enum PolicyGrade {
-    BRONZE = 'bronze',
-    SILVER = 'silver',
-    GOLD = 'gold'
-};
+    BRONZE = "bronze",
+    SILVER = "silver",
+    GOLD = "gold",
+}
 
 export type PolicyData = {
     title: string;
@@ -96,10 +96,10 @@ export type PolicyData = {
 };
 
 export enum PoliticalPartyJurisdiction {
-    FEDERAL = 'federal',
-    PROVINCIAL = 'provincial',
-    MUNICIPAL = 'municipal'
-};
+    FEDERAL = "federal",
+    PROVINCIAL = "provincial",
+    MUNICIPAL = "municipal",
+}
 
 export type PoliticalPartyData = {
     name: string;

@@ -1,12 +1,12 @@
-import { GatsbyImage, getImage } from 'gatsby-plugin-image';
-import * as React from 'react';
-import { StrapiImage } from '../helpers/content-types';
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
+import * as React from "react";
+import { StrapiImage } from "../helpers/content-types";
 
 type ImageCardProps = {
     image: StrapiImage;
-}
+};
 
-const ImageCard = ({image, children}: React.PropsWithChildren<ImageCardProps>) => {
+const ImageCard = ({ image, children }: React.PropsWithChildren<ImageCardProps>) => {
     const background = getImage(image.localFile);
 
     return (
@@ -19,9 +19,7 @@ const ImageCard = ({image, children}: React.PropsWithChildren<ImageCardProps>) =
                     alt={image.alternativeText}
                 />
             </div>
-            <div className="absolute bottom-0 z-30 px-3 py-5">
-                {children}
-            </div>
+            <div className="absolute bottom-0 z-30 px-3 py-5">{children}</div>
         </div>
     );
 };
