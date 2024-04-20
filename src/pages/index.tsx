@@ -43,7 +43,6 @@ type IndexData = {
     events: Nodes<EventCardData>;
     posts: Nodes<PostCardData>;
     actions: Nodes<ActionCardData>;
-    // logo: any;
 };
 
 const IndexPage = ({ data }: PageProps<IndexData>) => {
@@ -59,6 +58,8 @@ const IndexPage = ({ data }: PageProps<IndexData>) => {
     for (const action of data.actions.nodes) {
         actions.push({ type: "action", ...action });
     }
+
+    actions.sort((a, b) => (new Date(a.publishedAt) < new Date(b.publishedAt) ? 1 : -1));
 
     const pillStyles = {
         post: "bg-blue-200 text-blue-900",
@@ -354,6 +355,7 @@ export const query = graphql`
             nodes {
                 title
                 slug
+                publishedAt
                 description {
                     data {
                         description
