@@ -1,16 +1,16 @@
-import { graphql, PageProps } from 'gatsby';
-import { GatsbyImage, getImage } from 'gatsby-plugin-image';
-import { Link } from '@herob/gatsby-plugin-react-i18next';
-import React, { useState } from 'react';
-import { useTranslation } from '@herob/gatsby-plugin-react-i18next';
-import Header from '../components/blog/header';
-import InvolvementCallout, { InvolvementData } from '../components/involvement-callout';
-import { ActionCardData, EventData, Nodes, PostCardData, SocialLinks } from '../helpers/content-types';
-import PillDecorator from '../../assets/PillDecorator.svg';
-import CalendarDate from '../components/calendar-date';
-import Footer from '../components/footer';
-import EventModal from '../components/blog/event-modal';
-import SEO from '../components/seo';
+import { graphql, PageProps } from "gatsby";
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
+import { Link } from "@herob/gatsby-plugin-react-i18next";
+import React, { useState } from "react";
+import { useTranslation } from "@herob/gatsby-plugin-react-i18next";
+import Header from "../components/blog/header";
+import InvolvementCallout, { InvolvementData } from "../components/involvement-callout";
+import { ActionCardData, EventData, Nodes, PostCardData, SocialLinks } from "../helpers/content-types";
+import PillDecorator from "../../assets/PillDecorator.svg";
+import CalendarDate from "../components/calendar-date";
+import Footer from "../components/footer";
+import EventModal from "../components/blog/event-modal";
+import SEO from "../components/seo";
 
 type BlogData = {
     posts: Nodes<PostCardData>;
@@ -20,14 +20,14 @@ type BlogData = {
     involvementCallout: InvolvementData;
 };
 
-const BlogPage = ({data}: PageProps<BlogData>) => {
+const BlogPage = ({ data }: PageProps<BlogData>) => {
     const latestPost = data.posts.nodes[0];
     const latestThumbnail = getImage(latestPost.thumbnail.localFile);
-    const latestPublishedDate = (new Date(latestPost.publishedAt)).toLocaleDateString(undefined, {dateStyle: 'medium'});
+    const latestPublishedDate = new Date(latestPost.publishedAt).toLocaleDateString(undefined, { dateStyle: "medium" });
 
     const events = data.events.nodes.sort((eventA, eventB) => {
-        const scheduledA = (new Date(eventA.scheduledDate)).getTime();
-        const scheduledB = (new Date(eventB.scheduledDate)).getTime();
+        const scheduledA = new Date(eventA.scheduledDate).getTime();
+        const scheduledB = new Date(eventB.scheduledDate).getTime();
 
         if (scheduledA < scheduledB) return 1;
         return -1;
@@ -35,12 +35,12 @@ const BlogPage = ({data}: PageProps<BlogData>) => {
 
     const [selectedEvent, setSelectedEvent] = useState<EventData | null>(null);
 
-    const {t} = useTranslation();
+    const { t } = useTranslation();
 
     return (
         <div>
-            <SEO metaTitle={t('blog.title')}/>
-            <Header type="blog"/>
+            <SEO metaTitle={t("blog.title")} />
+            <Header type="blog" />
             <div className="p-4 m-auto mb-20 max-w-screen-2xl">
                 <Link to={`/blog/${latestPost.slug}`} className="flex flex-col md:flex-row">
                     <GatsbyImage
@@ -50,25 +50,33 @@ const BlogPage = ({data}: PageProps<BlogData>) => {
                     />
                     <div className="flex flex-col justify-center flex-1 gap-4 py-4 md:p-12">
                         <div className="hidden md:block">
-                            <p className="inline px-4 py-2 font-medium text-gray-700 bg-gray-200 rounded-full">{t('blog.index.latest')}</p>
+                            <p className="inline px-4 py-2 font-medium text-gray-700 bg-gray-200 rounded-full">
+                                {t("blog.index.latest")}
+                            </p>
                         </div>
                         <p className="text-2xl font-bold text-gray-800 md:text-3xl font-display">{latestPost.title}</p>
                         <p className="text-lg italic text-gray-500 md:text-xl">{latestPost.excerpt}</p>
-                        <p className="text-gray-700">{t('blog.post.published')} {latestPublishedDate}</p>
+                        <p className="text-gray-700">
+                            {t("blog.post.published")} {latestPublishedDate}
+                        </p>
                     </div>
                 </Link>
                 <div className="flex flex-wrap gap-20 mt-10 md:mt-20 md:gap-0">
                     <div className="basis-12/12 md:basis-6/12 lg:basis-8/12 xl:basis-9/12">
                         <div className="relative">
                             <div className="relative z-10">
-                                <p className="text-2xl font-bold text-gray-800 font-display">{t('blog.index.latest_posts')}</p>
+                                <p className="text-2xl font-bold text-gray-800 font-display">
+                                    {t("blog.index.latest_posts")}
+                                </p>
                             </div>
-                            <PillDecorator className="absolute w-14 -bottom-14 -left-4 fill-blue-100"/>
+                            <PillDecorator className="absolute w-14 -bottom-14 -left-4 fill-blue-100" />
                         </div>
                         <div className="grid gap-8 mt-8 md:pr-8 xl:grid-cols-2">
-                            {data.posts.nodes.map(post => {
+                            {data.posts.nodes.map((post) => {
                                 const thumbnail = getImage(post.thumbnail.localFile);
-                                const publishedDate = (new Date(post.publishedAt)).toLocaleDateString(undefined, {dateStyle: 'medium'});
+                                const publishedDate = new Date(post.publishedAt).toLocaleDateString(undefined, {
+                                    dateStyle: "medium",
+                                });
 
                                 return (
                                     <Link to={`/blog/${post.slug}`} className="flex" key={post.slug}>
@@ -78,7 +86,11 @@ const BlogPage = ({data}: PageProps<BlogData>) => {
                                             alt={post.thumbnail.alternativeText}
                                         />
                                         <div className="flex flex-col justify-center w-2/3 gap-1 pl-2 md:px-2">
-                                            {post.postCategories.length && <p className="text-xs font-medium text-gray-600 uppercase">{post.postCategories[0].title}</p>}
+                                            {post.postCategories.length && (
+                                                <p className="text-xs font-medium text-gray-600 uppercase">
+                                                    {post.postCategories[0].title}
+                                                </p>
+                                            )}
                                             <p className="text-lg font-bold text-gray-800 font-display">{post.title}</p>
                                             <p className="text-sm italic text-gray-500">{publishedDate}</p>
                                         </div>
@@ -90,22 +102,35 @@ const BlogPage = ({data}: PageProps<BlogData>) => {
                     <div className="basis-12/12 md:basis-6/12 lg:basis-4/12 xl:basis-3/12">
                         <div className="relative">
                             <div className="relative z-10">
-                                <p className="text-2xl font-bold text-gray-800 font-display">{t('blog.index.upcoming_events')}</p>
+                                <p className="text-2xl font-bold text-gray-800 font-display">
+                                    {t("blog.index.upcoming_events")}
+                                </p>
                             </div>
-                            <PillDecorator className="absolute w-14 -left-4 -bottom-14 fill-indigo-100"/>
+                            <PillDecorator className="absolute w-14 -left-4 -bottom-14 fill-indigo-100" />
                         </div>
                         <div className="flex flex-col gap-8 mt-8">
-                            {events.map(event => {
-                                const scheduledDate = (new Date(event.scheduledDate)).toLocaleString(undefined, {dateStyle: 'medium', timeStyle: "short"});
+                            {events.map((event) => {
+                                const scheduledDate = new Date(event.scheduledDate).toLocaleString(undefined, {
+                                    dateStyle: "medium",
+                                    timeStyle: "short",
+                                });
 
                                 return (
-                                    <div className="flex cursor-pointer" key={event.slug} onClick={() => {setSelectedEvent(event)}}>
+                                    <div
+                                        className="flex cursor-pointer"
+                                        key={event.slug}
+                                        onClick={() => {
+                                            setSelectedEvent(event);
+                                        }}
+                                    >
                                         <div className="flex-shrink">
-                                            <CalendarDate date={new Date(event.scheduledDate)}/>
+                                            <CalendarDate date={new Date(event.scheduledDate)} />
                                         </div>
                                         <div className="flex flex-col justify-center flex-1 gap-1 pl-4 md:px-4">
                                             <p className="text-gray-600">{scheduledDate}</p>
-                                            <p className="text-lg font-bold text-gray-800 font-display">{event.title}</p>
+                                            <p className="text-lg font-bold text-gray-800 font-display">
+                                                {event.title}
+                                            </p>
                                         </div>
                                     </div>
                                 );
@@ -130,112 +155,123 @@ const BlogPage = ({data}: PageProps<BlogData>) => {
                 joinLink={data.involvementCallout.joinLink}
             />
             <Footer socials={data.socials}>
-                <Link to="/blog" className="hidden text-lg font-medium text-white lg:inline">{t('blog.header.post')}</Link>
-                <Link to="/blog" className="hidden text-lg font-medium text-white lg:inline">{t('blog.header.event')}</Link>
+                <Link to="/blog" className="hidden text-lg font-medium text-white lg:inline">
+                    {t("blog.header.post")}
+                </Link>
+                <Link to="/blog" className="hidden text-lg font-medium text-white lg:inline">
+                    {t("blog.header.event")}
+                </Link>
                 {/* <a href="#involvement" className="hidden text-lg font-medium text-white lg:inline">{t('blog.header.action')}</a> */}
-                <Link to="/" className="hidden text-lg font-medium text-white lg:inline">{t('blog.header.about')}</Link>
+                <Link to="/" className="hidden text-lg font-medium text-white lg:inline">
+                    {t("blog.header.about")}
+                </Link>
             </Footer>
-            {selectedEvent && <EventModal onClose={() => {setSelectedEvent(null)}} event={selectedEvent}/>}
+            {selectedEvent && (
+                <EventModal
+                    onClose={() => {
+                        setSelectedEvent(null);
+                    }}
+                    event={selectedEvent}
+                />
+            )}
         </div>
     );
 };
 
 export const pageQuery = graphql`
-
-query ($language: String!) {
-    posts: allStrapiPost(limit: 6, sort: {publishedAt: DESC}, filter: {locale: {eq: $language}}) {
-        nodes {
-            title
-            slug
-            publishedAt
-            postCategories {
+    query ($language: String!) {
+        posts: allStrapiPost(limit: 6, sort: { publishedAt: DESC }, filter: { locale: { eq: $language } }) {
+            nodes {
                 title
-            }
-            excerpt
-            thumbnail {
-                alternativeText
-                localFile {
-                    childImageSharp {
-                        gatsbyImageData(height: 705, placeholder: BLURRED)
+                slug
+                publishedAt
+                postCategories {
+                    title
+                }
+                excerpt
+                thumbnail {
+                    alternativeText
+                    localFile {
+                        childImageSharp {
+                            gatsbyImageData(height: 705, placeholder: BLURRED)
+                        }
                     }
                 }
             }
         }
-    }
-    events: allStrapiEvent(limit: 4, sort: {id: DESC}, filter: {locale: {eq: $language}}) {
-        nodes {
+        events: allStrapiEvent(limit: 4, sort: { id: DESC }, filter: { locale: { eq: $language } }) {
+            nodes {
+                title
+                slug
+                scheduledDate
+                rsvpLink
+                inPerson
+                locationLink
+                description {
+                    data {
+                        childMarkdownRemark {
+                            html
+                        }
+                    }
+                }
+                thumbnail {
+                    alternativeText
+                    localFile {
+                        childImageSharp {
+                            gatsbyImageData(height: 500, placeholder: BLURRED)
+                        }
+                    }
+                }
+            }
+        }
+        actions: allStrapiAction(limit: 5, sort: { id: DESC }, filter: { locale: { eq: $language } }) {
+            nodes {
+                title
+                slug
+                description {
+                    data {
+                        description
+                    }
+                }
+                thumbnail {
+                    alternativeText
+                    localFile {
+                        childImageSharp {
+                            gatsbyImageData(height: 438, placeholder: BLURRED)
+                        }
+                    }
+                }
+            }
+        }
+        involvementCallout: strapiInvolvementCallout(locale: { eq: $language }) {
+            image {
+                alternativeText
+                localFile {
+                    childImageSharp {
+                        gatsbyImageData(breakpoints: [320, 768], placeholder: BLURRED)
+                    }
+                }
+            }
             title
-            slug
-            scheduledDate
-            rsvpLink
-            inPerson
-            locationLink
-            description {
-                data {
-                    childMarkdownRemark {
-                        html
-                    }
-                }
-            }
-            thumbnail {
-                alternativeText
-                localFile {
-                    childImageSharp {
-                        gatsbyImageData(height: 500, placeholder: BLURRED)
-                    }
+            content
+            joinLink
+        }
+        socials: strapiSocial {
+            discordLink
+            facebookLink
+            instagramLink
+            twitterLink
+        }
+        locales: allLocale(filter: { language: { eq: $language } }) {
+            edges {
+                node {
+                    ns
+                    data
+                    language
                 }
             }
         }
     }
-    actions: allStrapiAction(limit: 5, sort: {id: DESC}, filter: {locale: {eq: $language}}) {
-        nodes {
-            title
-            slug
-            description {
-                data {
-                    description
-                }
-            }
-            thumbnail {
-                alternativeText
-                localFile {
-                    childImageSharp {
-                        gatsbyImageData(height: 438, placeholder: BLURRED)
-                    }
-                }
-            }
-        }
-    }
-    involvementCallout: strapiInvolvementCallout(locale: {eq: $language}) {
-        image {
-            alternativeText
-            localFile {
-                childImageSharp {
-                    gatsbyImageData(breakpoints: [320, 768], placeholder: BLURRED)
-                }
-            }
-        }
-        title
-        content
-        joinLink
-    }
-    socials: strapiSocial {
-        discordLink
-        facebookLink
-        instagramLink
-        twitterLink
-    }
-    locales: allLocale(filter: {language: {eq: $language}}) {
-        edges {
-            node {
-                ns
-                data
-                language
-            }
-        }
-    }
-}
-
 `;
 
 export default BlogPage;

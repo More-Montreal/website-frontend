@@ -39,7 +39,6 @@
     "react-i18next": "^14.0.0"
   },
   "devDependencies": {
-    "@tailwindcss/line-clamp": "^0.4.4",
     "@tailwindcss/typography": "^0.5.10",
     "@types/component-emitter": "^1.2.14",
     "@types/node": "^20.10.5",
