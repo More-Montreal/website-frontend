@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useTranslation } from "@herob/gatsby-plugin-react-i18next";
+import { useTranslation } from "@herob191/gatsby-plugin-react-i18next";
 import { graphql, PageProps } from "gatsby";
 import { GatsbyImage, getImage, StaticImage } from "gatsby-plugin-image";
 import {
@@ -22,7 +22,7 @@ import KeyPoint from "../components/key-point";
 import InvolvementCallout, { InvolvementData } from "../components/involvement-callout";
 import Footer from "../components/footer";
 import { AnchorLink } from "gatsby-plugin-anchor-links";
-import { Link } from "@herob/gatsby-plugin-react-i18next";
+import { Link } from "@herob191/gatsby-plugin-react-i18next";
 import SEO from "../components/seo";
 import ArrowRight from "../../assets/ArrowRight.svg";
 

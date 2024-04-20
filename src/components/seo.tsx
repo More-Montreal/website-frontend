@@ -1,6 +1,6 @@
 import React from "react";
 import { useStaticQuery, graphql } from "gatsby";
-import { useTranslation } from "@herob/gatsby-plugin-react-i18next";
+import { useTranslation } from "@herob191/gatsby-plugin-react-i18next";
 import { StrapiImage } from "../helpers/content-types";
 import { getImage } from "gatsby-plugin-image";
 

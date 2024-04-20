@@ -3,7 +3,7 @@ import { AnchorLink } from "gatsby-plugin-anchor-links";
 import { OutboundLink } from "gatsby-plugin-google-gtag";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import React, { useState } from "react";
-import { useTranslation } from "@herob/gatsby-plugin-react-i18next";
+import { useTranslation } from "@herob191/gatsby-plugin-react-i18next";
 import Button, { ButtonType } from "../components/button";
 import Footer from "../components/footer";
 import InvolvementCallout, { InvolvementData } from "../components/involvement-callout";

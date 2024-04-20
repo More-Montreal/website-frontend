@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Link } from "@herob/gatsby-plugin-react-i18next";
+import { Link } from "@herob191/gatsby-plugin-react-i18next";
 
 export enum ButtonType {
     PRIMARY = "primary",

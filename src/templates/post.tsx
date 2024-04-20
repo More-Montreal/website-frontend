@@ -4,10 +4,10 @@ import JsonDebug from "../helpers/json-debug";
 import Header from "../components/blog/header";
 import { RichTextContent, SocialLinks, StrapiImage } from "../helpers/content-types";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
-import { useTranslation } from "@herob/gatsby-plugin-react-i18next";
+import { useTranslation } from "@herob191/gatsby-plugin-react-i18next";
 import InvolvementCallout, { InvolvementData } from "../components/involvement-callout";
 import Footer from "../components/footer";
-import { Link } from "@herob/gatsby-plugin-react-i18next";
+import { Link } from "@herob191/gatsby-plugin-react-i18next";
 import SEO from "../components/seo";
 
 type PostData = {

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useTranslation } from "@herob/gatsby-plugin-react-i18next";
+import { useTranslation } from "@herob191/gatsby-plugin-react-i18next";
 import Button, { ButtonType } from "./button";
 import PillImageMask from "../../assets/PillImageMask.svg";
 import { StrapiImage } from "../helpers/content-types";

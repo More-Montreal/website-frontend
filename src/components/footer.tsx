@@ -1,6 +1,6 @@
 import * as React from "react";
-import { useI18next } from "@herob/gatsby-plugin-react-i18next";
-import { useTranslation } from "@herob/gatsby-plugin-react-i18next";
+import { useI18next } from "@herob191/gatsby-plugin-react-i18next";
+import { useTranslation } from "@herob191/gatsby-plugin-react-i18next";
 import DiscordIcon from "../../assets/Discord.svg";
 import FacebookIcon from "../../assets/Facebook.svg";
 import InstagramIcon from "../../assets/Instagram.svg";

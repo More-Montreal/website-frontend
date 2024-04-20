@@ -1,6 +1,6 @@
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import * as React from "react";
-import { useTranslation } from "@herob/gatsby-plugin-react-i18next";
+import { useTranslation } from "@herob191/gatsby-plugin-react-i18next";
 import { EventData } from "../../helpers/content-types";
 import Button, { ButtonType } from "../button";
 

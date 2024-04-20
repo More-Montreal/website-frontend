@@ -1,6 +1,6 @@
 import { OutboundLink } from "gatsby-plugin-google-gtag";
 import * as React from "react";
-import { useTranslation } from "@herob/gatsby-plugin-react-i18next";
+import { useTranslation } from "@herob191/gatsby-plugin-react-i18next";
 import { PolicyData } from "../../helpers/content-types";
 import GradeMedal from "./grade-medal";
 import SupportTick from "./support-tick";

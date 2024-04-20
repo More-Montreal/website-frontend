@@ -1,8 +1,8 @@
 import { graphql, PageProps } from "gatsby";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
-import { Link } from "@herob/gatsby-plugin-react-i18next";
+import { Link } from "@herob191/gatsby-plugin-react-i18next";
 import React, { useState } from "react";
-import { useTranslation } from "@herob/gatsby-plugin-react-i18next";
+import { useTranslation } from "@herob191/gatsby-plugin-react-i18next";
 import Header from "../components/blog/header";
 import InvolvementCallout, { InvolvementData } from "../components/involvement-callout";
 import { ActionCardData, EventData, Nodes, PostCardData, SocialLinks } from "../helpers/content-types";

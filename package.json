@@ -17,7 +17,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@herob/gatsby-plugin-react-i18next": "^3.0.13",
+    "@herob191/gatsby-plugin-react-i18next": "^3.0.15",
     "dotenv": "^16.0.1",
     "gatsby": "^5.13.1",
     "gatsby-plugin-anchor-links": "^1.2.1",

@@ -205,7 +205,7 @@ const config: GatsbyConfig = {
             },
         },
         {
-            resolve: `@herob/gatsby-plugin-react-i18next`,
+            resolve: `@herob191/gatsby-plugin-react-i18next`,
             options: {
                 localeJsonSourceName: `locale`, // name given to `gatsby-source-filesystem` plugin.
                 languages: [`fr`, `en`],

@@ -1,6 +1,6 @@
-import { Link } from "@herob/gatsby-plugin-react-i18next";
+import { Link } from "@herob191/gatsby-plugin-react-i18next";
 import * as React from "react";
-import { useTranslation } from "@herob/gatsby-plugin-react-i18next";
+import { useTranslation } from "@herob191/gatsby-plugin-react-i18next";
 import { StaticImage } from "gatsby-plugin-image";
 
 const Header = () => {
