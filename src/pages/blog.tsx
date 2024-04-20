@@ -48,7 +48,7 @@ const BlogPage = ({ data }: PageProps<BlogData>) => {
                         image={latestThumbnail!}
                         alt={latestPost.thumbnail.alternativeText}
                     />
-                    <div className="flex flex-col justify-center flex-1 gap-4 py-4 md:p-12">
+                    <div className="flex flex-col justify-center flex-1 gap-6 py-4 md:p-12">
                         <div className="hidden md:block">
                             <p className="inline px-4 py-2 font-medium text-gray-700 bg-gray-200 rounded-full">
                                 {t("blog.index.latest")}

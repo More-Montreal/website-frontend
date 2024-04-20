@@ -76,7 +76,7 @@ const PostTemplate = ({ data }: PageProps<PostData>) => {
                 <div className="relative h-full">
                     <div className="absolute z-20 flex-col items-center justify-end hidden w-full h-full overflow-hidden md:flex rounded-2xl">
                         <div className="absolute w-full h-full bg-gradient-to-t from-black/80 via-black/40"></div>
-                        <div className="relative max-w-[810px] mb-10 px-4 lg:px-0">
+                        <div className="flex flex-col gap-4 relative max-w-[810px] mb-10 px-4 lg:px-0">
                             <p>
                                 {content.postCategories.map((category: { title: string }, index: number) => {
                                     return (
@@ -94,7 +94,7 @@ const PostTemplate = ({ data }: PageProps<PostData>) => {
                                 {content.title}
                             </h1>
                             <p className="text-xl italic text-gray-400 drop-shadow-md">{content.excerpt}</p>
-                            <p className="mt-4 text-lg text-gray-300 drop-shadow-md">
+                            <p className="mt-2 text-lg text-gray-300 drop-shadow-md">
                                 {t("blog.post.by")} {author} &bull; {date}
                             </p>
                         </div>
@@ -106,7 +106,7 @@ const PostTemplate = ({ data }: PageProps<PostData>) => {
                     />
                 </div>
             </div>
-            <div className="px-4 mt-4 md:hidden">
+            <div className="flex flex-col gap-4 px-4 mt-4 md:hidden">
                 <p>
                     {content.postCategories.map((category: { title: string }, index: number) => {
                         return (
@@ -119,7 +119,7 @@ const PostTemplate = ({ data }: PageProps<PostData>) => {
                 </p>
                 <h1 className="text-xl font-bold text-gray-800 font-display">{content.title}</h1>
                 <p className="italic text-gray-500">{content.excerpt}</p>
-                <p className="mt-4 text-gray-600">
+                <p className="mt-2 text-gray-600">
                     {t("blog.post.by")} {author} &bull; {date}
                 </p>
             </div>
