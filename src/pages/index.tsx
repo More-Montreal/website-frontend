@@ -222,13 +222,13 @@ const IndexPage = ({ data }: PageProps<IndexData>) => {
             </div>
             <div id="vision" className="w-full mb-20 bg-white">
                 <div className="p-4 m-auto max-w-screen-2xl">
-                    <div className="pt-10 pb-20 text-center">
+                    <div className="pt-10 pb-20">
                         <h3 className="text-3xl font-bold text-gray-800 font-display">
                             {t("home.sections.fight.heading")}
                         </h3>
                         <p className="text-lg text-gray-500">{t("home.sections.fight.subheading")}</p>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-11">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-11">
                         {content.visionPoints.map((vp: KeyPointData, index: number) => {
                             return (
                                 <div key={index}>
