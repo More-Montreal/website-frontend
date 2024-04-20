@@ -137,11 +137,10 @@ const IndexPage = ({ data }: PageProps<IndexData>) => {
                             </Button>
                         </div>
                     </div>
-                    <div className="flex flex-col justify-center flex-1 gap-4 pt-16 pb-8 lg:p-0 lg:w-1/2">
+                    <div className="flex flex-col justify-center flex-1 gap-8 pt-16 pb-8 lg:p-0 lg:w-1/2">
                         <h1 className="text-2xl font-bold text-white lg:text-4xl font-display">{content.heroTitle}</h1>
                         <p className="text-lg font-medium text-white opacity-80">{content.heroDescription}</p>
-                        <div className="flex flex-wrap items-center justify-center gap-4 mt-4 md:justify-start md:mt-0">
-                            <Button href="#actions">{t("home.cta")}</Button>
+                        <div className="flex flex-wrap items-center justify-center gap-6 mt-4 md:justify-start md:mt-0">
                             <AnchorLink
                                 stripHash
                                 to="#involvement"
@@ -149,6 +148,7 @@ const IndexPage = ({ data }: PageProps<IndexData>) => {
                             >
                                 {t("home.secondary_cta")}
                             </AnchorLink>
+                            <Button href="#actions">{t("home.cta")}</Button>
                         </div>
                     </div>
                 </div>
