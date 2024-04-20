@@ -39,6 +39,17 @@ type PoliciesPageData = {
     involvementCallout: InvolvementData;
 };
 
+export const Head = ({ data, pageContext }: any) => {
+    const content = data.content;
+
+    <SEO
+        i18n={pageContext.i18n}
+        metaTitle={content.heroTitle}
+        metaDescription={content.heroDescription}
+        shareImage={content.seoImage.localFile.url!}
+    />;
+};
+
 const PoliciesPage = ({ data }: PageProps<PoliciesPageData>) => {
     const content = data.content;
     const parties = data.politicalParties;
@@ -189,11 +200,6 @@ const PoliciesPage = ({ data }: PageProps<PoliciesPageData>) => {
 
     return (
         <div>
-            <SEO
-                metaTitle={content.heroTitle}
-                metaDescription={content.heroDescription}
-                shareImage={content.seoImage.localFile.url!}
-            />
             <div className="relative w-full h-auto">
                 <div className="absolute z-10 w-full h-full bg-blue-600/90"></div>
                 <GatsbyImage

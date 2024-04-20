@@ -39,6 +39,20 @@ type PostData = {
     involvementCallout: InvolvementData;
 };
 
+export const Head = ({ data, pageContext }: PageProps<PostData>) => {
+    const content = data.strapiPost;
+
+    return (
+        <SEO
+            i18n={(pageContext as any).i18n}
+            metaTitle={content.title}
+            metaDescription={content.excerpt}
+            article={true}
+            shareImage={content.seoThumbnail.localFile.url}
+        />
+    );
+};
+
 const PostTemplate = ({ data }: PageProps<PostData>) => {
     const { t } = useTranslation();
     const content = data.strapiPost;
@@ -65,12 +79,6 @@ const PostTemplate = ({ data }: PageProps<PostData>) => {
 
     return (
         <div>
-            <SEO
-                metaTitle={content.title}
-                metaDescription={content.excerpt}
-                article={true}
-                shareImage={content.seoThumbnail.localFile.url}
-            />
             <Header />
             <div className="w-full p-2 m-auto md:p-4 md:max-w-screen-2xl">
                 <div className="relative h-full">

@@ -20,6 +20,10 @@ type BlogData = {
     involvementCallout: InvolvementData;
 };
 
+export const Head = ({ pageContext }: any) => {
+    return <SEO i18n={pageContext.i18n} metaTitle="Blog" />;
+};
+
 const BlogPage = ({ data }: PageProps<BlogData>) => {
     const latestPost = data.posts.nodes[0];
     const latestThumbnail = getImage(latestPost.thumbnail.localFile);
@@ -39,7 +43,6 @@ const BlogPage = ({ data }: PageProps<BlogData>) => {
 
     return (
         <div>
-            <SEO metaTitle={t("blog.title")} />
             <Header />
             <div className="p-4 m-auto mb-20 max-w-screen-2xl">
                 <Link to={`/blog/${latestPost.slug}`} className="flex flex-col md:flex-row">
