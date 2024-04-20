@@ -45,6 +45,10 @@ type IndexData = {
     actions: Nodes<ActionCardData>;
 };
 
+export const Head = ({ pageContext }: any) => {
+    return <SEO i18n={pageContext.i18n} />;
+};
+
 const IndexPage = ({ data }: PageProps<IndexData>) => {
     const content = data.content;
 
@@ -79,7 +83,6 @@ const IndexPage = ({ data }: PageProps<IndexData>) => {
 
     return (
         <div>
-            <SEO />
             {content.electionsCallout && (
                 <Link to="/policies" className="block w-full bg-blue-300 lg:text-center p-4">
                     <p className="text-sm lg:text-lg font-medium text-blue-900 flex items-center justify-center gap-2">
