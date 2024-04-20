@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useTranslation } from "@herob/gatsby-plugin-react-i18next";
 import { graphql, PageProps } from "gatsby";
-import { GatsbyImage, getImage } from "gatsby-plugin-image";
+import { GatsbyImage, getImage, StaticImage } from "gatsby-plugin-image";
 import {
     KeyPoint as KeyPointData,
     Nodes,
@@ -43,6 +43,7 @@ type IndexData = {
     events: Nodes<EventCardData>;
     posts: Nodes<PostCardData>;
     actions: Nodes<ActionCardData>;
+    // logo: any;
 };
 
 const IndexPage = ({ data }: PageProps<IndexData>) => {
@@ -78,6 +79,7 @@ const IndexPage = ({ data }: PageProps<IndexData>) => {
     return (
         <div>
             <SEO />
+            {/* <JsonDebug data={data.logo} /> */}
             {content.electionsCallout && (
                 <Link to="/policies" className="block w-full bg-blue-300 lg:text-center p-4">
                     <p className="text-sm lg:text-lg font-medium text-blue-900 flex items-center justify-center gap-2">
@@ -104,7 +106,10 @@ const IndexPage = ({ data }: PageProps<IndexData>) => {
                 />
                 <div className="relative z-10 flex flex-col h-full px-4 py-6 m-auto max-w-screen-2xl">
                     <div className="flex items-center justify-between">
-                        <p className="text-3xl font-bold text-white font-display">{t("site_title")}</p>
+                        <div className="flex items-center gap-4">
+                            <StaticImage className="h-12 w-12" src="../images/logo.png" alt="Logo" />
+                            <p className="text-3xl font-bold text-white font-display">{t("site_title")}</p>
+                        </div>
                         <div className="flex items-center gap-10">
                             <AnchorLink
                                 stripHash

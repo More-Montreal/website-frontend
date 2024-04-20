@@ -43,7 +43,7 @@ const PostTemplate = ({ data }: PageProps<PostData>) => {
     const { t } = useTranslation();
     const content = data.strapiPost;
 
-    const author = `${content.author.firstname} ${content.author.lastname}`;
+    const author = `${content.author?.firstname} ${content.author?.lastname}`;
     const publishedDate = new Date(content.publishedAt);
     const date = `${t("blog.post.published")} ${publishedDate.toLocaleDateString(undefined, { dateStyle: "medium" })}`;
 
@@ -71,7 +71,7 @@ const PostTemplate = ({ data }: PageProps<PostData>) => {
                 article={true}
                 shareImage={content.seoThumbnail.localFile.url}
             />
-            <Header type="post" />
+            <Header />
             <div className="w-full p-2 m-auto md:p-4 md:max-w-screen-2xl">
                 <div className="relative h-full">
                     <div className="absolute z-20 flex-col items-center justify-end hidden w-full h-full overflow-hidden md:flex rounded-2xl">
