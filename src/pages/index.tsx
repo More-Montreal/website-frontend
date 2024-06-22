@@ -263,6 +263,7 @@ const IndexPage = ({ data }: PageProps<IndexData>) => {
                     {t("home.sections.blog.nav")}
                 </Button>
             </Footer>
+            <div style="display:none;"><a rel="me" href="https://mastodon.construisonsmtl.ca/@construisonsmtl">Mastodon</a></div>
         </div>
     );
 };
