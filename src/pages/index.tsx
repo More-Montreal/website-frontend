@@ -142,6 +142,9 @@ const IndexPage = ({ data }: PageProps<IndexData>) => {
                             >
                                 {t("home.sections.involvement.nav")}
                             </AnchorLink>
+                            <a href="/contact" className="hidden text-lg font-medium text-white lg:inline">
+                                {t("home.sections.contact.nav")}
+                            </a>
                             <Button type={ButtonType.TRANSPARENT} href="/blog">
                                 {t("home.sections.blog.nav")}
                             </Button>
@@ -259,11 +262,18 @@ const IndexPage = ({ data }: PageProps<IndexData>) => {
                 <a href="#involvement" className="hidden text-lg font-medium text-white lg:inline">
                     {t("home.sections.involvement.nav")}
                 </a>
+                <a href="/contact" className="hidden text-lg font-medium text-white lg:inline">
+                    {t("home.sections.contact.nav")}
+                </a>
                 <Button type={ButtonType.TRANSPARENT} href="/blog">
                     {t("home.sections.blog.nav")}
                 </Button>
             </Footer>
-            <div style="display:none;"><a rel="me" href="https://mastodon.construisonsmtl.ca/@construisonsmtl">Mastodon</a></div>
+            <div className="hidden">
+                <a rel="me" href="https://mastodon.construisonsmtl.ca/@construisonsmtl">
+                    Mastodon
+                </a>
+            </div>
         </div>
     );
 };
