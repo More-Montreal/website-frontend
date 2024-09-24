@@ -31,13 +31,16 @@
             },
             "blog": {
                 "nav": "Blog"
+            },
+            "contact": {
+                "nav": "Contact"
             }
         }
     },
     "blog": {
         "title": "Blog",
         "header": {
-            "blog":  "Blog",
+            "blog": "Blog",
             "about": "À propos",
             "post": "Nouvelles",
             "event": "Événements",
@@ -91,6 +94,18 @@
             "full_points": "L'entierté des points seront compatibilisés",
             "final_score_title": "Score final et classement",
             "final_score_description": "Les partis sont classés sur leur score final accumulé"
+        }
+    },
+    "contact": {
+        "form": {
+            "name": "Nom",
+            "email": "Courriel",
+            "message": "Message",
+            "submit": "Envoyer",
+            "submitting": "Envoi en cours...",
+            "success": "Message envoyé",
+            "success_message": "Nous avons bien reçu votre message. Nous vous répondrons dans les plus brefs délais.",
+            "learn_more": "En savoir plus sur nous"
         }
     }
 }

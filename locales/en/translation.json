@@ -1,96 +1,111 @@
 {
-  "site_title": "More Montreal",
-  "site_description": "We want to make housing in the Greater Montreal Region affordable for all, sustainable and inclusive through local actions and voicing support to realistic solutions and developments.",
-  "post": "News",
-  "event": "Event",
-  "action": "Action",
-  "home": {
-    "cta": "Discover our actions",
-    "secondary_cta": "Get involved",
-    "policies_banner": "🗳️ Quebec General Election: Compare the political parties response to the housing crisis",
-    "sections": {
-      "actions": {
-        "nav": "Our Actions",
-        "heading": "Our Actions",
-        "subheading": "Read about our latest news or take action with us in upcoming events",
-        "more": {
-          "title": "Get Informed",
-          "description": "Dive deep and understand our vision on urban planning and learn about the latest local developments",
-          "cta": "Read the blog"
+    "site_title": "More Montreal",
+    "site_description": "We want to make housing in the Greater Montreal Region affordable for all, sustainable and inclusive through local actions and voicing support to realistic solutions and developments.",
+    "post": "News",
+    "event": "Event",
+    "action": "Action",
+    "home": {
+        "cta": "Discover our actions",
+        "secondary_cta": "Get involved",
+        "policies_banner": "🗳️ Quebec General Election: Compare the political parties response to the housing crisis",
+        "sections": {
+            "actions": {
+                "nav": "Our Actions",
+                "heading": "Our Actions",
+                "subheading": "Read about our latest news or take action with us in upcoming events",
+                "more": {
+                    "title": "Get Informed",
+                    "description": "Dive deep and understand our vision on urban planning and learn about the latest local developments",
+                    "cta": "Read the blog"
+                }
+            },
+            "fight": {
+                "nav": "What We Fight For",
+                "heading": "What We Fight For",
+                "subheading": "Fighting for affordable housing is part of an encompassing vision for Montreal"
+            },
+            "involvement": {
+                "nav": "Get Involved",
+                "join": "Join our Discord community",
+                "view_events": "View upcoming events"
+            },
+            "blog": {
+                "nav": "Blog"
+            },
+            "contact": {
+                "nav": "Contact"
+            }
         }
-      },
-      "fight": {
-        "nav": "What We Fight For",
-        "heading": "What We Fight For",
-        "subheading": "Fighting for affordable housing is part of an encompassing vision for Montreal"
-      },
-      "involvement": {
-        "nav": "Get Involved",
-        "join": "Join our Discord community",
-        "view_events": "View upcoming events"
-      },
-      "blog": {
-        "nav": "Blog"
-      }
-    }
-  },
-  "blog": {
-    "title": "Blog",
-    "header": {
-      "blog": "Blog",
-      "about": "About us",
-      "post": "News",
-      "event": "Events",
-      "action": "Actions"
     },
-    "index": {
-      "latest": "Latest post",
-      "latest_posts": "Latest posts",
-      "upcoming_events": "Upcoming events",
-      "latest_actions": "Latest actions"
+    "blog": {
+        "title": "Blog",
+        "header": {
+            "blog": "Blog",
+            "about": "About us",
+            "post": "News",
+            "event": "Events",
+            "action": "Actions"
+        },
+        "index": {
+            "latest": "Latest post",
+            "latest_posts": "Latest posts",
+            "upcoming_events": "Upcoming events",
+            "latest_actions": "Latest actions"
+        },
+        "post": {
+            "by": "By",
+            "published": "Published on",
+            "updated": "Updated on"
+        },
+        "event": {
+            "in_person": "In person",
+            "online": "Online",
+            "label": "Event",
+            "join": "Join the event",
+            "directions": "Get directions"
+        }
     },
-    "post": {
-      "by": "By",
-      "published": "Published on",
-      "updated": "Updated on"
+    "policies": {
+        "home": "Home",
+        "points": "Points",
+        "rank": "Rank",
+        "parties_score": "Political parties score",
+        "ideas": "Ideas",
+        "political_support": "Political support",
+        "no_support": "This policy hasn't been supported by a political party yet",
+        "why_it_matters": "Why it matters",
+        "more_info": "More info",
+        "supported_by": "Supported by",
+        "how_it_works": "How are the scores calculated?",
+        "something_missing": "Think something is missing? Contact us",
+        "scoring_breakdown": {
+            "title": "Scoring breakdown",
+            "description": "We scored political parties on ideas that we judge important to address the housing crisis. These ideas have been discussed and ranked internally by the members of More Montreal.",
+            "ranking_title": "Ideas grading",
+            "ranking_description": "Each idea has been judged and ranked on their effectiveness in solving the housing crisis. They have been divided in three groups each of them scoring differently.",
+            "bronze": "Bronze",
+            "silver": "Silver",
+            "gold": "Gold",
+            "support_type": "Kind of support",
+            "support_description": "Policies points are distributed based on the kind of support the party is giving to an idea.",
+            "partial_support": "Partial support",
+            "half_points": "Only half of the points will be added to the score.",
+            "full_support": "Full support",
+            "full_points": "All of the points will be added.",
+            "final_score_title": "Final score and rank",
+            "final_score_description": "Parties are ranked on their total accumulated score"
+        }
     },
-    "event": {
-      "in_person": "In person",
-      "online": "Online",
-      "label": "Event",
-      "join": "Join the event",
-      "directions": "Get directions"
+    "contact": {
+        "form": {
+            "name": "Name",
+            "email": "Email",
+            "message": "Message",
+            "submit": "Submit",
+            "submitting": "Submitting...",
+            "success": "Message sent",
+            "success_message": "Your message has been sent successfully. We will get back to you as soon as possible.",
+            "learn_more": "Learn more about us"
+        }
     }
-  },
-  "policies": {
-    "home": "Home",
-    "points": "Points",
-    "rank": "Rank",
-    "parties_score": "Political parties score",
-    "ideas": "Ideas",
-    "political_support": "Political support",
-    "no_support": "This policy hasn't been supported by a political party yet",
-    "why_it_matters": "Why it matters",
-    "more_info": "More info",
-    "supported_by": "Supported by",
-    "how_it_works": "How are the scores calculated?",
-    "something_missing": "Think something is missing? Contact us",
-    "scoring_breakdown": {
-      "title": "Scoring breakdown",
-      "description": "We scored political parties on ideas that we judge important to address the housing crisis. These ideas have been discussed and ranked internally by the members of More Montreal.",
-      "ranking_title": "Ideas grading",
-      "ranking_description": "Each idea has been judged and ranked on their effectiveness in solving the housing crisis. They have been divided in three groups each of them scoring differently.",
-      "bronze": "Bronze",
-      "silver": "Silver",
-      "gold": "Gold",
-      "support_type": "Kind of support",
-      "support_description": "Policies points are distributed based on the kind of support the party is giving to an idea.",
-      "partial_support": "Partial support",
-      "half_points": "Only half of the points will be added to the score.",
-      "full_support": "Full support",
-      "full_points": "All of the points will be added.",
-      "final_score_title": "Final score and rank",
-      "final_score_description": "Parties are ranked on their total accumulated score"
-    }
-  }
 }

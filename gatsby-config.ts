@@ -140,6 +140,14 @@ const config: GatsbyConfig = {
                         },
                     },
                     {
+                        singularName: "contact",
+                        pluginOptions: {
+                            i18n: {
+                                locale: "all",
+                            },
+                        },
+                    },
+                    {
                         singularName: "policies-page",
                         queryParams: {
                             populate: {
