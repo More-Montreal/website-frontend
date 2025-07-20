@@ -10,10 +10,15 @@ You will also need to setup the [backend part of the website](https://github.com
 ## Setup
 First create a .env file using the .env.example
 ```sh
-cat .env.example > .env
+cp .env.example .env
 ```
 
-Input the STRAPI_TOKEN from the backend. Follow [this guide](https://docs.strapi.io/user-docs/latest/settings/managing-global-settings.html#configuring-internationalization-locales) to learn how to create a Full-access API token
+Make sure to fill the values in `.env`.
+
+Input the STRAPI_TOKEN from the backend. Follow [this guide](https://docs.strapi.io/user-docs/latest/settings/managing-global-settings.html#configuring-internationalization-locales) to learn how to create a Full-access API token.
+You can set up the backend locally, instructions here: [https://github.com/More-Montreal/website-backend](https://github.com/More-Montreal/website-backend)
+
+**IMPORTANT: In the backend, all content type must have at least one value (and it needs to be published), else the gatsby frontend will not like it. You need to create this manually if you have your own backend. Images must have alt text, etc. you can see the errors when running the frontend and going to http://localhost:8000. You might need to delete `.cache` and `public` directory and `npm run develop` to see which problems still need fixing.**
 
 Running the generator
 ```sh

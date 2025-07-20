@@ -5,6 +5,8 @@ import DiscordIcon from "../../assets/Discord.svg";
 import FacebookIcon from "../../assets/Facebook.svg";
 import InstagramIcon from "../../assets/Instagram.svg";
 import TwitterIcon from "../../assets/Twitter.svg";
+import MastodonIcon from "../../assets/Mastodon.svg";
+import BlueSkyIcon from "../../assets/BlueSky.svg";
 import { SocialLinks } from "../helpers/content-types";
 
 type FooterProps = {
@@ -59,6 +61,16 @@ const Footer = ({ overrideLangLinks, socials, children }: React.PropsWithChildre
                             <p className="w-full text-lg font-medium text-right text-gray-400 lg:w-auto">
                                 {currentYear} — {t("site_title")}
                             </p>
+                            {socials.mastodonLink && (
+                                <a href={socials.mastodonLink} target="_blank">
+                                    <MastodonIcon />
+                                </a>
+                            )}
+                            {socials.blueSkyLink && (
+                                <a href={socials.blueSkyLink} target="_blank">
+                                    <BlueSkyIcon />
+                                </a>
+                            )}
                             {socials.discordLink && (
                                 <a href={socials.discordLink} target="_blank">
                                     <DiscordIcon />

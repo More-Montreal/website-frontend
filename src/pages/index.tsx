@@ -325,6 +325,8 @@ export const query = graphql`
             facebookLink
             instagramLink
             twitterLink
+            mastodonLink
+            blueSkyLink
         }
         events: allStrapiEvent(limit: 3, sort: { id: DESC }, filter: { locale: { eq: $language } }) {
             nodes {
