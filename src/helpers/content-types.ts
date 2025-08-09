@@ -37,6 +37,8 @@ export type SocialLinks = {
     facebookLink: string;
     instagramLink: string;
     twitterLink: string;
+    mastodonLink: string;
+    blueSkyLink: string;
 };
 
 export type EventCardData = {

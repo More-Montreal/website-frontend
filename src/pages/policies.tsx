@@ -461,6 +461,8 @@ export const query = graphql`
             facebookLink
             instagramLink
             twitterLink
+            mastodonLink
+            blueSkyLink
         }
         locales: allLocale(filter: { language: { eq: $language } }) {
             edges {
