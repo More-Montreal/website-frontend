@@ -6,7 +6,7 @@ import FacebookIcon from "../../assets/Facebook.svg";
 import InstagramIcon from "../../assets/Instagram.svg";
 import TwitterIcon from "../../assets/Twitter.svg";
 import MastodonIcon from "../../assets/Mastodon.svg";
-import BlueSkyIcon from "../../assets/BlueSky.svg";
+import BlueSkyIcon from "../../assets/Bluesky.svg";
 import { SocialLinks } from "../helpers/content-types";
 
 type FooterProps = {
