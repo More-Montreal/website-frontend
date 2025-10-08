@@ -73,7 +73,7 @@ const PoliciesPage = ({ data }: PageProps<CityPoliciesPageData>) => {
     );
 
     const renderPoliticalPartiesHeader = () => (
-        <div className={`hidden lg:visible lg:grid ${gridCols[cityPoliticalParties.length]} gap-4 mt-4 sticky top-4`}>
+        <div className={`hidden xl:visible xl:grid ${gridCols[cityPoliticalParties.length]} gap-4 mt-4 sticky top-4`}>
             {cityPoliticalParties.map((party, pi) => (
                 <div key={party} className={`inline-flex w-fit px-4 py-2 text-lg font-medium border backdrop-blur-md rounded-full ${partyColor(pi)}`}>
                     {party}
@@ -84,16 +84,18 @@ const PoliciesPage = ({ data }: PageProps<CityPoliciesPageData>) => {
 
     const gridCols: Record<number, string> = {
         1: "grid-cols-1",
-        2: "grid-cols-1 lg:grid-cols-2",
-        3: "grid-cols-1 lg:grid-cols-3",
-        4: "grid-cols-1 lg:grid-cols-4",
+        2: "grid-cols-1 xl+:grid-cols-2",
+        3: "grid-cols-1 xl:grid-cols-3",
+        4: "grid-cols-1 xl:grid-cols-4",
+        5: "grid-cols-1 xl:grid-cols-5",
     };
 
     const partyColors: Record<number, string> = {
         0: "bg-blue-50/50 text-blue-800 border-blue-100",
         1: "bg-indigo-50/50 text-indigo-800 border-indigo-100",
         2: "bg-purple-50/50 text-purple-800 border-purple-100",
-        3: "bg-pink-50/50 text-pink-800 border-pink-100"
+        3: "bg-pink-50/50 text-pink-800 border-pink-100",
+        4: "bg-red-50/50 text-red-800 border-red-100",
     };
 
     const partyColor = (index: number) => partyColors[index % Object.keys(partyColors).length];
@@ -136,7 +138,7 @@ const PoliciesPage = ({ data }: PageProps<CityPoliciesPageData>) => {
                 </div>
             </div>
             <div className="w-full h-auto bg-gray-50">
-                <div className="m-auto max-w-screen-2xl p-4">
+                <div className={`m-auto p-4 ${cityPoliticalParties.length <= 3 ? "max-w-screen-2xl" : "max-w-full"}`}>
                     <div className="flex flex-col gap-2">
                         <p className="uppercase font-bold text-sm text-gray-600 tracking-wide px-0.5">{t('cities_policies.filter_by_city')}</p>
                         {renderCities()}
@@ -146,10 +148,10 @@ const PoliciesPage = ({ data }: PageProps<CityPoliciesPageData>) => {
                             <div key={qi} className="flex flex-col gap-6">
                                 <h2 className="text-xl font-bold text-gray-800 lg:text-2xl font-display">{q.question}</h2>
                                 {renderPoliticalPartiesHeader()}
-                                <div className={`grid ${gridCols[cityPoliticalParties.length]} gap-10 lg:gap-4`}>
+                                <div className={`grid ${gridCols[cityPoliticalParties.length]} gap-10 xl:gap-4`}>
                                     {cityPoliticalParties.map((party, pi) => (
-                                        <div className="flex flex-col gap-4 lg:gap-0">
-                                            <div key={party} className={`lg:hidden inline-flex w-fit px-4 py-2 font-medium border backdrop-blur-md rounded-full ${partyColor(pi)}`}>
+                                        <div className="flex flex-col gap-4 xl:gap-0">
+                                            <div key={party} className={`xl:hidden inline-flex w-fit px-4 py-2 font-medium border backdrop-blur-md rounded-full ${partyColor(pi)}`}>
                                                 {party}
                                             </div>
                                             {getAnswerForQuestionAndParty(q, party).map((a, ai) => (
