@@ -6,7 +6,6 @@
       "dependencies": {
         "@formspree/react": "^2.5.1",
         "@herob191/gatsby-plugin-react-i18next": "^3.0.15",
-        "@strapi/blocks-react-renderer": "^1.0.2",
         "dotenv": "^16.0.1",
         "gatsby": "^5.13.1",
         "gatsby-plugin-anchor-links": "^1.2.1",
@@ -519,8 +518,6 @@
     "@sindresorhus/transliterate": ["@sindresorhus/transliterate@0.1.2", "", { "dependencies": { "escape-string-regexp": "^2.0.0", "lodash.deburr": "^4.1.0" } }, "sha512-5/kmIOY9FF32nicXH+5yLNTX4NJ4atl7jRgqAJuIn/iyDFXBktOKDxCvyGE/EzmF4ngSUvjXxQUQlQiZ5lfw+w=="],
 
     "@socket.io/component-emitter": ["@socket.io/component-emitter@3.1.0", "", {}, "sha512-+9jVqKhRSpsc591z5vX+X5Yyw+he/HCB4iQ/RYxw35CEPaY1gnsNE43nf9n9AaYjAQrTiI/mOwKUKdUs9vf7Xg=="],
-
-    "@strapi/blocks-react-renderer": ["@strapi/blocks-react-renderer@1.0.2", "", { "peerDependencies": { "react": "^18.0.0 || ^19.0.0", "react-dom": "^18.0.0 || ^19.0.0" } }, "sha512-pRV/WMreo5wyrLg7J0pw1DM9lg8U8m+QA7Bd8CPN3beUBTdDhYrFTTNZh3XveEdnURZNJu1X0aWXAg4SzVg7QA=="],
 
     "@stripe/react-stripe-js": ["@stripe/react-stripe-js@1.16.5", "", { "dependencies": { "prop-types": "^15.7.2" }, "peerDependencies": { "@stripe/stripe-js": "^1.44.1", "react": "^16.8.0 || ^17.0.0 || ^18.0.0", "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0" } }, "sha512-lVPW3IfwdacyS22pP+nBB6/GNFRRhT/4jfgAK6T2guQmtzPwJV1DogiGGaBNhiKtSY18+yS8KlHSu+PvZNclvQ=="],
 
