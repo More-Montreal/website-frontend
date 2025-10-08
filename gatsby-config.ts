@@ -119,6 +119,14 @@ const config: GatsbyConfig = {
                             },
                         },
                     },
+                    {
+                        singularName: "city-policy-question",
+                        pluginOptions: {
+                            i18n: {
+                                locale: "all",
+                            },
+                        },
+                    }
                 ],
                 singleTypes: [
                     {
@@ -141,6 +149,33 @@ const config: GatsbyConfig = {
                     },
                     {
                         singularName: "contact",
+                        pluginOptions: {
+                            i18n: {
+                                locale: "all",
+                            },
+                        },
+                    },
+                    {
+                        singularName: "city-policies-page",
+                        queryParams: {
+                            populate: {
+                                seoImage: {
+                                    populate: "*",
+                                },
+                                heroBackground: {
+                                    populate: "*",
+                                },
+                                cityPolicyQuestions: {
+                                    populate: {
+                                        answers: {
+                                            answer: {
+                                                populate: "*",
+                                            },
+                                        },
+                                    },
+                                },
+                            },
+                        },
                         pluginOptions: {
                             i18n: {
                                 locale: "all",

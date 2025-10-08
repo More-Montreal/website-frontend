@@ -7,7 +7,7 @@
     "home": {
         "cta": "Discover our actions",
         "secondary_cta": "Get involved",
-        "policies_banner": "🗳️ Quebec General Election: Compare the political parties response to the housing crisis",
+        "policies_banner": "🗳️ Quebec Municipal Elections: Compare the political parties response to the housing crisis",
         "sections": {
             "actions": {
                 "nav": "Our Actions",
@@ -95,6 +95,9 @@
             "final_score_title": "Final score and rank",
             "final_score_description": "Parties are ranked on their total accumulated score"
         }
+    },
+    "cities_policies": {
+        "filter_by_city": "Filter by city"
     },
     "contact": {
         "form": {

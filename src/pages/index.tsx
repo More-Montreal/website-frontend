@@ -84,7 +84,7 @@ const IndexPage = ({ data }: PageProps<IndexData>) => {
     return (
         <div>
             {content.electionsCallout && (
-                <Link to="/policies" className="block w-full bg-blue-300 lg:text-center p-4">
+                <Link to="/cities-policies" className="block w-full bg-blue-300 lg:text-center p-4">
                     <p className="text-sm lg:text-lg font-medium text-blue-900 flex items-center justify-center gap-2">
                         {t("home.policies_banner")}
                         <ArrowRight className="w-12 lg:w-6 flex-shrink fill-blue-900" />
