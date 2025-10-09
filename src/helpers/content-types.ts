@@ -85,6 +85,8 @@ export type PolicyCategoryData = {
 
 export type CityPolicyQuestion = {
     question: string;
+    displayForMontreal: boolean;
+    displayOutsideMontreal: boolean;
     answers: {
         city: string;
         politicalParty: string;

@@ -8,6 +8,7 @@ import InvolvementCallout, { InvolvementData } from "../components/involvement-c
 import SEO from "../components/seo";
 import {
     CityPolicyQuestion,
+    RichTextContent,
     SocialLinks,
     StrapiImage,
 } from "../helpers/content-types";
@@ -20,6 +21,7 @@ type CityPoliciesPageData = {
         heroBackground: StrapiImage;
         seoImage: StrapiImage;
         cityPolicyQuestions: CityPolicyQuestion[];
+        footerInfo: RichTextContent<"footerInfo">;
     };
     socials: SocialLinks;
     involvementCallout: InvolvementData;
@@ -41,6 +43,7 @@ const PoliciesPage = ({ data }: PageProps<CityPoliciesPageData>) => {
 
     const cities = Array.from(new Set(content.cityPolicyQuestions.map((q) => q.answers.map((a) => a.city)).flat()));
     const [selectedCity, setSelectedCity] = useState<string>(cities[0]);
+    const cityQuestions = content.cityPolicyQuestions.filter((q) => selectedCity === "Montréal" ? q.displayForMontreal : q.displayOutsideMontreal);
     
     const getAnswerForQuestionAndParty = (q: CityPolicyQuestion, party: string) => (
         q.answers.filter((a) => a.city === selectedCity && a.politicalParty === party)
@@ -137,14 +140,14 @@ const PoliciesPage = ({ data }: PageProps<CityPoliciesPageData>) => {
                     </div>
                 </div>
             </div>
-            <div className="w-full h-auto bg-gray-50">
+            <div className="w-full h-auto bg-white">
                 <div className={`m-auto p-4 ${cityPoliticalParties.length <= 3 ? "max-w-screen-2xl" : "max-w-full"}`}>
                     <div className="flex flex-col gap-2">
                         <p className="uppercase font-bold text-sm text-gray-600 tracking-wide px-0.5">{t('cities_policies.filter_by_city')}</p>
                         {renderCities()}
                     </div>
                     <div className="flex flex-col gap-16 py-12">
-                        {content.cityPolicyQuestions.map((q, qi) => (
+                        {cityQuestions.map((q, qi) => (
                             <div key={qi} className="flex flex-col gap-6">
                                 <h2 className="text-xl font-bold text-gray-800 lg:text-2xl font-display">{q.question}</h2>
                                 {renderPoliticalPartiesHeader()}
@@ -155,7 +158,7 @@ const PoliciesPage = ({ data }: PageProps<CityPoliciesPageData>) => {
                                                 {party}
                                             </div>
                                             {getAnswerForQuestionAndParty(q, party).map((a, ai) => (
-                                                <div key={ai} className={`p-4 ${pi % 2 === 0 ? "bg-gray-50" : "bg-gray-100"} rounded-lg`}>
+                                                <div key={ai} className={`p-4 ${pi % 2 === 0 ? "bg-white" : "bg-gray-50"} rounded-lg`}>
                                                     <div className="prose max-w-none" dangerouslySetInnerHTML={{ __html: a.answer.data.childMarkdownRemark.html }} />
                                                 </div>
                                             ))}
@@ -166,6 +169,7 @@ const PoliciesPage = ({ data }: PageProps<CityPoliciesPageData>) => {
                         ))}
                     </div>
                 </div>
+                <div className="prose max-w-screen-xl m-auto mb-16 px-4" dangerouslySetInnerHTML={{ __html: content.footerInfo.data.childMarkdownRemark.html }} />
             </div>
             <InvolvementCallout
                 title={data.involvementCallout.title}
@@ -207,6 +211,8 @@ export const query = graphql`
             }
             cityPolicyQuestions {
                 question
+                displayForMontreal
+                displayOutsideMontreal
                 answers {
                     city
                     politicalParty
@@ -216,6 +222,13 @@ export const query = graphql`
                                 html
                             }
                         }
+                    }
+                }
+            }
+            footerInfo {
+                data {
+                    childMarkdownRemark {
+                        html
                     }
                 }
             }
