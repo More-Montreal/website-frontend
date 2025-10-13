@@ -99,6 +99,7 @@ const PoliciesPage = ({ data }: PageProps<CityPoliciesPageData>) => {
         "Futur Montréal": <StaticImage src="../images/parties/futur-montreal.png" alt="Futur Montreal" height={40} />,
         "Transition Montréal": <StaticImage src="../images/parties/transition-montreal.webp" alt="Transition Montreal" height={40} />,
         "Coalition Longueuil": <StaticImage src="../images/parties/coalition-longueuil.png" alt="Coalition Longueuil" height={40} />,
+        "Mouvement Lavallois": <StaticImage src="../images/parties/mouvement-lavallois.svg" alt="Mouvement Lavallois" height={40} />,
     };
     
     return (
