@@ -50,7 +50,7 @@ const PoliciesPage = ({ data }: PageProps<CityPoliciesPageData>) => {
             const searchParams = new URLSearchParams(window.location.search);
             const cityParam = searchParams.get("city");
             if (cityParam && cities.includes(cityParam)) {
-                setQueryParams('?' + searchParams.toString());
+                setQueryParams(`${window.location.pathname}?${searchParams.toString()}`);
                 return cityParam;
             }
         }
@@ -58,10 +58,11 @@ const PoliciesPage = ({ data }: PageProps<CityPoliciesPageData>) => {
     });
 
     useEffect(() => {
+        if (typeof window === "undefined") return;
         const searchParams = new URLSearchParams(window.location.search);
         searchParams.set("city", selectedCity);
-        window.history.replaceState({}, "", `${window.location.pathname}?${searchParams.toString()}`);
-        setQueryParams('?' + searchParams.toString());
+        setQueryParams(`${window.location.pathname}?${searchParams.toString()}`);
+        window.history.replaceState({}, "", queryParams);
     }, [selectedCity]);
 
     const cityQuestions = content.cityPolicyQuestions.filter((q) => selectedCity === "Montréal" ? q.displayForMontreal : q.displayOutsideMontreal);
@@ -108,7 +109,7 @@ const PoliciesPage = ({ data }: PageProps<CityPoliciesPageData>) => {
 
     const renderQuestion = (question: string, index: number) => (
         <AnchorLink
-            to={`${window.location.pathname}${queryParams}#question-${index}`}
+            to={`${queryParams}#question-${index}`}
             className="text-xl font-bold text-gray-800 lg:text-2xl font-display"
         >
             {question}
