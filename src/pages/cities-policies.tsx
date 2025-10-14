@@ -43,11 +43,11 @@ const PoliciesPage = ({ data }: PageProps<CityPoliciesPageData>) => {
     const content = data.content;
 
     const cities = Array.from(new Set(content.cityPolicyQuestions.map((q) => q.answers.map((a) => a.city)).flat()));
-    const searchParams = new URLSearchParams(window.location.search);
     const [queryParams, setQueryParams] = useState<string | null>(null); 
-
+    
     const [selectedCity, setSelectedCity] = useState<string>(() => {
         if (typeof window !== "undefined") {
+            const searchParams = new URLSearchParams(window.location.search);
             const cityParam = searchParams.get("city");
             if (cityParam && cities.includes(cityParam)) {
                 setQueryParams('?' + searchParams.toString());
@@ -58,6 +58,7 @@ const PoliciesPage = ({ data }: PageProps<CityPoliciesPageData>) => {
     });
 
     useEffect(() => {
+        const searchParams = new URLSearchParams(window.location.search);
         searchParams.set("city", selectedCity);
         window.history.replaceState({}, "", `${window.location.pathname}?${searchParams.toString()}`);
         setQueryParams('?' + searchParams.toString());
@@ -103,6 +104,15 @@ const PoliciesPage = ({ data }: PageProps<CityPoliciesPageData>) => {
                 </div>
             ))}
         </div>
+    );
+
+    const renderQuestion = (question: string, index: number) => (
+        <AnchorLink
+            to={`${window.location.pathname}${queryParams}#question-${index}`}
+            className="text-xl font-bold text-gray-800 lg:text-2xl font-display"
+        >
+            {question}
+        </AnchorLink>
     );
 
     const gridCols: Record<number, string> = {
@@ -168,12 +178,7 @@ const PoliciesPage = ({ data }: PageProps<CityPoliciesPageData>) => {
                     <div className="flex flex-col gap-16 py-12">
                         {cityQuestions.map((q, qi) => (
                             <div id={'question-' + qi.toString()} key={qi} className="flex flex-col gap-6">
-                                <AnchorLink
-                                    to={`${window.location.pathname}${queryParams}#question-${qi}`}
-                                    className="text-xl font-bold text-gray-800 lg:text-2xl font-display"
-                                >
-                                    {q.question}
-                                </AnchorLink>
+                                {renderQuestion(q.question, qi)}
                                 {renderPoliticalPartiesHeader()}
                                 <div className={`grid ${gridCols[cityPoliticalParties.length]} gap-10 xl:gap-4`}>
                                     {cityPoliticalParties.map((party, pi) => (
