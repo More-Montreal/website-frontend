@@ -1,6 +1,6 @@
 import { graphql, Link, PageProps } from "gatsby";
 import { GatsbyImage, getImage, StaticImage } from "gatsby-plugin-image";
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { useTranslation } from "@herob191/gatsby-plugin-react-i18next";
 import Button, { ButtonType } from "../components/button";
 import Footer from "../components/footer";
@@ -13,6 +13,7 @@ import {
     StrapiImage,
 } from "../helpers/content-types";
 import JsonDebug from "../helpers/json-debug";
+import { AnchorLink } from "gatsby-plugin-anchor-links";
 
 type CityPoliciesPageData = {
     content: {
@@ -42,7 +43,26 @@ const PoliciesPage = ({ data }: PageProps<CityPoliciesPageData>) => {
     const content = data.content;
 
     const cities = Array.from(new Set(content.cityPolicyQuestions.map((q) => q.answers.map((a) => a.city)).flat()));
-    const [selectedCity, setSelectedCity] = useState<string>(cities[0]);
+    const searchParams = new URLSearchParams(window.location.search);
+    const [queryParams, setQueryParams] = useState<string | null>(null); 
+
+    const [selectedCity, setSelectedCity] = useState<string>(() => {
+        if (typeof window !== "undefined") {
+            const cityParam = searchParams.get("city");
+            if (cityParam && cities.includes(cityParam)) {
+                setQueryParams('?' + searchParams.toString());
+                return cityParam;
+            }
+        }
+        return cities[0];
+    });
+
+    useEffect(() => {
+        searchParams.set("city", selectedCity);
+        window.history.replaceState({}, "", `${window.location.pathname}?${searchParams.toString()}`);
+        setQueryParams('?' + searchParams.toString());
+    }, [selectedCity]);
+
     const cityQuestions = content.cityPolicyQuestions.filter((q) => selectedCity === "Montréal" ? q.displayForMontreal : q.displayOutsideMontreal);
     
     const getAnswerForQuestionAndParty = (q: CityPolicyQuestion, party: string) => (
@@ -147,8 +167,13 @@ const PoliciesPage = ({ data }: PageProps<CityPoliciesPageData>) => {
                     </div>
                     <div className="flex flex-col gap-16 py-12">
                         {cityQuestions.map((q, qi) => (
-                            <div key={qi} className="flex flex-col gap-6">
-                                <h2 className="text-xl font-bold text-gray-800 lg:text-2xl font-display">{q.question}</h2>
+                            <div id={'question-' + qi.toString()} key={qi} className="flex flex-col gap-6">
+                                <AnchorLink
+                                    to={`${window.location.pathname}${queryParams}#question-${qi}`}
+                                    className="text-xl font-bold text-gray-800 lg:text-2xl font-display"
+                                >
+                                    {q.question}
+                                </AnchorLink>
                                 {renderPoliticalPartiesHeader()}
                                 <div className={`grid ${gridCols[cityPoliticalParties.length]} gap-10 xl:gap-4`}>
                                     {cityPoliticalParties.map((party, pi) => (
