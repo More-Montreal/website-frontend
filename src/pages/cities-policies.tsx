@@ -61,8 +61,9 @@ const PoliciesPage = ({ data }: PageProps<CityPoliciesPageData>) => {
         if (typeof window === "undefined") return;
         const searchParams = new URLSearchParams(window.location.search);
         searchParams.set("city", selectedCity);
-        setQueryParams(`${window.location.pathname}?${searchParams.toString()}`);
-        window.history.replaceState({}, "", queryParams);
+        const newQueryParams = `${window.location.pathname}?${searchParams.toString()}`;
+        setQueryParams(newQueryParams);
+        window.history.replaceState({}, "", newQueryParams);
     }, [selectedCity]);
 
     const cityQuestions = content.cityPolicyQuestions.filter((q) => selectedCity === "Montréal" ? q.displayForMontreal : q.displayOutsideMontreal);
