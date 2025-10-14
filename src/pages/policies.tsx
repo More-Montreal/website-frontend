@@ -42,7 +42,7 @@ type PoliciesPageData = {
 export const Head = ({ data, pageContext }: any) => {
     const content = data.content;
 
-    <SEO
+    return <SEO
         i18n={pageContext.i18n}
         metaTitle={content.heroTitle}
         metaDescription={content.heroDescription}

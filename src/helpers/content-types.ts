@@ -83,6 +83,17 @@ export type PolicyCategoryData = {
     policies?: PolicyData[];
 };
 
+export type CityPolicyQuestion = {
+    question: string;
+    displayForMontreal: boolean;
+    displayOutsideMontreal: boolean;
+    answers: {
+        city: string;
+        politicalParty: string;
+        answer: RichTextContent<"answer">;
+    }[]
+}
+
 export enum PolicyGrade {
     BRONZE = "bronze",
     SILVER = "silver",
