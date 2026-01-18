@@ -59,7 +59,7 @@ const Footer = ({ overrideLangLinks, socials, children }: React.PropsWithChildre
                         <div className="flex items-center justify-end gap-10">{children}</div>
                         <div className="flex flex-wrap items-center justify-end gap-4">
                             <p className="w-full text-lg font-medium text-right text-gray-400 lg:w-auto">
-                                {currentYear} — {t("site_title")}
+                                2022-{currentYear} — {t("site_title")}
                             </p>
                             {socials.mastodonLink && (
                                 <a href={socials.mastodonLink} target="_blank">
