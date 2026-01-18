@@ -17,7 +17,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@formspree/react": "^2.5.1",
+    "@formspree/react": "^3.0.0",
     "@herob191/gatsby-plugin-react-i18next": "^3.0.15",
     "dotenv": "^16.0.1",
     "gatsby": "^5.13.1",
