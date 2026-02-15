@@ -1,5 +1,19 @@
 const path = require("path");
 
+exports.createSchemaCustomization = ({ actions }: any) => {
+    const { createTypes } = actions;
+    createTypes(`
+        type StrapiPostAuthor {
+            firstname: String
+            lastname: String
+        }
+
+        type STRAPI_POST implements Node {
+            author: StrapiPostAuthor
+        }
+    `);
+};
+
 exports.createPages = async ({ graphql, actions, reporter }: any) => {
     const result = await graphql(`
         {
