@@ -1,8 +1,7 @@
 import { graphql, Link, navigate, PageProps } from "gatsby";
-import { OutboundLink } from "gatsby-plugin-google-gtag";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
-import React, { useCallback, useMemo } from "react";
-import { useTranslation } from "@herob191/gatsby-plugin-react-i18next";
+import React, { useCallback, useMemo, useState } from "react";
+import { useTranslation, useI18next } from "@herob191/gatsby-plugin-react-i18next";
 import Button, { ButtonType } from "../components/button";
 import Footer from "../components/footer";
 import InvolvementCallout, { InvolvementData } from "../components/involvement-callout";
@@ -46,6 +45,20 @@ const PoliciesPage = ({ data, location }: PageProps<PoliciesPageData>) => {
     const content = data.content;
 
     const { t } = useTranslation();
+    const { language } = useI18next();
+    const [expandedPolicies, setExpandedPolicies] = useState<Set<string>>(new Set());
+
+    const toggleExpanded = useCallback((key: string) => {
+        setExpandedPolicies((prev) => {
+            const next = new Set(prev);
+            if (next.has(key)) {
+                next.delete(key);
+            } else {
+                next.add(key);
+            }
+            return next;
+        });
+    }, []);
 
     const activeFilters = useMemo(() => {
         const params = new URLSearchParams(location.search);
@@ -193,6 +206,36 @@ const PoliciesPage = ({ data, location }: PageProps<PoliciesPageData>) => {
                                                     <p className="text-sm lg:text-base text-gray-600">
                                                         {policy.explanation}
                                                     </p>
+                                                    {policy.links?.strapi_json_value?.length > 0 && (() => {
+                                                        const policyKey = `${index}-${policyIndex}`;
+                                                        const isExpanded = expandedPolicies.has(policyKey);
+                                                        return (
+                                                            <div className="mt-2">
+                                                                <button
+                                                                    onClick={() => toggleExpanded(policyKey)}
+                                                                    className="text-sm text-gray-500 hover:text-blue-600 cursor-pointer transition-colors duration-200"
+                                                                >
+                                                                    {t("policies.references")} {isExpanded ? "▾" : "▸"}
+                                                                </button>
+                                                                {isExpanded && (
+                                                                    <ul className="mt-1 space-y-1">
+                                                                        {policy.links?.strapi_json_value.map((link, linkIndex) => (
+                                                                            <li key={linkIndex}>
+                                                                                <a
+                                                                                    href={link.url}
+                                                                                    target="_blank"
+                                                                                    rel="noopener noreferrer"
+                                                                                    className="text-sm text-blue-600 underline hover:text-blue-800"
+                                                                                >
+                                                                                    {language === "fr" ? link.title_fr : link.title_en}
+                                                                                </a>
+                                                                            </li>
+                                                                        ))}
+                                                                    </ul>
+                                                                )}
+                                                            </div>
+                                                        );
+                                                    })()}
                                                 </div>
                                             </div>
                                         );
@@ -248,6 +291,13 @@ export const query = graphql`
                     isProvincial
                     isFederal
                     isVisible
+                    links {
+                        strapi_json_value {
+                            title_en
+                            title_fr
+                            url
+                        }
+                    }
                     policy_category {
                         name
                     }
