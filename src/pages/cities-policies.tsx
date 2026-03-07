@@ -6,6 +6,7 @@ import Button, { ButtonType } from "../components/button";
 import Footer from "../components/footer";
 import InvolvementCallout, { InvolvementData } from "../components/involvement-callout";
 import SEO from "../components/seo";
+import NavLinks from "../components/nav-links";
 import {
     CityPolicyQuestion,
     RichTextContent,
@@ -157,12 +158,7 @@ const PoliciesPage = ({ data }: PageProps<CityPoliciesPageData>) => {
                             <p className="text-xl md:text-3xl font-bold text-white font-display">{t("site_title")}</p>
                         </div>
                         <div className="flex items-center gap-10">
-                            <Link to="/" className="hidden text-lg font-medium text-white lg:inline">
-                                {t("policies.home")}
-                            </Link>
-                            <Button type={ButtonType.TRANSPARENT} href="/blog">
-                                {t("home.sections.blog.nav")}
-                            </Button>
+                            <NavLinks variant="light" />
                         </div>
                     </div>
                     <div className="flex flex-col items-center justify-center flex-1 gap-4 px-4 py-10 lg:px-32 lg:py-24 text-center">
@@ -209,12 +205,7 @@ const PoliciesPage = ({ data }: PageProps<CityPoliciesPageData>) => {
                 joinLink={data.involvementCallout.joinLink}
             />
             <Footer socials={data.socials}>
-                <Link to="/" className="hidden text-lg font-medium text-white lg:inline">
-                    {t("policies.home")}
-                </Link>
-                <Button type={ButtonType.TRANSPARENT} href="/blog">
-                    {t("home.sections.blog.nav")}
-                </Button>
+                <NavLinks variant="light" />
             </Footer>
         </div>
     );

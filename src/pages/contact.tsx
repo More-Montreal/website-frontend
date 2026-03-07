@@ -10,6 +10,7 @@ import Footer from "../components/footer";
 import { AnchorLink } from "gatsby-plugin-anchor-links";
 import SEO from "../components/seo";
 import { useForm, ValidationError } from "@formspree/react";
+import NavLinks from "../components/nav-links";
 
 type IndexData = {
     content: {
@@ -69,18 +70,7 @@ const ContactPage = ({ data }: PageProps<IndexData>) => {
                             <p className="text-xl md:text-3xl font-bold text-white font-display">{t("site_title")}</p>
                         </div>
                         <div className="flex items-center gap-10">
-                            <a href="/#actions" className="hidden text-lg font-medium text-white lg:inline">
-                                {t("home.sections.actions.nav")}
-                            </a>
-                            <a href="/#vision" className="hidden text-lg font-medium text-white lg:inline">
-                                {t("home.sections.fight.nav")}
-                            </a>
-                            <a href="/#involvement" className="hidden text-lg font-medium text-white lg:inline">
-                                {t("home.sections.involvement.nav")}
-                            </a>
-                            <Button type={ButtonType.TRANSPARENT} href="/blog">
-                                {t("home.sections.blog.nav")}
-                            </Button>
+                            <NavLinks variant="light" />
                         </div>
                     </div>
                     <div className="flex flex-col justify-center flex-1 gap-8 pt-16 pb-8 lg:p-0 lg:w-1/2">
@@ -150,18 +140,7 @@ const ContactPage = ({ data }: PageProps<IndexData>) => {
                 </div>
             </div>
             <Footer socials={data.socials}>
-                <a href="/#actions" className="hidden text-lg font-medium text-white lg:inline">
-                    {t("home.sections.actions.nav")}
-                </a>
-                <a href="/#vision" className="hidden text-lg font-medium text-white lg:inline">
-                    {t("home.sections.fight.nav")}
-                </a>
-                <a href="/#involvement" className="hidden text-lg font-medium text-white lg:inline">
-                    {t("home.sections.involvement.nav")}
-                </a>
-                <Button type={ButtonType.TRANSPARENT} href="/blog">
-                    {t("home.sections.blog.nav")}
-                </Button>
+                <NavLinks variant="light" />
             </Footer>
             <div className="hidden">
                 <a rel="me" href="https://mastodon.construisonsmtl.ca/@construisonsmtl">
