@@ -100,6 +100,12 @@ export enum PolicyGrade {
     GOLD = "gold",
 }
 
+export type PolicyLink = {
+    title_en: string;
+    title_fr: string;
+    url: string;
+};
+
 export type PolicyData = {
     title: string;
     explanation: string;
@@ -112,6 +118,7 @@ export type PolicyData = {
     isProvincial?: boolean | null;
     isFederal?: boolean | null;
     isVisible?: boolean | null;
+    links?: { strapi_json_value: PolicyLink[] } | null;
 };
 
 export enum PoliticalPartyJurisdiction {
