@@ -1,4 +1,10 @@
 {
+    "nav": {
+        "home": "Accueil",
+        "policies": "Politiques",
+        "blog": "Blog",
+        "contact": "Contact"
+    },
     "site_title": "Construisons Montréal",
     "site_description": "Nous voulons rendre l'accès au logement du Grand Montréal plus facile, durable et inclusif à l'aide d'actions locales en supportant des solutions et développements réalistes.",
     "post": "Nouvelles",
@@ -80,13 +86,13 @@
         "more_info": "Plus d'info",
         "supported_by": "Supportée par",
         "how_it_works": "Comment sont calculés les scores ?",
-        "something_missing": "On a manqué quelque chose ? Contactez-nous",
         "filter_municipal": "Municipal",
         "filter_provincial": "Provincial",
         "filter_federal": "Fédéral",
         "tag_municipal": "Municipal",
         "tag_provincial": "Provincial",
         "tag_federal": "Fédéral",
+        "copy_link": "Copier le lien vers cette politique",
         "scoring_breakdown": {
             "title": "Détails du système de notation",
             "description": "Nous avons noté les partis politiques sur les idées que nous pensons importantes pour addresser la crise du logement. Ces idées ont été discutées et classées en interne par les membres de Construisons Montréal.",

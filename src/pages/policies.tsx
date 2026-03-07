@@ -7,6 +7,7 @@ import Button, { ButtonType } from "../components/button";
 import Footer from "../components/footer";
 import InvolvementCallout, { InvolvementData } from "../components/involvement-callout";
 import SEO from "../components/seo";
+import NavLinks from "../components/nav-links";
 import {
     Nodes,
     PolicyCategoryData,
@@ -109,12 +110,7 @@ const PoliciesPage = ({ data, location }: PageProps<PoliciesPageData>) => {
                             {t("site_title")}
                         </Link>
                         <div className="flex items-center gap-10">
-                            <Link to="/" className="hidden text-lg font-medium text-white lg:inline">
-                                {t("policies.home")}
-                            </Link>
-                            <Button type={ButtonType.TRANSPARENT} href="/blog">
-                                {t("home.sections.blog.nav")}
-                            </Button>
+                            <NavLinks variant="light" />
                         </div>
                     </div>
                     <div className="flex flex-col items-center justify-center flex-1 gap-4 px-4 py-10 lg:px-32 lg:py-24 text-center">
@@ -157,6 +153,7 @@ const PoliciesPage = ({ data, location }: PageProps<PoliciesPageData>) => {
                                     {category.policies?.map((policy: PolicyData, policyIndex: number) => {
                                         return (
                                             <div
+                                                id={policy.identifier ? `policy-${policy.identifier}` : undefined}
                                                 className="grid grid-cols-12 lg:gap-2 rounded-xl bg-white shadow-lg lg:shadow-none lg:bg-transparent lg:border-none p-4 mb-4 lg:p-0 lg:my-0 border-gray-300 border"
                                                 key={policyIndex}
                                             >
@@ -165,7 +162,16 @@ const PoliciesPage = ({ data, location }: PageProps<PoliciesPageData>) => {
                                                 >
                                                     <div className="flex flex-wrap items-center gap-2 mb-2">
                                                         <p className="lg:text-lg font-medium text-gray-700">
-                                                            {policy.identifier && <span className="text-gray-400 mr-1">#{policy.identifier}</span>}
+                                                            {policy.identifier && <button
+                                                                onClick={() => {
+                                                                    const hash = `#policy-${policy.identifier}`;
+                                                                    const url = `${window.location.origin}${location.pathname}${hash}`;
+                                                                    window.history.replaceState(null, "", `${location.pathname}${location.search}${hash}`);
+                                                                    navigator.clipboard.writeText(url);
+                                                                }}
+                                                                className="text-gray-400 hover:text-blue-500 cursor-pointer mr-1"
+                                                                title={t("policies.copy_link")}
+                                                            >#{policy.identifier}</button>}
                                                             {policy.title}
                                                         </p>
                                                         {policy.isMunicipal && (
@@ -196,11 +202,6 @@ const PoliciesPage = ({ data, location }: PageProps<PoliciesPageData>) => {
                         })}
                     </div>
                 </div>
-                <div className="flex justify-center pb-8">
-                    <OutboundLink className="underline text-blue-500" href={`mailto: ${content.feedbackEmail}`}>
-                        {t("policies.something_missing")}
-                    </OutboundLink>
-                </div>
             </div>
             <InvolvementCallout
                 title={data.involvementCallout.title}
@@ -209,12 +210,7 @@ const PoliciesPage = ({ data, location }: PageProps<PoliciesPageData>) => {
                 joinLink={data.involvementCallout.joinLink}
             />
             <Footer socials={data.socials}>
-                <Link to="/" className="hidden text-lg font-medium text-white lg:inline">
-                    {t("policies.home")}
-                </Link>
-                <Button type={ButtonType.TRANSPARENT} href="/blog">
-                    {t("home.sections.blog.nav")}
-                </Button>
+                <NavLinks variant="light" />
             </Footer>
         </div>
     );

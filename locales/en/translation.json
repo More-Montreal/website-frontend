@@ -1,4 +1,10 @@
 {
+    "nav": {
+        "home": "Home",
+        "policies": "Policies",
+        "blog": "Blog",
+        "contact": "Contact"
+    },
     "site_title": "More Montreal",
     "site_description": "We want to make housing in the Greater Montreal Region affordable for all, sustainable and inclusive through local actions and voicing support to realistic solutions and developments.",
     "post": "News",
@@ -77,13 +83,13 @@
         "more_info": "More info",
         "supported_by": "Supported by",
         "how_it_works": "How are the scores calculated?",
-        "something_missing": "Think something is missing? Contact us",
         "filter_municipal": "Municipal",
         "filter_provincial": "Provincial",
         "filter_federal": "Federal",
         "tag_municipal": "Municipal",
         "tag_provincial": "Provincial",
         "tag_federal": "Federal",
+        "copy_link": "Copy link to this policy",
         "scoring_breakdown": {
             "title": "Scoring breakdown",
             "description": "We scored political parties on ideas that we judge important to address the housing crisis. These ideas have been discussed and ranked internally by the members of More Montreal.",

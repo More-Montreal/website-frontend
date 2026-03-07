@@ -2,6 +2,7 @@ import { Link } from "@herob191/gatsby-plugin-react-i18next";
 import * as React from "react";
 import { useTranslation } from "@herob191/gatsby-plugin-react-i18next";
 import { StaticImage } from "gatsby-plugin-image";
+import NavLinks from "../nav-links";
 
 const Header = () => {
     const { t } = useTranslation();
@@ -14,16 +15,7 @@ const Header = () => {
                     <p className="text-xl font-bold text-gray-800 md:text-3xl font-display">{t("site_title")}</p>
                 </Link>
                 <div className="flex justify-between w-full lg:w-auto lg:items-center lg:gap-10">
-                    <Link to="/blog" className="font-medium text-gray-500 md:text-lg">
-                        {t("blog.header.post")}
-                    </Link>
-                    <Link to="/blog" className="font-medium text-gray-500 md:text-lg">
-                        {t("blog.header.event")}
-                    </Link>
-                    {/* <Link className="font-medium text-gray-500 md:text-lg">{t('blog.header.action')}</Link> */}
-                    <Link to="/" className="font-medium text-gray-500 md:text-lg">
-                        {t("blog.header.about")}
-                    </Link>
+                    <NavLinks variant="dark" />
                 </div>
             </div>
         </div>
