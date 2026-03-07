@@ -1,40 +1,29 @@
-import { graphql, Link, PageProps } from "gatsby";
-import { AnchorLink } from "gatsby-plugin-anchor-links";
+import { graphql, Link, navigate, PageProps } from "gatsby";
 import { OutboundLink } from "gatsby-plugin-google-gtag";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
-import React, { useState } from "react";
+import React, { useCallback, useMemo } from "react";
 import { useTranslation } from "@herob191/gatsby-plugin-react-i18next";
 import Button, { ButtonType } from "../components/button";
 import Footer from "../components/footer";
 import InvolvementCallout, { InvolvementData } from "../components/involvement-callout";
-import GradeMedal from "../components/policies/grade-medal";
-import PolicyModal from "../components/policies/policy-modal";
-import ScoreBreakdownModal from "../components/policies/score-breakdown-modal";
-import SupportTick from "../components/policies/support-tick";
 import SEO from "../components/seo";
 import {
     Nodes,
     PolicyCategoryData,
     PolicyData,
-    PolicyGrade,
-    PolicySupportData,
-    PoliticalPartyData,
     SocialLinks,
     StrapiImage,
 } from "../helpers/content-types";
-import JsonDebug from "../helpers/json-debug";
 
 type PoliciesPageData = {
     content: {
         heroTitle: string;
         heroDescription: string;
-        scoreParties: boolean;
         feedbackEmail: string;
         heroBackground: StrapiImage;
         seoImage: StrapiImage;
         policy_categories: PolicyCategoryData[];
     };
-    politicalParties: Nodes<PoliticalPartyData>;
     socials: SocialLinks;
     involvementCallout: InvolvementData;
 };
@@ -50,153 +39,60 @@ export const Head = ({ data, pageContext }: any) => {
     />;
 };
 
-const PoliciesPage = ({ data }: PageProps<PoliciesPageData>) => {
+const JURISDICTION_FILTERS = ["municipal", "provincial", "federal"] as const;
+
+const PoliciesPage = ({ data, location }: PageProps<PoliciesPageData>) => {
     const content = data.content;
-    const parties = data.politicalParties;
 
     const { t } = useTranslation();
 
-    const heroBackground = getImage(content.heroBackground.localFile);
-    const policyCategories = content.policy_categories.filter(
-        (cat) => cat.policies !== undefined && cat.policies.length > 0,
-    );
-    const [selectedPolicy, setSelectedPolicy] = useState<PolicyData | null>(null);
-    const [displayScoreBreakdown, setDisplayScoreBreakdown] = useState<boolean>(false);
-
-    const pointsForGrade = {
-        [PolicyGrade.BRONZE]: 1,
-        [PolicyGrade.SILVER]: 2,
-        [PolicyGrade.GOLD]: 4,
-    };
-
-    const sortByGrade = (a: PolicyGrade, b: PolicyGrade) => {
-        switch (a) {
-            case PolicyGrade.BRONZE: {
-                if (b === PolicyGrade.BRONZE) return 0;
-                return 1;
-            }
-            case PolicyGrade.SILVER: {
-                if (b === PolicyGrade.BRONZE) return -1;
-                if (b === PolicyGrade.SILVER) return 0;
-                return 1;
-            }
-            case PolicyGrade.GOLD: {
-                if (b === PolicyGrade.GOLD) return 0;
-                return -1;
-            }
-            default:
-                return 0;
-        }
-    };
-
-    policyCategories.forEach((category) => {
-        category.policies?.sort((a, b) => sortByGrade(a.grade, b.grade));
-    });
-
-    const partyRankings: [string, number][] = [];
-    for (let party of parties.nodes) {
-        let score = 0;
-        party.policy_supports?.forEach((support) => {
-            if (support.policy) {
-                score += support.fullSupport
-                    ? pointsForGrade[support.policy.grade]
-                    : pointsForGrade[support.policy.grade] / 2;
-            }
-        });
-
-        partyRankings.push([party.shortName, score]);
-    }
-    partyRankings.sort(([partyA, scoreA], [partyB, scoreB]) => scoreB - scoreA);
-
-    const rankedParties = parties.nodes.slice();
-    rankedParties.sort((partyA, partyB) => {
-        const scoreA = partyRankings.find(([shortName, score]) => shortName === partyA.shortName)!;
-        const scoreB = partyRankings.find(([shortName, score]) => shortName === partyB.shortName)!;
-        return scoreB[1] - scoreA[1];
-    });
-
-    const getPartySupport = (party: PoliticalPartyData, policy: PolicyData) => {
-        return policy.policy_supports?.find((support) => {
-            return support.political_party?.shortName === party.shortName;
-        });
-    };
-
-    const renderPartyScore = (party: PoliticalPartyData) => {
-        const ranking = partyRankings.findIndex(([shortName, score]) => shortName === party.shortName);
-        const score = partyRankings[ranking][1].toFixed(0);
-
-        const color = party.color || "gray";
-        const medals = party.policy_supports!.map((support, index) => {
-            return {
-                grade: support.policy?.grade || PolicyGrade.BRONZE,
-                halved: support.fullSupport,
-            };
-        });
-        medals.sort((a, b) => sortByGrade(a.grade, b.grade)).reverse();
-
-        return (
-            <div
-                className="col-span-10 md:col-span-5 lg:col-span-3 xl:col-span-2 flex flex-wrap justify-center items-end content-end lg:py-4 relative"
-                key={party.shortName}
-            >
-                <div className="w-full py-4 items-end flex justify-center">
-                    <div className="flex gap-2 w-2/3 md:w-20 items-center justify-center flex-wrap-reverse flex-row-reverse">
-                        {medals.map((medal, index) => {
-                            return (
-                                <div className="w-7 -order-1" key={index}>
-                                    <GradeMedal grade={medal.grade} />
-                                </div>
-                            );
-                        })}
-                    </div>
-                </div>
-                <p
-                    className={`text-sm lg:text-base mx-1 rounded-full inline-block font-medium px-3 py-1.5 bg-${color}-100 text-${color}-800`}
-                >
-                    {party.name}
-                </p>
-                <div className="grid grid-cols-2 gap-2 w-full justify-around px-20 lg:px-12 text-center py-4">
-                    <div>
-                        <p className="font-display font-bold text-gray-800 text-xl lg:text-3xl text-center">{score}</p>
-                        <p className="font-medium text-gray-500 lg:text-lg">{t("policies.points")}</p>
-                    </div>
-                    <div>
-                        <p className="font-display font-bold text-gray-800 text-xl lg:text-3xl text-center">
-                            #{ranking + 1}
-                        </p>
-                        <p className="font-medium text-gray-500 lg:text-lg">{t("policies.rank")}</p>
-                    </div>
-                </div>
-            </div>
+    const activeFilters = useMemo(() => {
+        const params = new URLSearchParams(location.search);
+        const raw = params.get("jurisdiction");
+        if (!raw) return new Set<string>();
+        return new Set(
+            raw.split(",").filter((v) => JURISDICTION_FILTERS.includes(v as any)),
         );
+    }, [location.search]);
+
+    const toggleFilter = useCallback(
+        (filter: string) => {
+            const next = new Set(activeFilters);
+            if (next.has(filter)) {
+                next.delete(filter);
+            } else {
+                next.add(filter);
+            }
+            const params = new URLSearchParams(location.search);
+            if (next.size > 0) {
+                params.set("jurisdiction", Array.from(next).join(","));
+            } else {
+                params.delete("jurisdiction");
+            }
+            const query = params.toString();
+            const newUrl = `${location.pathname}${query ? `?${query}` : ""}`;
+            navigate(newUrl, { replace: true });
+        },
+        [activeFilters, location.search, location.pathname],
+    );
+
+    const matchesFilter = (policy: PolicyData) => {
+        if (activeFilters.size === 0) return true;
+        if (activeFilters.has("municipal") && policy.isMunicipal) return true;
+        if (activeFilters.has("provincial") && policy.isProvincial) return true;
+        if (activeFilters.has("federal") && policy.isFederal) return true;
+        return false;
     };
 
-    const renderScore = () => {
-        const search = typeof window !== "undefined" ? window.location.search : undefined;
-        const params = new URLSearchParams(search);
-
-        if (content.scoreParties || params.get("score")) {
-            return (
-                <div className="flex items-end justify-center w-full flex-wrap">
-                    <div className="flex justify-center flex-wrap w-full" key="heading">
-                        <h2 className="w-full text-2xl lg:text-3xl font-display font-bold text-gray-800 text-center pt-10">
-                            {t("policies.parties_score")}
-                        </h2>
-                        <p
-                            onClick={() => setDisplayScoreBreakdown(true)}
-                            className="cursor-pointer text-gray-700 font-medium underline"
-                        >
-                            {t("policies.how_it_works")}
-                        </p>
-                    </div>
-                    <div className="py-4 grid grid-cols-10 gap-2 w-full" key="scores">
-                        {rankedParties.map((party) => renderPartyScore(party))}
-                    </div>
-                </div>
-            );
-        }
-        return null;
-    };
+    const heroBackground = getImage(content.heroBackground.localFile);
+    const policyCategories = content.policy_categories
+        .map((cat) => ({
+            ...cat,
+            policies: cat.policies?.filter(
+                (policy) => policy.isVisible !== false && matchesFilter(policy),
+            ),
+        }))
+        .filter((cat) => cat.policies && cat.policies.length > 0);
 
     return (
         <div>
@@ -229,42 +125,34 @@ const PoliciesPage = ({ data }: PageProps<PoliciesPageData>) => {
             </div>
             <div className="w-full h-auto bg-gray-50">
                 <div className="m-auto max-w-screen-2xl">
-                    {renderScore()}
                     <div className="py-4 lg:py-10 px-2 lg:px-4">
                         <div className="grid grid-cols-12 gap-4">
-                            <p className="text-2xl lg:text-3xl text-center lg:text-left font-display text-gray-800 font-bold col-span-12 lg:col-span-7">
-                                {t("policies.ideas")}
+                            <p className="text-2xl lg:text-3xl text-center lg:text-left font-display text-gray-800 font-bold col-span-12">
+                                {t("policies.policies")}
                             </p>
-                            <p className="hidden lg:block text-2xl lg:text-3xl font-display text-gray-800 font-bold text-center lg:col-span-5">
-                                {t("policies.political_support")}
-                            </p>
+                        </div>
+                        <div className="flex flex-wrap gap-2 py-4">
+                            {JURISDICTION_FILTERS.map((filter) => (
+                                <button
+                                    key={filter}
+                                    onClick={() => toggleFilter(filter)}
+                                    className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200 ${
+                                        activeFilters.has(filter)
+                                            ? "bg-blue-600 text-white"
+                                            : "bg-gray-200 text-gray-800 hover:bg-gray-300"
+                                    }`}
+                                >
+                                    {t(`policies.filter_${filter}`)}
+                                </button>
+                            ))}
                         </div>
                         {policyCategories.map((category: PolicyCategoryData, index: number) => {
                             return (
                                 <div className="py-4 lg:py-8" key={"cat-" + index}>
                                     <div className="grid grid-cols-12 lg:gap-2">
-                                        <p className="mb-4 text-lg lg:text-2xl font-bold text-gray-800 font-display col-span-12 lg:col-span-7">
+                                        <p className="mb-4 text-lg lg:text-2xl font-bold text-gray-800 font-display col-span-12">
                                             {category.name}
                                         </p>
-                                        <div className="hidden lg:flex col-span-7 lg:col-span-5">
-                                            {rankedParties.map((party: PoliticalPartyData, index: number) => {
-                                                const color = party.color || "gray";
-                                                const background = index % 2 == 0 ? "bg-gray-100 rounded-t-xl" : "";
-
-                                                return (
-                                                    <div
-                                                        className={`flex flex-1 justify-center items-center ${background}`}
-                                                        key={index}
-                                                    >
-                                                        <p
-                                                            className={`text-xs mx-1 rounded-full inline-block font-medium px-2 py-1.5 bg-${color}-100 text-${color}-800`}
-                                                        >
-                                                            {party.shortName}
-                                                        </p>
-                                                    </div>
-                                                );
-                                            })}
-                                        </div>
                                     </div>
                                     {category.policies?.map((policy: PolicyData, policyIndex: number) => {
                                         return (
@@ -273,75 +161,32 @@ const PoliciesPage = ({ data }: PageProps<PoliciesPageData>) => {
                                                 key={policyIndex}
                                             >
                                                 <div
-                                                    onClick={() => setSelectedPolicy(policy)}
-                                                    className="col-span-12 lg:col-span-7 pr-4 pb-2 lg:p-4 lg:hover:shadow-xl border lg:hover:border-gray-300 border-transparent rounded-xl transition-all duration-200 cursor-pointer"
+                                                    className="col-span-12 pr-4 pb-2 lg:p-4 lg:hover:shadow-xl border lg:hover:border-gray-300 border-transparent rounded-xl transition-all duration-200"
                                                 >
-                                                    <div className="flex items-center gap-2 mb-2">
-                                                        <div className="w-3 lg:w-4 flex-shrink">
-                                                            <GradeMedal grade={policy.grade} />
-                                                        </div>
-                                                        <p className="lg:text-lg flex-1 font-medium text-gray-700 flex items-center">
+                                                    <div className="flex flex-wrap items-center gap-2 mb-2">
+                                                        <p className="lg:text-lg font-medium text-gray-700">
+                                                            {policy.identifier && <span className="text-gray-400 mr-1">#{policy.identifier}</span>}
                                                             {policy.title}
                                                         </p>
+                                                        {policy.isMunicipal && (
+                                                            <span className="text-xs rounded-full px-2 py-0.5 bg-green-100 text-green-800">
+                                                                {t("policies.tag_municipal")}
+                                                            </span>
+                                                        )}
+                                                        {policy.isProvincial && (
+                                                            <span className="text-xs rounded-full px-2 py-0.5 bg-blue-100 text-blue-800">
+                                                                {t("policies.tag_provincial")}
+                                                            </span>
+                                                        )}
+                                                        {policy.isFederal && (
+                                                            <span className="text-xs rounded-full px-2 py-0.5 bg-red-100 text-red-800">
+                                                                {t("policies.tag_federal")}
+                                                            </span>
+                                                        )}
                                                     </div>
                                                     <p className="text-sm lg:text-base text-gray-600">
                                                         {policy.explanation}
                                                     </p>
-                                                </div>
-                                                <div className="lg:hidden col-span-12">
-                                                    {policy.policy_supports.length > 0 && (
-                                                        <p className="text-xs uppercase text-gray-500 font-medium mb-1">
-                                                            {t("policies.supported_by")}
-                                                        </p>
-                                                    )}
-                                                    <div className="flex flex-wrap gap-2">
-                                                        {policy.policy_supports
-                                                            .filter((support) => support.political_party)
-                                                            .map((support, index) => {
-                                                                const color = support.political_party?.color || "gray";
-
-                                                                return (
-                                                                    <div
-                                                                        className={`flex items-center bg-${color}-100 rounded-full px-0.5`}
-                                                                        key={"party-support-" + index}
-                                                                    >
-                                                                        <SupportTick
-                                                                            color={support.political_party!.color}
-                                                                            full={support.fullSupport}
-                                                                        />
-                                                                        <p
-                                                                            className={`text-xs font-medium px-2 py-1.5 text-${color}-800`}
-                                                                        >
-                                                                            {support.political_party!.shortName}
-                                                                        </p>
-                                                                    </div>
-                                                                );
-                                                            })}
-                                                    </div>
-                                                </div>
-                                                <div className="hidden lg:flex col-span-7 lg:col-span-5">
-                                                    {rankedParties.map((party: PoliticalPartyData, index: number) => {
-                                                        const partySupport = getPartySupport(party, policy);
-                                                        const background = index % 2 == 0 ? "bg-gray-100" : "";
-                                                        const rounded =
-                                                            policyIndex === category.policies!.length - 1
-                                                                ? "rounded-b-xl"
-                                                                : "";
-
-                                                        return (
-                                                            <div
-                                                                className={`flex flex-1 justify-center items-center ${background} ${rounded}`}
-                                                                key={`policy-${policyIndex}-support-${index}`}
-                                                            >
-                                                                {typeof partySupport !== "undefined" && (
-                                                                    <SupportTick
-                                                                        color={party.color}
-                                                                        full={partySupport.fullSupport}
-                                                                    />
-                                                                )}
-                                                            </div>
-                                                        );
-                                                    })}
                                                 </div>
                                             </div>
                                         );
@@ -371,8 +216,6 @@ const PoliciesPage = ({ data }: PageProps<PoliciesPageData>) => {
                     {t("home.sections.blog.nav")}
                 </Button>
             </Footer>
-            {selectedPolicy && <PolicyModal policy={selectedPolicy} onClose={() => setSelectedPolicy(null)} />}
-            {displayScoreBreakdown && <ScoreBreakdownModal onClose={() => setDisplayScoreBreakdown(false)} />}
         </div>
     );
 };
@@ -382,7 +225,6 @@ export const query = graphql`
         content: strapiPoliciesPage(locale: { eq: $language }) {
             heroTitle
             heroDescription
-            scoreParties
             feedbackEmail
             heroBackground {
                 alternativeText
@@ -405,40 +247,13 @@ export const query = graphql`
                     title
                     explanation
                     justification
-                    grade
+                    identifier
+                    isMunicipal
+                    isProvincial
+                    isFederal
+                    isVisible
                     policy_category {
                         name
-                    }
-                    policy_supports {
-                        quote
-                        source
-                        author
-                        fullSupport
-                        political_party {
-                            name
-                            shortName
-                            color
-                            jurisdiction
-                        }
-                    }
-                }
-            }
-        }
-        politicalParties: allStrapiPoliticalParty(filter: { locale: { eq: $language } }) {
-            nodes {
-                name
-                shortName
-                color
-                policy_supports {
-                    quote
-                    source
-                    author
-                    fullSupport
-                    policy {
-                        title
-                        explanation
-                        justification
-                        grade
                     }
                 }
             }
