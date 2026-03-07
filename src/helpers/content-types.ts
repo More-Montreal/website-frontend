@@ -107,6 +107,11 @@ export type PolicyData = {
     policy_supports: PolicySupportData[];
     policy_category?: PolicyCategoryData;
     grade: PolicyGrade;
+    identifier?: string | null;
+    isMunicipal?: boolean | null;
+    isProvincial?: boolean | null;
+    isFederal?: boolean | null;
+    isVisible?: boolean | null;
 };
 
 export enum PoliticalPartyJurisdiction {

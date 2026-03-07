@@ -11,6 +11,14 @@ exports.createSchemaCustomization = ({ actions }: any) => {
         type STRAPI_POST implements Node {
             author: StrapiPostAuthor
         }
+
+        type STRAPI_POLICY implements Node {
+            identifier: String
+            isMunicipal: Boolean
+            isProvincial: Boolean
+            isFederal: Boolean
+            isVisible: Boolean
+        }
     `);
 };
 
