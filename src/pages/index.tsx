@@ -1,18 +1,16 @@
 import * as React from "react";
 import { useTranslation } from "@herob191/gatsby-plugin-react-i18next";
 import { graphql, PageProps } from "gatsby";
-import { GatsbyImage, getImage, StaticImage } from "gatsby-plugin-image";
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import {
     KeyPoint as KeyPointData,
     Nodes,
-    RichTextContent,
     SocialLinks,
     StrapiImage,
     EventCardData,
     PostCardData,
     ActionCardData,
 } from "../helpers/content-types";
-import JsonDebug from "../helpers/json-debug";
 import HeroOverlay from "../../assets/HeroOverlay.svg";
 import PillDecorator from "../../assets/PillDecorator.svg";
 import PillBackground from "../../assets/PillBackground.svg";
@@ -26,6 +24,7 @@ import { Link } from "@herob191/gatsby-plugin-react-i18next";
 import SEO from "../components/seo";
 import ArrowRight from "../../assets/ArrowRight.svg";
 import NavLinks from "../components/nav-links";
+import NavHeader from "../components/nav-header";
 
 type IndexCardData<T extends PostCardData | ActionCardData | EventCardData> = T & {
     type: "post" | "action" | "event";
@@ -109,22 +108,7 @@ const IndexPage = ({ data }: PageProps<IndexData>) => {
                     alt={content.heroBackground.alternativeText}
                 />
                 <div className="relative z-10 flex flex-col h-full px-4 py-6 m-auto max-w-screen-2xl">
-                    <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-4">
-                            <StaticImage
-                                width={45}
-                                height={45}
-                                layout="fixed"
-                                className="overflow-visible"
-                                src="../images/logo.png"
-                                alt="Logo"
-                            />
-                            <p className="text-xl md:text-3xl font-bold text-white font-display">{t("site_title")}</p>
-                        </div>
-                        <div className="flex items-center gap-10">
-                            <NavLinks variant="light" />
-                        </div>
-                    </div>
+                    <NavHeader variant="light" />
                     <div className="flex flex-col justify-center flex-1 gap-8 pt-16 pb-8 lg:p-0 lg:w-1/2">
                         <h1 className="text-2xl font-bold text-white lg:text-4xl font-display">{content.heroTitle}</h1>
                         <p className="text-lg font-medium text-white opacity-80">{content.heroDescription}</p>

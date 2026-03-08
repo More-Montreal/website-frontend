@@ -7,6 +7,7 @@ import Footer from "../components/footer";
 import InvolvementCallout, { InvolvementData } from "../components/involvement-callout";
 import SEO from "../components/seo";
 import NavLinks from "../components/nav-links";
+import NavHeader from "../components/nav-header";
 import {
     CityPolicyQuestion,
     RichTextContent,
@@ -145,22 +146,7 @@ const PoliciesPage = ({ data }: PageProps<CityPoliciesPageData>) => {
                     alt={content.heroBackground.alternativeText}
                 />
                 <div className="relative z-10 flex flex-col items-center h-full px-4 py-6 m-auto max-w-screen-2xl">
-                    <div className="flex items-center justify-between w-full">
-                        <div className="flex items-center gap-4">
-                            <StaticImage
-                                width={45}
-                                height={45}
-                                layout="fixed"
-                                className="overflow-visible"
-                                src="../images/logo.png"
-                                alt="Logo"
-                            />
-                            <p className="text-xl md:text-3xl font-bold text-white font-display">{t("site_title")}</p>
-                        </div>
-                        <div className="flex items-center gap-10">
-                            <NavLinks variant="light" />
-                        </div>
-                    </div>
+                    <NavHeader variant="light" />
                     <div className="flex flex-col items-center justify-center flex-1 gap-4 px-4 py-10 lg:px-32 lg:py-24 text-center">
                         <h1 className="text-2xl font-bold text-white lg:text-4xl font-display text-balance">{content.heroTitle}</h1>
                         <p className="text-lg font-medium text-white opacity-80 text-balance">{content.heroDescription}</p>
