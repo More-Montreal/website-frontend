@@ -1,7 +1,6 @@
 import * as React from "react";
 import { graphql, PageProps } from "gatsby";
-import JsonDebug from "../helpers/json-debug";
-import Header from "../components/blog/header";
+import NavHeader from "../components/nav-header";
 import { RichTextContent, SocialLinks, StrapiImage } from "../helpers/content-types";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import { useTranslation } from "@herob191/gatsby-plugin-react-i18next";
@@ -79,7 +78,9 @@ const PostTemplate = ({ data }: PageProps<PostData>) => {
 
     return (
         <div>
-            <Header />
+            <div className="px-4 py-6 m-auto max-w-screen-2xl">
+                <NavHeader variant="dark" />
+            </div>
             <div className="w-full p-2 m-auto md:p-4 md:max-w-screen-2xl">
                 <div className="relative h-full">
                     <div className="absolute z-20 flex-col items-center justify-end hidden w-full h-full overflow-hidden md:flex rounded-2xl">

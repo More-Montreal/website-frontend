@@ -3,7 +3,7 @@ import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import { Link } from "@herob191/gatsby-plugin-react-i18next";
 import React, { useState } from "react";
 import { useTranslation } from "@herob191/gatsby-plugin-react-i18next";
-import Header from "../components/blog/header";
+import NavHeader from "../components/nav-header";
 import InvolvementCallout, { InvolvementData } from "../components/involvement-callout";
 import { ActionCardData, EventData, Nodes, PostCardData, SocialLinks } from "../helpers/content-types";
 import PillDecorator from "../../assets/PillDecorator.svg";
@@ -43,7 +43,9 @@ const BlogPage = ({ data }: PageProps<BlogData>) => {
 
     return (
         <div>
-            <Header />
+            <div className="px-4 py-6 m-auto max-w-screen-2xl">
+                <NavHeader variant="dark" />
+            </div>
             <div className="p-4 m-auto mb-20 max-w-screen-2xl">
                 <Link to={`/blog/${latestPost.slug}`} className="flex flex-col md:flex-row">
                     <GatsbyImage
