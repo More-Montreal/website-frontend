@@ -80,6 +80,7 @@ export type PostCardData = {
 
 export type PolicyCategoryData = {
     name: string;
+    description: string;
     policies?: PolicyData[];
 };
 

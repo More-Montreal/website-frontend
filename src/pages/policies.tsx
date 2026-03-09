@@ -99,7 +99,7 @@ const PoliciesPage = ({ data, location }: PageProps<PoliciesPageData>) => {
     };
 
     const heroBackground = getImage(content.heroBackground.localFile);
-    const policyCategories = content.policy_categories
+    const policyCategories = content.policy_categories?.sort((a, b) => a.description > b.description ? 1 : -1)
         .map((cat) => ({
             ...cat,
             policies: cat.policies?.filter(
