@@ -276,6 +276,7 @@ export const query = graphql`
             }
             policy_categories {
                 name
+                description
                 policies {
                     title
                     explanation
